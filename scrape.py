@@ -30,11 +30,16 @@ LOGIN_PAYLOAD = {
     "LoginSubmit": "Login",
 }
 
-# The site paginates results with ?pager=N. Rather than hardcoding how many
-# pages exist, the scraper walks pager=1, 2, 3... automatically and stops
-# once a page returns zero products (see paginate() below).
-CATALOGUE_BASE_URL = "https://www.banksiaglen.com/pl.php"
-MAX_PAGES = 50  # safety cap so a bug can't loop forever
+# The site paginates results with ?pager=N (works on category/subcategory
+# pages too, appended after ?filters=). Rather than hardcoding how many pages
+# exist, the scraper walks pager=1, 2, 3... automatically per section and
+# stops once a page returns zero products.
+MAX_PAGES = 50  # safety cap per category/subcategory so a bug can't loop forever
+
+# Any page that has the sidebar category menu — used once at the start to
+# discover every category/subcategory URL automatically.
+MENU_SOURCE_URL = "https://www.banksiaglen.com/pl.php"
+SITE_ROOT = "https://www.banksiaglen.com/"
 
 # Site-specific selectors for banksiaglen.com — confirmed from actual page HTML:
 #   - Item number sits in: <input type="hidden" name="productcode" value="...">
@@ -134,23 +139,87 @@ def scrape_js_page(url):
     return items
 
 
-def paginate(session):
-    """Walk pager=1, 2, 3... until a page returns no products, collecting
-    everything along the way."""
-    all_items = []
-    for page_num in range(1, MAX_PAGES + 1):
-        url = f"{CATALOGUE_BASE_URL}?pager={page_num}"
-        print(f"Scraping page {page_num}: {url} ...")
-        items = scrape_static_page(session, url)
+def get_category_tree(session):
+    """Reads the sidebar category menu (present on any pl.php page) and
+    builds a 3-level dict: category -> subcategory -> city. Cities are
+    optional — many subcategories have no city breakdown at all."""
+    resp = session.get(MENU_SOURCE_URL)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
 
-        if not items:
-            print(f"  Page {page_num} returned 0 products — stopping pagination.")
+    menu = soup.select_one("#Menu_Products")
+    if not menu:
+        print("  ! Could not find the category menu on the page — check "
+              "MENU_SOURCE_URL and whether login succeeded.")
+        return {}
+
+    tree = {}
+    for a in menu.select('a[href*="pl.php?filters="]'):
+        href = a.get("href", "").strip()
+        if not href.startswith(SITE_ROOT):
+            continue
+
+        path = href[len(SITE_ROOT):]
+        segments = [s for s in path.split("/") if s and s.lower() != "pl.php"]
+
+        # 0 segments = the root "All Products" style link. 1 = category,
+        # 2 = subcategory, 3 = city/region.
+        if len(segments) == 0 or len(segments) > 3:
+            continue
+
+        name_el = a.select_one(".menu_item")
+        name = name_el.get_text(strip=True) if name_el else segments[-1].replace("-", " ")
+
+        cat_slug = segments[0]
+        tree.setdefault(cat_slug, {"name": None, "url": None, "subcategories": {}})
+
+        if len(segments) == 1:
+            tree[cat_slug]["name"] = name
+            tree[cat_slug]["url"] = href
+        elif len(segments) == 2:
+            sub_slug = segments[1]
+            tree[cat_slug]["subcategories"].setdefault(
+                sub_slug, {"name": None, "url": None, "cities": {}}
+            )
+            tree[cat_slug]["subcategories"][sub_slug]["name"] = name
+            tree[cat_slug]["subcategories"][sub_slug]["url"] = href
+        else:
+            sub_slug, city_slug = segments[1], segments[2]
+            tree[cat_slug]["subcategories"].setdefault(
+                sub_slug, {"name": None, "url": None, "cities": {}}
+            )
+            tree[cat_slug]["subcategories"][sub_slug]["cities"][city_slug] = {
+                "name": name,
+                "url": href,
+            }
+
+    # Fall back to a slug-derived name for anything only ever seen via a
+    # deeper link (shouldn't normally happen, but just in case).
+    for cat_slug, cat_data in tree.items():
+        if not cat_data["name"]:
+            cat_data["name"] = cat_slug.replace("-", " ")
+        for sub_data in cat_data["subcategories"].values():
+            if not sub_data["name"]:
+                sub_data["name"] = "General"
+
+    return tree
+
+
+def scrape_section_pages(session, base_url):
+    """Paginate a single category or subcategory URL, walking pager=1, 2,
+    3... until a page returns zero products."""
+    items = []
+    for page_num in range(1, MAX_PAGES + 1):
+        url = f"{base_url}&pager={page_num}"
+        page_items = scrape_static_page(session, url)
+
+        if not page_items:
             break
 
-        all_items.extend(items)
+        items.extend(page_items)
         time.sleep(1)  # be polite, avoid hammering the server
 
-    return all_items
+    return items
 
 
 def sanitize_filename(name):
@@ -180,9 +249,63 @@ def main():
     print("Logging in...")
     login(session)
 
-    all_items = paginate(session)
+    print("Reading category menu...")
+    tree = get_category_tree(session)
+    print(f"Found {len(tree)} top-level categories.")
 
-    print(f"Found {len(all_items)} products. Downloading images...")
+    all_items = []
+    for cat_slug, cat_data in tree.items():
+        cat_name = cat_data["name"]
+        subcats = cat_data["subcategories"]
+
+        if subcats:
+            for sub_slug, sub_data in subcats.items():
+                sub_name = sub_data["name"]
+                cities = sub_data["cities"]
+
+                if cities:
+                    for city_slug, city_data in cities.items():
+                        city_name = city_data["name"]
+                        print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
+                        items = scrape_section_pages(session, city_data["url"])
+                        for item in items:
+                            item["category"] = cat_name
+                            item["subcategory"] = sub_name
+                            item["city"] = city_name
+                        print(f"  -> {len(items)} products")
+                        all_items.extend(items)
+                else:
+                    print(f"Scraping {cat_name} > {sub_name} ...")
+                    items = scrape_section_pages(session, sub_data["url"])
+                    for item in items:
+                        item["category"] = cat_name
+                        item["subcategory"] = sub_name
+                        item["city"] = None
+                    print(f"  -> {len(items)} products")
+                    all_items.extend(items)
+        else:
+            print(f"Scraping {cat_name} ...")
+            items = scrape_section_pages(session, cat_data["url"])
+            for item in items:
+                item["category"] = cat_name
+                item["subcategory"] = None
+                item["city"] = None
+            print(f"  -> {len(items)} products")
+            all_items.extend(items)
+
+    # A product can legitimately appear under more than one category/city on
+    # the site — each combination is kept as its own row so it shows up in
+    # every relevant section. This only removes exact duplicate rows.
+    seen = set()
+    deduped = []
+    for item in all_items:
+        key = (item["item_number"], item["category"], item.get("subcategory"), item.get("city"))
+        if key not in seen:
+            seen.add(key)
+            deduped.append(item)
+    all_items = deduped
+
+    print(f"Found {len(all_items)} product-category entries. Downloading images...")
     for item in all_items:
         item["local_image"] = download_image(session, item["image_url"], item["item_number"])
 
