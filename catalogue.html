@@ -215,94 +215,110 @@
   }
   main { flex: 1; min-width: 0; padding: 24px 32px; }
 
-  #current-location {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.01em;
-    margin-bottom: 14px;
-    text-transform: lowercase;
-  }
-  #current-location::first-letter { text-transform: uppercase; }
-  #current-location .sub {
-    display: block;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--muted);
-    text-transform: none;
-    letter-spacing: 0;
-    margin-top: 3px;
-  }
-
-  .flip-row {
-    position: sticky;
-    top: 20px;
-    z-index: 4;
+  #flipbook-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: calc(100vh - 130px);
+    min-height: 400px;
   }
   .flip-arrow {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--border);
     border-radius: 50%;
     background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: pointer;
     user-select: none;
-    z-index: 5;
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     flex-shrink: 0;
   }
   .flip-arrow:hover { background: var(--bg); }
   .flip-arrow.disabled { opacity: 0.3; cursor: default; pointer-events: none; }
 
-  .arrow-desktop { display: none; }
-  #page-nav-mobile {
+  #page-scale-wrapper {
+    flex: 1;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-top: 14px;
-  }
-
-  #page-viewport {
-    margin: 0;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    background: var(--card-bg);
+  }
+  #page-sheet {
+    width: 936px;
+    height: 1236px;
+    flex-shrink: 0;
+    background: #ffffff;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    min-height: 200px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    transform-origin: center center;
+    padding: 48px;
+    box-sizing: border-box;
+    position: relative;
+    transition: opacity 0.2s ease;
   }
-  #page-content {
-    transition: transform 0.28s ease, opacity 0.28s ease;
-  }
-  #page-content.exit-left { transform: translateX(-40px); opacity: 0; }
-  #page-content.exit-right { transform: translateX(40px); opacity: 0; }
-  #page-content.enter { transform: translateX(0); opacity: 1; }
+  #page-sheet.transitioning { opacity: 0.4; }
 
-  #page-caption {
+  #sheet-heading {
+    height: 64px;
+    visibility: hidden;
+  }
+  #sheet-heading .h-cat {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+  }
+  #sheet-heading .h-cat::first-letter { text-transform: uppercase; }
+  #sheet-heading .h-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  #sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 12px;
+    height: 1032px;
+  }
+  #sheet-grid .sheet-card { display: flex; flex-direction: column; }
+  #sheet-grid .sheet-card img {
+    width: 100%;
+    flex: 1;
+    object-fit: contain;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+  }
+  #sheet-grid .sheet-code {
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  #sheet-pagenum {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 13px;
     font-weight: 600;
     color: var(--muted);
-    margin-top: 16px;
   }
 
-  @media (min-width: 769px) {
-    #page-viewport { margin: 0 54px; }
-    .arrow-desktop {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      font-size: 1.3rem;
-    }
-    .prev-arrow.arrow-desktop { left: 0; }
-    .next-arrow.arrow-desktop { right: 0; }
-    #page-nav-mobile { display: none; }
+  @media (max-width: 768px) {
+    #flipbook-area { height: calc(100vh - 200px); gap: 8px; }
+    .flip-arrow { width: 32px; height: 32px; font-size: 1rem; }
   }
 
   #grid {
@@ -387,7 +403,6 @@
     #sidebar.open { transform: translateX(0); }
     #sidebar-close { display: block; }
     main { padding: 16px; }
-    #page-viewport { padding: 12px; }
   }
 </style>
 </head>
@@ -469,18 +484,16 @@
       </div>
     </nav>
     <main>
-      <div id="current-location"></div>
-      <div class="flip-row">
-        <div class="flip-arrow prev-arrow arrow-desktop" onclick="prevPage()">‹</div>
-        <div id="page-viewport">
-          <div id="page-content"></div>
+      <div id="flipbook-area">
+        <div class="flip-arrow prev-arrow" onclick="prevPage()">‹</div>
+        <div id="page-scale-wrapper">
+          <div id="page-sheet">
+            <div id="sheet-heading"></div>
+            <div id="sheet-grid"></div>
+            <div id="sheet-pagenum"></div>
+          </div>
         </div>
-        <div class="flip-arrow next-arrow arrow-desktop" onclick="nextPage()">›</div>
-      </div>
-      <div id="page-caption"></div>
-      <div id="page-nav-mobile">
-        <div class="flip-arrow prev-arrow arrow-mobile" onclick="prevPage()">‹</div>
-        <div class="flip-arrow next-arrow arrow-mobile" onclick="nextPage()">›</div>
+        <div class="flip-arrow next-arrow" onclick="nextPage()">›</div>
       </div>
       <div id="empty" style="display:none;">No matching items.</div>
     </main>
@@ -488,6 +501,8 @@
 </div>
 
 <script>
+  const SHEET_W = 936;
+  const SHEET_H = 1236;
   // Simple deterrent, not real security — anyone who views this page's
   // source, or fetches catalogue.json directly, can bypass this.
   // Good enough to stop randoms who stumble on the link; not a login system.
@@ -658,12 +673,9 @@
     currentPageIdx = 0;
 
     document.getElementById('empty').style.display = sections.length === 0 ? 'block' : 'none';
-    document.querySelector('.flip-row').style.display = sections.length === 0 ? 'none' : 'flex';
-    document.getElementById('page-caption').style.display = sections.length === 0 ? 'none' : '';
-    document.getElementById('page-nav-mobile').style.display = sections.length === 0 ? 'none' : '';
+    document.getElementById('flipbook-area').style.display = sections.length === 0 ? 'none' : 'flex';
 
     if (sections.length > 0) renderCurrentPage(null);
-    else document.getElementById('current-location').textContent = '';
   }
 
   function currentPages() {
@@ -671,18 +683,6 @@
     const pages = [];
     for (let i = 0; i < items.length; i += PAGE_SIZE) pages.push(items.slice(i, i + PAGE_SIZE));
     return pages.length > 0 ? pages : [[]];
-  }
-
-  function renderCard(item) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
-      <div class="info">
-        <div class="item-number">${item.item_number}</div>
-      </div>
-    `;
-    return card;
   }
 
   function highlightActiveSidebarItem() {
@@ -706,51 +706,72 @@
     }
   }
 
+  function fitPageSheet() {
+    const wrapper = document.getElementById('page-scale-wrapper');
+    const sheet = document.getElementById('page-sheet');
+    const availW = wrapper.clientWidth;
+    const availH = wrapper.clientHeight;
+    if (availW <= 0 || availH <= 0) return;
+    const scale = Math.min(availW / SHEET_W, availH / SHEET_H);
+    sheet.style.transform = `scale(${scale})`;
+  }
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitPageSheet, 150);
+  });
+
   function renderCurrentPage(direction) {
     const section = sections[currentSectionIdx];
     if (!section) return;
     const pages = currentPages();
     if (currentPageIdx >= pages.length) currentPageIdx = pages.length - 1;
 
-    const locationEl = document.getElementById('current-location');
-    if (currentPageIdx === 0) {
-      const itemCount = section.items.length;
-      const countLabel = `${itemCount} item${itemCount !== 1 ? 's' : ''}`;
-      locationEl.innerHTML = section.subcategory
-        ? `${section.category}<span class="sub">${section.subcategory} · ${countLabel}</span>`
-        : `${section.category}<span class="sub">${countLabel}</span>`;
-      locationEl.style.visibility = 'visible';
-    } else {
-      locationEl.style.visibility = 'hidden';
-    }
+    const sheet = document.getElementById('page-sheet');
 
-    const contentEl = document.getElementById('page-content');
-
-    const buildGrid = () => {
-      const grid = document.createElement('div');
-      grid.className = 'product-grid';
-      for (const item of pages[currentPageIdx]) grid.appendChild(renderCard(item));
-      return grid;
-    };
-
-    const swap = () => {
-      contentEl.innerHTML = '';
-      contentEl.appendChild(buildGrid());
-      contentEl.classList.remove('exit-left', 'exit-right');
-      if (direction) {
-        contentEl.classList.add(direction === 'next' ? 'exit-right' : 'exit-left');
-        // force reflow so the browser registers the starting position
-        void contentEl.offsetWidth;
-        contentEl.classList.remove('exit-left', 'exit-right');
-        contentEl.classList.add('enter');
+    const build = () => {
+      // Heading — only on the first page of a section, matching print.
+      const headingEl = document.getElementById('sheet-heading');
+      if (currentPageIdx === 0) {
+        headingEl.innerHTML = section.subcategory
+          ? `<div class="h-cat">${section.category}</div><div class="h-sub">${section.subcategory}</div>`
+          : `<div class="h-cat">${section.category}</div>`;
+        headingEl.style.visibility = 'visible';
+      } else {
+        headingEl.innerHTML = '';
+        headingEl.style.visibility = 'hidden';
       }
+
+      // Grid — always exactly 5x6 cells, empty cells left blank.
+      const gridEl = document.getElementById('sheet-grid');
+      gridEl.innerHTML = '';
+      const pageItems = pages[currentPageIdx];
+      for (let i = 0; i < PAGE_SIZE; i++) {
+        const item = pageItems[i];
+        const cell = document.createElement('div');
+        cell.className = 'sheet-card';
+        if (item) {
+          cell.innerHTML = `
+            <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+            <div class="sheet-code">${item.item_number}</div>
+          `;
+        }
+        gridEl.appendChild(cell);
+      }
+
+      // Page number — counted continuously across the whole catalogue.
+      document.getElementById('sheet-pagenum').textContent = computeGlobalPageNumber();
     };
 
     if (direction) {
-      contentEl.classList.add(direction === 'next' ? 'exit-left' : 'exit-right');
-      setTimeout(swap, 220);
+      sheet.classList.add('transitioning');
+      setTimeout(() => {
+        build();
+        sheet.classList.remove('transitioning');
+      }, 150);
     } else {
-      swap();
+      build();
     }
 
     document.querySelectorAll('.prev-arrow').forEach(el => el.classList.toggle(
@@ -760,8 +781,8 @@
       'disabled', currentSectionIdx === sections.length - 1 && currentPageIdx === pages.length - 1
     ));
 
-    document.getElementById('page-caption').textContent = computeGlobalPageNumber();
     highlightActiveSidebarItem();
+    fitPageSheet();
   }
 
   function computeGlobalPageNumber() {
@@ -799,7 +820,7 @@
 
   // Touch swipe support (mobile): swipe left = next page, swipe right = previous page.
   let touchStartX = null;
-  const viewport = document.getElementById('page-viewport');
+  const viewport = document.getElementById('page-scale-wrapper');
   viewport.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
@@ -812,25 +833,58 @@
     touchStartX = null;
   }, { passive: true });
 
+  // Horizontal scroll/wheel support (trackpad sideways swipe, shift+wheel, or a
+  // mouse with a horizontal scroll wheel) — same page-flip, just via scrolling.
+  let wheelCooldown = false;
+  viewport.addEventListener('wheel', (e) => {
+    // Only treat this as page navigation when the horizontal component
+    // dominates, so normal vertical page scrolling still works untouched.
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    if (wheelCooldown) return;
+
+    const WHEEL_THRESHOLD = 30;
+    if (e.deltaX > WHEEL_THRESHOLD) {
+      e.preventDefault();
+      nextPage();
+    } else if (e.deltaX < -WHEEL_THRESHOLD) {
+      e.preventDefault();
+      prevPage();
+    } else {
+      return;
+    }
+
+    wheelCooldown = true;
+    setTimeout(() => { wheelCooldown = false; }, 400);
+  }, { passive: false });
+
+  // Simple card builder used only for the flat, unpaged search results list
+  // (the fixed page-sheet paradigm doesn't apply to search matches).
+  function renderCard(item) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+      <div class="info">
+        <div class="item-number">${item.item_number}</div>
+      </div>
+    `;
+    return card;
+  }
+
   // Search switches to a flat, unpaged list of matches — clearing it returns
   // to browsing wherever the page-flip was left off.
   function applyFilters() {
     const q = document.getElementById('search').value.trim().toLowerCase();
     if (!q) {
-      document.getElementById('current-location').style.display = '';
-      document.querySelector('.flip-row').style.display = 'flex';
-      document.getElementById('page-caption').style.display = '';
+      document.getElementById('flipbook-area').style.display = 'flex';
       renderCurrentPage(null);
       return;
     }
 
     const matches = allItems.filter(i => itemMatchesCity(i) && i.item_number.toLowerCase().includes(q));
 
-    document.getElementById('current-location').style.display = 'none';
-    document.querySelector('.flip-row').style.display = 'none';
-    document.getElementById('page-caption').style.display = 'none';
+    document.getElementById('flipbook-area').style.display = 'none';
 
-    const contentEl = document.getElementById('page-content');
     const empty = document.getElementById('empty');
     if (matches.length === 0) {
       empty.style.display = 'block';
@@ -843,19 +897,14 @@
     grid.className = 'product-grid';
     for (const item of matches) grid.appendChild(renderCard(item));
 
-    // Render search results directly into the main content area, outside
-    // the page-flip viewport, so pagination doesn't apply to them.
     let searchResults = document.getElementById('search-results');
     if (!searchResults) {
       searchResults = document.createElement('div');
       searchResults.id = 'search-results';
-      document.querySelector('.flip-row').after(searchResults);
+      document.getElementById('flipbook-area').after(searchResults);
     }
     searchResults.innerHTML = '';
     searchResults.appendChild(grid);
-    document.getElementById('page-viewport').style.display = 'none';
-    document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = 'none');
-    document.getElementById('page-nav-mobile').style.display = 'none';
   }
 
   document.getElementById('search').addEventListener('input', () => {
@@ -863,9 +912,6 @@
     if (!q) {
       const searchResults = document.getElementById('search-results');
       if (searchResults) searchResults.remove();
-      document.getElementById('page-viewport').style.display = '';
-      document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = '');
-      document.getElementById('page-nav-mobile').style.display = '';
     }
     applyFilters();
   });
