@@ -281,24 +281,12 @@
   #page-content.exit-right { transform: translateX(40px); opacity: 0; }
   #page-content.enter { transform: translateX(0); opacity: 1; }
 
-  #page-dots {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 14px;
-  }
-  #page-dots .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-  #page-dots .dot.active { background: var(--accent); }
   #page-caption {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--muted);
-    margin-top: 6px;
+    margin-top: 16px;
   }
 
   @media (min-width: 769px) {
@@ -324,8 +312,8 @@
   }
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
   }
   .card {
     background: var(--card-bg);
@@ -489,7 +477,6 @@
         </div>
         <div class="flip-arrow next-arrow arrow-desktop" onclick="nextPage()">›</div>
       </div>
-      <div id="page-dots"></div>
       <div id="page-caption"></div>
       <div id="page-nav-mobile">
         <div class="flip-arrow prev-arrow arrow-mobile" onclick="prevPage()">‹</div>
@@ -535,7 +522,7 @@
   let sections = [];        // [{category, subcategory, items}]
   let currentSectionIdx = 0;
   let currentPageIdx = 0;
-  let PAGE_SIZE = 6; // initial guess (2 rows of 3); recalculated to fit the screen after first render
+  const PAGE_SIZE = 30; // fixed 5 columns x 6 rows, matches the print layout
 
   function slugify(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -672,7 +659,6 @@
 
     document.getElementById('empty').style.display = sections.length === 0 ? 'block' : 'none';
     document.querySelector('.flip-row').style.display = sections.length === 0 ? 'none' : 'flex';
-    document.getElementById('page-dots').style.display = sections.length === 0 ? 'none' : 'flex';
     document.getElementById('page-caption').style.display = sections.length === 0 ? 'none' : '';
     document.getElementById('page-nav-mobile').style.display = sections.length === 0 ? 'none' : '';
 
@@ -720,41 +706,6 @@
     }
   }
 
-  let fittingInProgress = false;
-
-  function fitPageSizeToScreen() {
-    if (fittingInProgress) return;
-    const cards = document.querySelectorAll('#page-content .card');
-    if (cards.length < 6) return; // need at least 2 rows to measure row height
-
-    const row1Top = cards[0].getBoundingClientRect().top;
-    const row2Top = cards[3].getBoundingClientRect().top;
-    const rowHeight = row2Top - row1Top;
-    if (rowHeight <= 0) return;
-
-    const viewportTop = document.getElementById('page-viewport').getBoundingClientRect().top;
-    const reservedBelow = 140; // space for dots, caption, mobile arrow row, and breathing room
-    const available = window.innerHeight - viewportTop - reservedBelow;
-
-    let maxRows = Math.floor(available / rowHeight);
-    if (maxRows < 1) maxRows = 1; // always show at least one row, even if it means scrolling slightly
-    const newPageSize = maxRows * 3;
-
-    if (newPageSize !== PAGE_SIZE) {
-      fittingInProgress = true;
-      PAGE_SIZE = newPageSize;
-      currentPageIdx = 0;
-      renderCurrentPage(null);
-      fittingInProgress = false;
-    }
-  }
-
-  let resizeTimer = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(fitPageSizeToScreen, 200);
-  });
-
   function renderCurrentPage(direction) {
     const section = sections[currentSectionIdx];
     if (!section) return;
@@ -762,11 +713,16 @@
     if (currentPageIdx >= pages.length) currentPageIdx = pages.length - 1;
 
     const locationEl = document.getElementById('current-location');
-    const itemCount = section.items.length;
-    const countLabel = `${itemCount} item${itemCount !== 1 ? 's' : ''}`;
-    locationEl.innerHTML = section.subcategory
-      ? `${section.category}<span class="sub">${section.subcategory} · ${countLabel}</span>`
-      : `${section.category}<span class="sub">${countLabel}</span>`;
+    if (currentPageIdx === 0) {
+      const itemCount = section.items.length;
+      const countLabel = `${itemCount} item${itemCount !== 1 ? 's' : ''}`;
+      locationEl.innerHTML = section.subcategory
+        ? `${section.category}<span class="sub">${section.subcategory} · ${countLabel}</span>`
+        : `${section.category}<span class="sub">${countLabel}</span>`;
+      locationEl.style.visibility = 'visible';
+    } else {
+      locationEl.style.visibility = 'hidden';
+    }
 
     const contentEl = document.getElementById('page-content');
 
@@ -804,20 +760,16 @@
       'disabled', currentSectionIdx === sections.length - 1 && currentPageIdx === pages.length - 1
     ));
 
-    const dotsEl = document.getElementById('page-dots');
-    dotsEl.innerHTML = '';
-    for (let i = 0; i < pages.length; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (i === currentPageIdx ? ' active' : '');
-      dotsEl.appendChild(dot);
-    }
-    document.getElementById('page-caption').textContent = `Page ${currentPageIdx + 1} of ${pages.length}`;
+    document.getElementById('page-caption').textContent = computeGlobalPageNumber();
     highlightActiveSidebarItem();
+  }
 
-    if (!direction) {
-      // Measure after the browser has painted the new grid.
-      requestAnimationFrame(() => requestAnimationFrame(fitPageSizeToScreen));
+  function computeGlobalPageNumber() {
+    let pageNum = 0;
+    for (let i = 0; i < currentSectionIdx; i++) {
+      pageNum += Math.max(1, Math.ceil(sections[i].items.length / PAGE_SIZE));
     }
+    return pageNum + currentPageIdx + 1;
   }
 
   function nextPage() {
@@ -867,7 +819,6 @@
     if (!q) {
       document.getElementById('current-location').style.display = '';
       document.querySelector('.flip-row').style.display = 'flex';
-      document.getElementById('page-dots').style.display = 'flex';
       document.getElementById('page-caption').style.display = '';
       renderCurrentPage(null);
       return;
@@ -877,7 +828,6 @@
 
     document.getElementById('current-location').style.display = 'none';
     document.querySelector('.flip-row').style.display = 'none';
-    document.getElementById('page-dots').style.display = 'none';
     document.getElementById('page-caption').style.display = 'none';
 
     const contentEl = document.getElementById('page-content');
