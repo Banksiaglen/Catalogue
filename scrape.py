@@ -139,87 +139,141 @@ def scrape_js_page(url):
     return items
 
 
-def get_category_tree(session):
-    """Reads the sidebar category menu (present on any pl.php page) and
-    builds a 3-level dict: category -> subcategory -> city. Cities are
-    optional — many subcategories have no city breakdown at all."""
-    resp = session.get(MENU_SOURCE_URL)
-    resp.raise_for_status()
-    soup = BeautifulSoup(resp.text, "html.parser")
-
-    menu = soup.select_one("#Menu_Products")
-    if not menu:
-        print("  ! Could not find the category menu on the page — check "
-              "MENU_SOURCE_URL and whether login succeeded.")
-        return {}
-
-    tree = {}
-    for a in menu.select('a[href*="pl.php"]'):
-        raw_href = a.get("href", "").strip()
-        if not raw_href:
-            continue
-
-        # The raw HTML may use relative links (e.g. "/Aboriginal-Art/pl.php?filters=")
-        # even though browser DevTools shows absolute URLs when you copy HTML —
-        # browsers resolve links automatically when serializing. urljoin handles
-        # both relative and already-absolute hrefs correctly.
-        href = urljoin(MENU_SOURCE_URL, raw_href)
-        if not href.startswith(SITE_ROOT):
-            continue
-
-        path = href[len(SITE_ROOT):]
-        segments = [s for s in path.split("/") if s and s.lower() != "pl.php"]
-
-        # 0 segments = the root "All Products" style link. 1 = category,
-        # 2 = subcategory, 3 = city/region.
-        if len(segments) == 0 or len(segments) > 3:
-            continue
-
-        name_el = a.select_one(".menu_item")
-        name = name_el.get_text(strip=True) if name_el else segments[-1].replace("-", " ")
-
-        cat_slug = segments[0]
-        tree.setdefault(cat_slug, {"name": None, "url": None, "subcategories": {}})
-
-        if len(segments) == 1:
-            tree[cat_slug]["name"] = name
-            tree[cat_slug]["url"] = href
-        elif len(segments) == 2:
-            sub_slug = segments[1]
-            tree[cat_slug]["subcategories"].setdefault(
-                sub_slug, {"name": None, "url": None, "cities": {}}
-            )
-            tree[cat_slug]["subcategories"][sub_slug]["name"] = name
-            tree[cat_slug]["subcategories"][sub_slug]["url"] = href
-        else:
-            sub_slug, city_slug = segments[1], segments[2]
-            tree[cat_slug]["subcategories"].setdefault(
-                sub_slug, {"name": None, "url": None, "cities": {}}
-            )
-            tree[cat_slug]["subcategories"][sub_slug]["cities"][city_slug] = {
-                "name": name,
-                "url": href,
-            }
-
-    if not tree:
-        sample_links = menu.select('a[href*="pl.php?filters="]')[:3]
-        all_links = menu.select('a')
-        print(f"  ! Found the menu but built 0 categories. "
-              f"Menu contained {len(sample_links)} links matching the pattern "
-              f"out of {len(all_links)} total <a> tags inside the menu. "
-              f"Sample of first 3 hrefs found in menu: "
-              f"{[a.get('href') for a in all_links[:3]]}")
-
-    # Fall back to a slug-derived name for anything only ever seen via a
-    # deeper link (shouldn't normally happen, but just in case).
-    for cat_slug, cat_data in tree.items():
-        if not cat_data["name"]:
-            cat_data["name"] = cat_slug.replace("-", " ")
-        for sub_data in cat_data["subcategories"].values():
-            if not sub_data["name"]:
-                sub_data["name"] = "General"
-
-    return tree
+# The site's subcategory/city menu is only populated by JavaScript in a real
+# browser — a plain HTTP request never sees it, no matter what headers are
+# sent. Rather than running a full headless browser just to read a menu (slow,
+# fragile), this structure is captured once from the real site and used
+# directly. If categories are ever added/removed/renamed on the site, this
+# list needs a manual update to match — but it makes every run fast and
+# reliable in the meantime.
+#
+# Format: (category_slug, category_display_name, [
+#     (subcategory_slug, subcategory_display_name, [city_slug, city_slug, ...]),
+#     ...
+# ])
+# An empty subcategory list means the category has no subcategories (scrape
+# it directly). An empty city list means that subcategory has no city
+# breakdown (scrape the subcategory URL directly).
+CATEGORY_TREE = [
+    ("Aboriginal-Art", "Aboriginal Art", [
+        ("Boomerangs", "Boomerangs", ["National"]),
+        ("Coasters-and-Placements", "Coasters and Placements", ["National"]),
+        ("Coffee-Mugs", "Coffee Mugs", ["National"]),
+        ("Keyring-Sets", "Keyring Sets", ["National"]),
+        ("Magnets", "Magnets", ["National"]),
+        ("Shot-Glasses", "Shot Glasses", ["National"]),
+    ]),
+    ("Apparel,-Footwear-and-Beach-Towels", "Apparel, Footwear and Beach Towels", [
+        ("Baby-Bibs", "Baby Bibs", []),
+        ("Beach-Towels", "Beach Towels", ["Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Clothing", "Clothing", ["National", "Sydney"]),
+        ("Footware", "Footware", ["Cairns", "National"]),
+        ("Iron-On-Patches", "Iron On Patches", ["National"]),
+    ]),
+    ("Australian-Flag", "Australian Flag", []),
+    ("Australian-Made", "Australian Made", [
+        ("Body-care-and-Foods", "Body care and Foods", ["National"]),
+        ("Boomerangs", "Boomerangs", []),
+        ("Kangaroo-Scrotum-products", "Kangaroo Scrotum products", []),
+        ("Plush-Toys-and-Others", "Plush Toys and Others", []),
+    ]),
+    ("Bags", "Bags", [
+        ("Foldable-Bags", "Foldable Bags", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Other-bags", "Other bags", ["National", "Sydney"]),
+        ("Premium-canvas-cotton-Bags", "Premium canvas cotton Bags", ["Brisbane", "Cairns", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Shopping-Bags", "Shopping Bags", ["Brisbane", "Gold-Coast", "Melbourne", "National", "Sydney"]),
+    ]),
+    ("Caps-and-Hats", "Caps and Hats", [
+        ("Bucket-Hats-and-Cork-Hats", "Bucket Hats and Cork Hats", ["National"]),
+        ("Polyester-Caps", "Polyester Caps", ["Adelaide", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Premium-Caps", "Premium Caps", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Hamilton-Island", "Melbourne", "National", "Perth", "Sydney"]),
+    ]),
+    ("Clocks", "Clocks", [
+        ("Clocks", "Clocks", ["Brisbane", "Gold-Coast", "National", "Perth", "Sydney"]),
+    ]),
+    ("Display-Plates,-Frames-and-Premium-Gifts", "Display Plates, Frames and Premium Gifts", [
+        ("Ash-Trays", "Ash Trays", ["Brisbane", "Cairns", "Gold-Coast", "National", "Sydney"]),
+        ("Business-Card-Holders", "Business Card Holders", ["National", "Sydney"]),
+        ("Desk-Decor", "Desk Decor", ["Melbourne", "National", "Sydney"]),
+        ("Frames", "Frames", ["Melbourne", "National", "Sydney"]),
+        ("Mirrors", "Mirrors", ["Cairns", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Pins", "Pins", ["Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Sydney"]),
+        ("Plates", "Plates", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Shot-Glasses", "Shot Glasses", ["National", "Sydney"]),
+    ]),
+    ("Drink-Accessories,-Coffee-Mugs-and-Shot-Glasses", "Drink Accessories, Coffee Mugs and Shot Glasses", [
+        ("Ash-Trays", "Ash Trays", ["National"]),
+        ("Coasters-and-Placements", "Coasters and Placements", ["Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Coffee-Mugs", "Coffee Mugs", ["Adelaide", "Brisbane", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Espresso-Mugs", "Espresso Mugs", ["Brisbane", "Cairns", "Gold-Coast", "National", "Sydney"]),
+        ("Others", "Others", ["National", "Sydney"]),
+        ("Shot-Glasses", "Shot Glasses", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Stubby-Holders", "Stubby Holders", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Wine-holders-and-bottle-holders", "Wine holders and bottle holders", ["National", "Sydney"]),
+    ]),
+    ("Fridge-Magnets", "Fridge Magnets", [
+        ("Foil-Magnets", "Foil Magnets", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Magnets", "Magnets", ["Melbourne", "National", "Sydney"]),
+        ("MDF-Magnets-_and_-Keyrings", "MDF Magnets & Keyrings", ["Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Sydney"]),
+        ("Metal-Magnets", "Metal Magnets", ["Adelaide", "Brisbane", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Polyresin-Magnets", "Polyresin Magnets", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Polyresin-Ornaments", "Polyresin Ornaments", ["Sydney"]),
+        ("Wooden-Magnets", "Wooden Magnets", ["National"]),
+    ]),
+    ("Kitchen-Accessories-and-Tea-Towels", "Kitchen Accessories and Tea Towels", [
+        ("Aprons,-Mittens,-Pot-holders-and-Kitchen-Accessories", "Aprons, Mittens, Pot holders and Kitchen Accessories", ["Brisbane", "Cairns", "Melbourne", "National", "Sydney"]),
+        ("Tea-Towels", "Tea Towels", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+    ]),
+    ("Non-Souvenir-Products", "Non Souvenir Products", [
+        ("Shopping-Bags", "Shopping Bags", []),
+        ("Wooden-Keyrings", "Wooden Keyrings", ["National"]),
+    ]),
+    ("Soft-Toys", "Soft Toys", [
+        ("Backpacks", "Backpacks", ["Cairns", "National"]),
+        ("Clip-On", "Clip On", []),
+        ("Others", "Others", ["National"]),
+        ("Plush-Toy-Koalas-and-Kangroos", "Plush Toy Koalas and Kangroos", ["National"]),
+        ("Plush-Toys-and-Others", "Plush Toys and Others", ["National"]),
+        ("Soft-Toy-Keyings-and-Magnets", "Soft Toy Keyings and Magnets", ["Melbourne", "National"]),
+    ]),
+    ("Souvenir-Keyrings-and-Keyring-Sets", "Souvenir Keyrings and Keyring Sets", [
+        ("Keyring-Sets", "Keyring Sets", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Keyrings", "Keyrings", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Others", "Others", ["National", "Sydney"]),
+        ("Wooden-Keyrings", "Wooden Keyrings", ["National", "Perth", "Sydney"]),
+        ("Wooden-Magnets", "Wooden Magnets", ["Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+    ]),
+    ("Sports-and-Accessories", "Sports and Accessories", [
+        ("Christmas-Ornaments", "Christmas Ornaments", ["Gold-Coast", "National"]),
+        ("Eye-Glasses-Cases", "Eye Glasses Cases", ["Brisbane", "National"]),
+        ("Golf-Sets", "Golf Sets", ["National"]),
+        ("Key-Holders", "Key Holders", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Others", "Others", ["Gold-Coast", "Melbourne", "National", "Sydney"]),
+        ("Road-Signs-and-Car-Plates", "Road Signs and Car Plates", ["Adelaide", "Brisbane", "Melbourne", "National", "Perth", "Sydney"]),
+    ]),
+    ("Stationery", "Stationery", [
+        ("Neoprene-Coin-Bags", "Neoprene Coin Bags", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "National", "Perth", "Sydney"]),
+        ("Others", "Others", ["National", "Sydney"]),
+        ("Pencil-Cases", "Pencil Cases", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Pens-and-Pencils", "Pens and Pencils", ["Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Postcards", "Postcards", ["National", "Sydney"]),
+        ("Ruler-Sets", "Ruler Sets", ["Adelaide", "Melbourne", "National", "Sydney"]),
+        ("Stationery-Sets", "Stationery Sets", ["Melbourne", "National", "Sydney"]),
+        ("Stickers", "Stickers", ["Melbourne", "National", "Sydney"]),
+    ]),
+    ("Wallets-and-Leather-Products", "Wallets and Leather Products", [
+        ("Coin-Purses,-Passport-Holder-and-Key-Wallets", "Coin Purses, Passport Holder and Key Wallets", ["National", "Perth", "Sydney"]),
+        ("Lady's-Wallets", "Lady's Wallets", ["National", "Sydney"]),
+        ("Men's-Wallets", "Men's Wallets", ["National", "Sydney"]),
+        ("Other-Leather-Bags", "Other Leather Bags", ["National"]),
+    ]),
+    ("Water-Globes-and-Polyresin-Ornaments", "Water Globes and Polyresin Ornaments", [
+        ("Polyresin-Magnets", "Polyresin Magnets", ["National"]),
+        ("Polyresin-Ornaments", "Polyresin Ornaments", ["Melbourne", "National", "Perth", "Sydney"]),
+        ("Salt-and-Pepper-Shakers", "Salt and Pepper Shakers", ["National"]),
+        ("Water-Globes-and-Others", "Water Globes and Others", ["Adelaide", "Brisbane", "Cairns", "Melbourne", "National", "Perth", "Sydney"]),
+    ]),
+]
 
 
 def scrape_section_pages(session, base_url):
@@ -294,54 +348,43 @@ def main():
     print("Logging in...")
     login(session)
 
-    print("Reading category menu...")
-    tree = get_category_tree(session)
-    print(f"Found {len(tree)} top-level categories.")
-
     all_items = []
 
-    if not tree:
-        print("  ! No categories found — falling back to a flat 'all products' "
-              "scrape so the catalogue isn't left empty. Category navigation "
-              "won't work until the category-discovery issue is fixed.")
-        all_items = scrape_all_products_fallback(session)
-    else:
-        for cat_slug, cat_data in tree.items():
-            cat_name = cat_data["name"]
-            subcats = cat_data["subcategories"]
+    for cat_slug, cat_name, subcategories in CATEGORY_TREE:
+        if not subcategories:
+            url = f"{SITE_ROOT}{cat_slug}/pl.php?filters="
+            print(f"Scraping {cat_name} ...")
+            items = scrape_section_pages(session, url)
+            for item in items:
+                item["category"] = cat_name
+                item["subcategory"] = None
+                item["city"] = None
+            print(f"  -> {len(items)} products")
+            all_items.extend(items)
+            continue
 
-            if subcats:
-                for sub_slug, sub_data in subcats.items():
-                    sub_name = sub_data["name"]
-                    cities = sub_data["cities"]
-
-                    if cities:
-                        for city_slug, city_data in cities.items():
-                            city_name = city_data["name"]
-                            print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
-                            items = scrape_section_pages(session, city_data["url"])
-                            for item in items:
-                                item["category"] = cat_name
-                                item["subcategory"] = sub_name
-                                item["city"] = city_name
-                            print(f"  -> {len(items)} products")
-                            all_items.extend(items)
-                    else:
-                        print(f"Scraping {cat_name} > {sub_name} ...")
-                        items = scrape_section_pages(session, sub_data["url"])
-                        for item in items:
-                            item["category"] = cat_name
-                            item["subcategory"] = sub_name
-                            item["city"] = None
-                        print(f"  -> {len(items)} products")
-                        all_items.extend(items)
-            else:
-                print(f"Scraping {cat_name} ...")
-                items = scrape_section_pages(session, cat_data["url"])
+        for sub_slug, sub_name, cities in subcategories:
+            if not cities:
+                url = f"{SITE_ROOT}{cat_slug}/{sub_slug}/pl.php?filters="
+                print(f"Scraping {cat_name} > {sub_name} ...")
+                items = scrape_section_pages(session, url)
                 for item in items:
                     item["category"] = cat_name
-                    item["subcategory"] = None
+                    item["subcategory"] = sub_name
                     item["city"] = None
+                print(f"  -> {len(items)} products")
+                all_items.extend(items)
+                continue
+
+            for city_slug in cities:
+                city_name = city_slug.replace("-", " ")
+                url = f"{SITE_ROOT}{cat_slug}/{sub_slug}/{city_slug}/pl.php?filters="
+                print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
+                items = scrape_section_pages(session, url)
+                for item in items:
+                    item["category"] = cat_name
+                    item["subcategory"] = sub_name
+                    item["city"] = city_name
                 print(f"  -> {len(items)} products")
                 all_items.extend(items)
 
