@@ -239,6 +239,27 @@ def scrape_section_pages(session, base_url):
     return items
 
 
+def scrape_all_products_fallback(session):
+    """Used only if get_category_tree() finds nothing — scrapes the flat
+    'All Products' listing instead, so a category-discovery failure never
+    results in an empty catalogue. Items get no category/subcategory/city."""
+    items = []
+    for page_num in range(1, MAX_PAGES + 1):
+        url = f"{MENU_SOURCE_URL}?pager={page_num}"
+        page_items = scrape_static_page(session, url)
+        if not page_items:
+            break
+        items.extend(page_items)
+        time.sleep(1)
+
+    for item in items:
+        item["category"] = "All products"
+        item["subcategory"] = None
+        item["city"] = None
+
+    return items
+
+
 def sanitize_filename(name):
     return re.sub(r"[^a-zA-Z0-9._-]", "_", name)
 
@@ -277,44 +298,51 @@ def main():
     print(f"Found {len(tree)} top-level categories.")
 
     all_items = []
-    for cat_slug, cat_data in tree.items():
-        cat_name = cat_data["name"]
-        subcats = cat_data["subcategories"]
 
-        if subcats:
-            for sub_slug, sub_data in subcats.items():
-                sub_name = sub_data["name"]
-                cities = sub_data["cities"]
+    if not tree:
+        print("  ! No categories found — falling back to a flat 'all products' "
+              "scrape so the catalogue isn't left empty. Category navigation "
+              "won't work until the category-discovery issue is fixed.")
+        all_items = scrape_all_products_fallback(session)
+    else:
+        for cat_slug, cat_data in tree.items():
+            cat_name = cat_data["name"]
+            subcats = cat_data["subcategories"]
 
-                if cities:
-                    for city_slug, city_data in cities.items():
-                        city_name = city_data["name"]
-                        print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
-                        items = scrape_section_pages(session, city_data["url"])
+            if subcats:
+                for sub_slug, sub_data in subcats.items():
+                    sub_name = sub_data["name"]
+                    cities = sub_data["cities"]
+
+                    if cities:
+                        for city_slug, city_data in cities.items():
+                            city_name = city_data["name"]
+                            print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
+                            items = scrape_section_pages(session, city_data["url"])
+                            for item in items:
+                                item["category"] = cat_name
+                                item["subcategory"] = sub_name
+                                item["city"] = city_name
+                            print(f"  -> {len(items)} products")
+                            all_items.extend(items)
+                    else:
+                        print(f"Scraping {cat_name} > {sub_name} ...")
+                        items = scrape_section_pages(session, sub_data["url"])
                         for item in items:
                             item["category"] = cat_name
                             item["subcategory"] = sub_name
-                            item["city"] = city_name
+                            item["city"] = None
                         print(f"  -> {len(items)} products")
                         all_items.extend(items)
-                else:
-                    print(f"Scraping {cat_name} > {sub_name} ...")
-                    items = scrape_section_pages(session, sub_data["url"])
-                    for item in items:
-                        item["category"] = cat_name
-                        item["subcategory"] = sub_name
-                        item["city"] = None
-                    print(f"  -> {len(items)} products")
-                    all_items.extend(items)
-        else:
-            print(f"Scraping {cat_name} ...")
-            items = scrape_section_pages(session, cat_data["url"])
-            for item in items:
-                item["category"] = cat_name
-                item["subcategory"] = None
-                item["city"] = None
-            print(f"  -> {len(items)} products")
-            all_items.extend(items)
+            else:
+                print(f"Scraping {cat_name} ...")
+                items = scrape_section_pages(session, cat_data["url"])
+                for item in items:
+                    item["category"] = cat_name
+                    item["subcategory"] = None
+                    item["city"] = None
+                print(f"  -> {len(items)} products")
+                all_items.extend(items)
 
     # A product can legitimately appear under more than one category/city on
     # the site — each combination is kept as its own row so it shows up in
