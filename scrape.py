@@ -154,7 +154,7 @@ def get_category_tree(session):
         return {}
 
     tree = {}
-    for a in menu.select('a[href*="pl.php?filters="]'):
+    for a in menu.select('a[href*="pl.php"]'):
         raw_href = a.get("href", "").strip()
         if not raw_href:
             continue
@@ -226,8 +226,9 @@ def scrape_section_pages(session, base_url):
     """Paginate a single category or subcategory URL, walking pager=1, 2,
     3... until a page returns zero products."""
     items = []
+    separator = "&" if "?" in base_url else "?"
     for page_num in range(1, MAX_PAGES + 1):
-        url = f"{base_url}&pager={page_num}"
+        url = f"{base_url}{separator}pager={page_num}"
         page_items = scrape_static_page(session, url)
 
         if not page_items:
