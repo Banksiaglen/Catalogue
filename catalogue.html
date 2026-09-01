@@ -108,8 +108,7 @@
     align-items: center;
   }
   .sidebar-cat-name:hover { background: var(--bg); }
-  .sidebar-subs { padding-left: 14px; display: none; }
-  .sidebar-cat.expanded .sidebar-subs { display: block; }
+  .sidebar-subs { padding-left: 14px; display: block; }
   .sidebar-sub-name {
     font-size: 0.85rem;
     color: var(--muted);
@@ -366,6 +365,8 @@
     #header-toolbar { padding: 10px 16px; }
     #search { flex: 1; min-width: 0; width: auto; margin-left: 0; }
     #city-filter { flex: 1; min-width: 0; width: auto; }
+    .sidebar-subs { display: none; }
+    .sidebar-cat.expanded .sidebar-subs { display: block; }
     #sidebar {
       position: fixed;
       top: 0;
@@ -514,7 +515,7 @@
   let sections = [];        // [{category, subcategory, items}]
   let currentSectionIdx = 0;
   let currentPageIdx = 0;
-  const PAGE_SIZE = 18;
+  let PAGE_SIZE = 6; // initial guess (2 rows of 3); recalculated to fit the screen after first render
 
   function slugify(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -697,6 +698,41 @@
     }
   }
 
+  let fittingInProgress = false;
+
+  function fitPageSizeToScreen() {
+    if (fittingInProgress) return;
+    const cards = document.querySelectorAll('#page-content .card');
+    if (cards.length < 6) return; // need at least 2 rows to measure row height
+
+    const row1Top = cards[0].getBoundingClientRect().top;
+    const row2Top = cards[3].getBoundingClientRect().top;
+    const rowHeight = row2Top - row1Top;
+    if (rowHeight <= 0) return;
+
+    const viewportTop = document.getElementById('page-viewport').getBoundingClientRect().top;
+    const reservedBelow = 90; // space for dots, caption, and breathing room
+    const available = window.innerHeight - viewportTop - reservedBelow;
+
+    let maxRows = Math.floor(available / rowHeight);
+    if (maxRows < 1) maxRows = 1; // always show at least one row, even if it means scrolling slightly
+    const newPageSize = maxRows * 3;
+
+    if (newPageSize !== PAGE_SIZE) {
+      fittingInProgress = true;
+      PAGE_SIZE = newPageSize;
+      currentPageIdx = 0;
+      renderCurrentPage(null);
+      fittingInProgress = false;
+    }
+  }
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitPageSizeToScreen, 200);
+  });
+
   function renderCurrentPage(direction) {
     const section = sections[currentSectionIdx];
     if (!section) return;
@@ -755,6 +791,11 @@
     }
     document.getElementById('page-caption').textContent = `Page ${currentPageIdx + 1} of ${pages.length}`;
     highlightActiveSidebarItem();
+
+    if (!direction) {
+      // Measure after the browser has painted the new grid.
+      requestAnimationFrame(() => requestAnimationFrame(fitPageSizeToScreen));
+    }
   }
 
   function nextPage() {
@@ -854,8 +895,6 @@
     }
     applyFilters();
   });
-
-  loadCatalogue();
 </script>
 
 </body>
