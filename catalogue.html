@@ -240,30 +240,33 @@
     z-index: 4;
   }
   .flip-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--border);
     border-radius: 50%;
     background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     cursor: pointer;
     user-select: none;
     z-index: 5;
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    flex-shrink: 0;
   }
-  #prev-arrow { left: 0; }
-  #next-arrow { right: 0; }
   .flip-arrow:hover { background: var(--bg); }
   .flip-arrow.disabled { opacity: 0.3; cursor: default; pointer-events: none; }
 
+  .arrow-desktop { display: none; }
+  #page-nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+
   #page-viewport {
-    margin: 0 54px;
+    margin: 0;
     overflow: hidden;
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -296,6 +299,22 @@
     font-size: 0.8rem;
     color: var(--muted);
     margin-top: 6px;
+  }
+
+  @media (min-width: 769px) {
+    #page-viewport { margin: 0 54px; }
+    .arrow-desktop {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      font-size: 1.3rem;
+    }
+    .prev-arrow.arrow-desktop { left: 0; }
+    .next-arrow.arrow-desktop { right: 0; }
+    #page-nav-mobile { display: none; }
   }
 
   #grid {
@@ -380,10 +399,7 @@
     #sidebar.open { transform: translateX(0); }
     #sidebar-close { display: block; }
     main { padding: 16px; }
-    #page-viewport { margin: 0 40px; padding: 12px; }
-    .flip-arrow { width: 36px; height: 36px; font-size: 1.1rem; }
-    #prev-arrow { left: -6px; }
-    #next-arrow { right: -6px; }
+    #page-viewport { padding: 12px; }
   }
 </style>
 </head>
@@ -467,14 +483,18 @@
     <main>
       <div id="current-location"></div>
       <div class="flip-row">
-        <div class="flip-arrow" id="prev-arrow" onclick="prevPage()">‹</div>
+        <div class="flip-arrow prev-arrow arrow-desktop" onclick="prevPage()">‹</div>
         <div id="page-viewport">
           <div id="page-content"></div>
         </div>
-        <div class="flip-arrow" id="next-arrow" onclick="nextPage()">›</div>
+        <div class="flip-arrow next-arrow arrow-desktop" onclick="nextPage()">›</div>
       </div>
       <div id="page-dots"></div>
       <div id="page-caption"></div>
+      <div id="page-nav-mobile">
+        <div class="flip-arrow prev-arrow arrow-mobile" onclick="prevPage()">‹</div>
+        <div class="flip-arrow next-arrow arrow-mobile" onclick="nextPage()">›</div>
+      </div>
       <div id="empty" style="display:none;">No matching items.</div>
     </main>
   </div>
@@ -653,6 +673,8 @@
     document.getElementById('empty').style.display = sections.length === 0 ? 'block' : 'none';
     document.querySelector('.flip-row').style.display = sections.length === 0 ? 'none' : 'flex';
     document.getElementById('page-dots').style.display = sections.length === 0 ? 'none' : 'flex';
+    document.getElementById('page-caption').style.display = sections.length === 0 ? 'none' : '';
+    document.getElementById('page-nav-mobile').style.display = sections.length === 0 ? 'none' : '';
 
     if (sections.length > 0) renderCurrentPage(null);
     else document.getElementById('current-location').textContent = '';
@@ -711,7 +733,7 @@
     if (rowHeight <= 0) return;
 
     const viewportTop = document.getElementById('page-viewport').getBoundingClientRect().top;
-    const reservedBelow = 90; // space for dots, caption, and breathing room
+    const reservedBelow = 140; // space for dots, caption, mobile arrow row, and breathing room
     const available = window.innerHeight - viewportTop - reservedBelow;
 
     let maxRows = Math.floor(available / rowHeight);
@@ -775,12 +797,12 @@
       swap();
     }
 
-    document.getElementById('prev-arrow').classList.toggle(
+    document.querySelectorAll('.prev-arrow').forEach(el => el.classList.toggle(
       'disabled', currentSectionIdx === 0 && currentPageIdx === 0
-    );
-    document.getElementById('next-arrow').classList.toggle(
+    ));
+    document.querySelectorAll('.next-arrow').forEach(el => el.classList.toggle(
       'disabled', currentSectionIdx === sections.length - 1 && currentPageIdx === pages.length - 1
-    );
+    ));
 
     const dotsEl = document.getElementById('page-dots');
     dotsEl.innerHTML = '';
@@ -877,12 +899,13 @@
     if (!searchResults) {
       searchResults = document.createElement('div');
       searchResults.id = 'search-results';
-      document.getElementById('page-viewport').after(searchResults);
+      document.querySelector('.flip-row').after(searchResults);
     }
     searchResults.innerHTML = '';
     searchResults.appendChild(grid);
     document.getElementById('page-viewport').style.display = 'none';
     document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = 'none');
+    document.getElementById('page-nav-mobile').style.display = 'none';
   }
 
   document.getElementById('search').addEventListener('input', () => {
@@ -892,6 +915,7 @@
       if (searchResults) searchResults.remove();
       document.getElementById('page-viewport').style.display = '';
       document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = '');
+      document.getElementById('page-nav-mobile').style.display = '';
     }
     applyFilters();
   });
