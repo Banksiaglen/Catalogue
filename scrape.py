@@ -30,11 +30,11 @@ LOGIN_PAYLOAD = {
     "LoginSubmit": "Login",
 }
 
-# One or more pages that list products. If the site paginates, list every
-# page URL, or better, find the "?page=" pattern and generate them in a loop.
-CATALOGUE_URLS = [
-    "https://www.banksiaglen.com/pl.php",
-]
+# The site paginates results with ?pager=N. Rather than hardcoding how many
+# pages exist, the scraper walks pager=1, 2, 3... automatically and stops
+# once a page returns zero products (see paginate() below).
+CATALOGUE_BASE_URL = "https://www.banksiaglen.com/pl.php"
+MAX_PAGES = 50  # safety cap so a bug can't loop forever
 
 # Site-specific selectors for banksiaglen.com — confirmed from actual page HTML:
 #   - Item number sits in: <input type="hidden" name="productcode" value="...">
@@ -134,6 +134,25 @@ def scrape_js_page(url):
     return items
 
 
+def paginate(session):
+    """Walk pager=1, 2, 3... until a page returns no products, collecting
+    everything along the way."""
+    all_items = []
+    for page_num in range(1, MAX_PAGES + 1):
+        url = f"{CATALOGUE_BASE_URL}?pager={page_num}"
+        print(f"Scraping page {page_num}: {url} ...")
+        items = scrape_static_page(session, url)
+
+        if not items:
+            print(f"  Page {page_num} returned 0 products — stopping pagination.")
+            break
+
+        all_items.extend(items)
+        time.sleep(1)  # be polite, avoid hammering the server
+
+    return all_items
+
+
 def sanitize_filename(name):
     return re.sub(r"[^a-zA-Z0-9._-]", "_", name)
 
@@ -161,15 +180,7 @@ def main():
     print("Logging in...")
     login(session)
 
-    all_items = []
-    for url in CATALOGUE_URLS:
-        print(f"Scraping {url} ...")
-        items = scrape_static_page(session, url)
-        # If scrape_static_page returns nothing, the site is likely JS-rendered.
-        # Comment the line above and uncomment below instead:
-        # items = scrape_js_page(url)
-        all_items.extend(items)
-        time.sleep(1)  # be polite, avoid hammering the server
+    all_items = paginate(session)
 
     print(f"Found {len(all_items)} products. Downloading images...")
     for item in all_items:
