@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Wholesale Catalogue</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
 <style>
   :root {
     --bg: #fafafa;
@@ -108,7 +108,8 @@
     align-items: center;
   }
   .sidebar-cat-name:hover { background: var(--bg); }
-  .sidebar-subs { padding-left: 14px; display: block; }
+  .sidebar-subs { padding-left: 14px; display: none; }
+  .sidebar-cat.expanded .sidebar-subs { display: block; }
   .sidebar-sub-name {
     font-size: 0.85rem;
     color: var(--muted);
@@ -365,8 +366,6 @@
     #header-toolbar { padding: 10px 16px; }
     #search { flex: 1; min-width: 0; width: auto; margin-left: 0; }
     #city-filter { flex: 1; min-width: 0; width: auto; }
-    .sidebar-subs { display: none; }
-    .sidebar-cat.expanded .sidebar-subs { display: block; }
     #sidebar {
       position: fixed;
       top: 0;
