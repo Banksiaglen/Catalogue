@@ -576,7 +576,9 @@
       catLabel.textContent = catName;
       catLabel.onclick = () => {
         if (subs.size > 0) {
-          catDiv.classList.toggle('expanded');
+          const wasExpanded = catDiv.classList.contains('expanded');
+          document.querySelectorAll('.sidebar-cat.expanded').forEach(el => el.classList.remove('expanded'));
+          if (!wasExpanded) catDiv.classList.add('expanded');
         } else {
           jumpToSection(catName, null);
         }
@@ -685,6 +687,7 @@
       .forEach(el => el.classList.add('active-cat'));
 
     if (section.subcategory) {
+      document.querySelectorAll('.sidebar-cat.expanded').forEach(el => el.classList.remove('expanded'));
       document.querySelectorAll(
         `.sidebar-sub-name[data-cat="${CSS.escape(section.category)}"][data-sub="${CSS.escape(section.subcategory)}"]`
       ).forEach(el => {
