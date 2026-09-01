@@ -203,9 +203,12 @@ def get_category_tree(session):
 
     if not tree:
         sample_links = menu.select('a[href*="pl.php?filters="]')[:3]
+        all_links = menu.select('a')
         print(f"  ! Found the menu but built 0 categories. "
-              f"Menu contained {len(sample_links)} raw links matching the pattern. "
-              f"Sample hrefs: {[a.get('href') for a in sample_links]}")
+              f"Menu contained {len(sample_links)} links matching the pattern "
+              f"out of {len(all_links)} total <a> tags inside the menu. "
+              f"Sample of first 3 hrefs found in menu: "
+              f"{[a.get('href') for a in all_links[:3]]}")
 
     # Fall back to a slug-derived name for anything only ever seen via a
     # deeper link (shouldn't normally happen, but just in case).
@@ -259,6 +262,12 @@ def download_image(session, url, item_number):
 def main():
     os.makedirs(IMAGES_DIR, exist_ok=True)
     session = requests.Session()
+    session.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        )
+    })
 
     print("Logging in...")
     login(session)
