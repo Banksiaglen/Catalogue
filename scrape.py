@@ -38,12 +38,14 @@ CATALOGUE_URLS = [
 
 # Site-specific selectors for banksiaglen.com — confirmed from actual page HTML:
 #   - Item number sits in: <input type="hidden" name="productcode" value="...">
-#   - Image sits in:       <img itemprop="image" src="...">
+#   - Image sits in:       <img src="https://www.banksiaglen.com/productimages/thumbnails/....jpg">
+#     (no unique class/itemprop on the listing page — matched by the URL path instead,
+#     which reliably targets product thumbnails and excludes logos/icons/etc.)
 # These aren't nested inside a shared container we've seen yet, so we pair
 # them up by their order of appearance on the page (assumes 1 image + 1
 # productcode per product, in matching order — true for most simple catalogues).
 ITEM_NUMBER_ATTR_SELECTOR = 'input[name="productcode"]'
-IMAGE_ATTR_SELECTOR = 'img[itemprop="image"]'
+IMAGE_ATTR_SELECTOR = 'img[src*="/productimages/"]'
 
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(OUTPUT_DIR, "images")
