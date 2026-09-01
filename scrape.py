@@ -155,7 +155,15 @@ def get_category_tree(session):
 
     tree = {}
     for a in menu.select('a[href*="pl.php?filters="]'):
-        href = a.get("href", "").strip()
+        raw_href = a.get("href", "").strip()
+        if not raw_href:
+            continue
+
+        # The raw HTML may use relative links (e.g. "/Aboriginal-Art/pl.php?filters=")
+        # even though browser DevTools shows absolute URLs when you copy HTML —
+        # browsers resolve links automatically when serializing. urljoin handles
+        # both relative and already-absolute hrefs correctly.
+        href = urljoin(MENU_SOURCE_URL, raw_href)
         if not href.startswith(SITE_ROOT):
             continue
 
@@ -192,6 +200,12 @@ def get_category_tree(session):
                 "name": name,
                 "url": href,
             }
+
+    if not tree:
+        sample_links = menu.select('a[href*="pl.php?filters="]')[:3]
+        print(f"  ! Found the menu but built 0 categories. "
+              f"Menu contained {len(sample_links)} raw links matching the pattern. "
+              f"Sample hrefs: {[a.get('href') for a in sample_links]}")
 
     # Fall back to a slug-derived name for anything only ever seen via a
     # deeper link (shouldn't normally happen, but just in case).
