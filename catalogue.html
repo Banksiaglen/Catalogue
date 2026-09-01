@@ -31,15 +31,129 @@
   }
   header h1 { margin: 0; font-size: 1.4rem; }
   #meta { color: var(--muted); font-size: 0.9rem; }
-  #search {
+  .header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  #search, #city-filter {
     padding: 8px 12px;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-size: 0.95rem;
-    width: 240px;
   }
-  main { padding: 24px 32px; }
+  #search { width: 220px; }
+  #city-filter { width: 150px; }
+  .layout { display: flex; align-items: flex-start; }
+  #sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border);
+    padding: 16px 12px;
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  #sidebar .sidebar-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    margin: 0 0 8px 8px;
+  }
+  .sidebar-cat { margin-bottom: 2px; }
+  .sidebar-cat-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sidebar-cat-name:hover { background: var(--bg); }
+  .sidebar-subs { padding-left: 14px; display: none; }
+  .sidebar-cat.expanded .sidebar-subs { display: block; }
+  .sidebar-sub-name {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .sidebar-sub-name:hover { background: var(--bg); color: var(--text); }
+  #menu-toggle { display: none; }
+  main { flex: 1; min-width: 0; padding: 24px 32px; }
+
+  #current-location {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  #current-location .sub {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .flip-row { display: flex; align-items: center; gap: 12px; }
+  .flip-arrow {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .flip-arrow:hover { background: var(--bg); }
+  .flip-arrow.disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+  #page-viewport {
+    flex: 1;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    min-height: 200px;
+  }
+  #page-content {
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+  #page-content.exit-left { transform: translateX(-40px); opacity: 0; }
+  #page-content.exit-right { transform: translateX(40px); opacity: 0; }
+  #page-content.enter { transform: translateX(0); opacity: 1; }
+
+  #page-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  #page-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  #page-dots .dot.active { background: var(--accent); }
+  #page-caption {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
   #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 16px;
@@ -96,6 +210,30 @@
   }
   #gate-error { color: #b3261e; font-size: 0.85rem; min-height: 1.2em; }
   #catalogue-content { display: none; }
+
+  @media (max-width: 768px) {
+    #menu-toggle {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 10;
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    }
+    #sidebar.open { transform: translateX(0); }
+    main { padding: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -109,17 +247,40 @@
 
 <div id="catalogue-content">
   <header>
-    <div>
-      <h1>Catalogue</h1>
-      <div id="meta">Loading...</div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button id="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <div>
+        <h1>Catalogue</h1>
+        <div id="meta">Loading...</div>
+      </div>
     </div>
-    <input id="search" type="text" placeholder="Search item number...">
+    <div class="header-controls">
+      <input id="search" type="text" placeholder="Search item number...">
+      <select id="city-filter">
+        <option value="">All cities</option>
+      </select>
+    </div>
   </header>
 
-  <main>
-    <div id="grid"></div>
-    <div id="empty">No matching items.</div>
-  </main>
+  <div class="layout">
+    <nav id="sidebar">
+      <div class="sidebar-title">Categories</div>
+      <div id="sidebar-tree"></div>
+    </nav>
+    <main>
+      <div id="current-location"></div>
+      <div class="flip-row">
+        <div class="flip-arrow" id="prev-arrow" onclick="prevPage()">‹</div>
+        <div id="page-viewport">
+          <div id="page-content"></div>
+        </div>
+        <div class="flip-arrow" id="next-arrow" onclick="nextPage()">›</div>
+      </div>
+      <div id="page-dots"></div>
+      <div id="page-caption"></div>
+      <div id="empty" style="display:none;">No matching items.</div>
+    </main>
+  </div>
 </div>
 
 <script>
@@ -153,14 +314,27 @@
   }
 
   let allItems = [];
+  let selectedCity = '';
+  let sections = [];        // [{category, subcategory, items}]
+  let currentSectionIdx = 0;
+  let currentPageIdx = 0;
+  const PAGE_SIZE = 6;
+
+  function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
 
   async function loadCatalogue() {
     try {
       const res = await fetch('catalogue.json');
       allItems = await res.json();
+      const uniqueProducts = new Set(allItems.map(i => i.item_number)).size;
       document.getElementById('meta').textContent =
-        `${allItems.length} items`;
-      render(allItems);
+        `${uniqueProducts} products across ${allItems.length} category listings`;
+
+      buildCityFilter();
+      buildSidebar();
+      rebuildSections();
     } catch (err) {
       document.getElementById('meta').textContent =
         'Could not load catalogue.json — run scrape.py first.';
@@ -168,34 +342,294 @@
     }
   }
 
-  function render(items) {
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-    grid.innerHTML = '';
-
-    if (items.length === 0) {
-      empty.style.display = 'block';
-      return;
+  function buildCityFilter() {
+    const cities = [...new Set(allItems.map(i => i.city).filter(Boolean))].sort();
+    const select = document.getElementById('city-filter');
+    for (const city of cities) {
+      const opt = document.createElement('option');
+      opt.value = city;
+      opt.textContent = city;
+      select.appendChild(opt);
     }
-    empty.style.display = 'none';
+    select.addEventListener('change', (e) => {
+      selectedCity = e.target.value;
+      currentSectionIdx = 0;
+      currentPageIdx = 0;
+      rebuildSections();
+    });
+  }
 
-    for (const item of items) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
-        <div class="info">
-          <div class="item-number">${item.item_number}</div>
-        </div>
-      `;
-      grid.appendChild(card);
+  function buildSidebar() {
+    // Preserves first-seen order rather than alphabetizing.
+    const cats = new Map();
+    for (const item of allItems) {
+      const cat = item.category || 'Uncategorized';
+      const sub = item.subcategory || null;
+      if (!cats.has(cat)) cats.set(cat, new Set());
+      if (sub) cats.get(cat).add(sub);
+    }
+
+    const tree = document.getElementById('sidebar-tree');
+    tree.innerHTML = '';
+
+    for (const [catName, subs] of cats) {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'sidebar-cat';
+
+      const catLabel = document.createElement('div');
+      catLabel.className = 'sidebar-cat-name';
+      catLabel.textContent = catName;
+      catLabel.onclick = () => {
+        if (subs.size > 0) {
+          catDiv.classList.toggle('expanded');
+        } else {
+          jumpToSection(catName, null);
+        }
+      };
+      catDiv.appendChild(catLabel);
+
+      if (subs.size > 0) {
+        const subsDiv = document.createElement('div');
+        subsDiv.className = 'sidebar-subs';
+        for (const subName of subs) {
+          const subLabel = document.createElement('div');
+          subLabel.className = 'sidebar-sub-name';
+          subLabel.textContent = subName;
+          subLabel.onclick = (e) => {
+            e.stopPropagation();
+            jumpToSection(catName, subName);
+          };
+          subsDiv.appendChild(subLabel);
+        }
+        catDiv.appendChild(subsDiv);
+      }
+
+      tree.appendChild(catDiv);
     }
   }
 
-  document.getElementById('search').addEventListener('input', (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    const filtered = allItems.filter(i => i.item_number.toLowerCase().includes(q));
-    render(filtered);
+  function jumpToSection(catName, subName) {
+    const idx = sections.findIndex(s => s.category === catName && s.subcategory === subName);
+    if (idx === -1) return; // e.g. filtered out by current city selection
+    currentSectionIdx = idx;
+    currentPageIdx = 0;
+    renderCurrentPage(null);
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  function itemMatchesCity(item) {
+    return !selectedCity || !item.city || item.city === selectedCity;
+  }
+
+  function rebuildSections() {
+    const filtered = allItems.filter(itemMatchesCity);
+
+    // Preserves first-seen order rather than alphabetizing.
+    const catMap = new Map();
+    for (const item of filtered) {
+      const cat = item.category || 'Uncategorized';
+      const sub = item.subcategory || null;
+      if (!catMap.has(cat)) catMap.set(cat, new Map());
+      const subMap = catMap.get(cat);
+      const subKey = sub === null ? '\0direct' : sub;
+      if (!subMap.has(subKey)) subMap.set(subKey, []);
+      subMap.get(subKey).push(item);
+    }
+
+    sections = [];
+    for (const [cat, subMap] of catMap) {
+      for (const [subKey, subItems] of subMap) {
+        sections.push({
+          category: cat,
+          subcategory: subKey === '\0direct' ? null : subKey,
+          items: subItems,
+        });
+      }
+    }
+
+    if (currentSectionIdx >= sections.length) currentSectionIdx = 0;
+    currentPageIdx = 0;
+
+    document.getElementById('empty').style.display = sections.length === 0 ? 'block' : 'none';
+    document.querySelector('.flip-row').style.display = sections.length === 0 ? 'none' : 'flex';
+    document.getElementById('page-dots').style.display = sections.length === 0 ? 'none' : 'flex';
+
+    if (sections.length > 0) renderCurrentPage(null);
+    else document.getElementById('current-location').textContent = '';
+  }
+
+  function currentPages() {
+    const items = sections[currentSectionIdx]?.items || [];
+    const pages = [];
+    for (let i = 0; i < items.length; i += PAGE_SIZE) pages.push(items.slice(i, i + PAGE_SIZE));
+    return pages.length > 0 ? pages : [[]];
+  }
+
+  function renderCard(item) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+      <div class="info">
+        <div class="item-number">${item.item_number}</div>
+      </div>
+    `;
+    return card;
+  }
+
+  function renderCurrentPage(direction) {
+    const section = sections[currentSectionIdx];
+    if (!section) return;
+    const pages = currentPages();
+    if (currentPageIdx >= pages.length) currentPageIdx = pages.length - 1;
+
+    const locationEl = document.getElementById('current-location');
+    locationEl.innerHTML = section.subcategory
+      ? `${section.category} <span class="sub">— ${section.subcategory}</span>`
+      : section.category;
+
+    const contentEl = document.getElementById('page-content');
+
+    const buildGrid = () => {
+      const grid = document.createElement('div');
+      grid.className = 'product-grid';
+      for (const item of pages[currentPageIdx]) grid.appendChild(renderCard(item));
+      return grid;
+    };
+
+    const swap = () => {
+      contentEl.innerHTML = '';
+      contentEl.appendChild(buildGrid());
+      contentEl.classList.remove('exit-left', 'exit-right');
+      if (direction) {
+        contentEl.classList.add(direction === 'next' ? 'exit-right' : 'exit-left');
+        // force reflow so the browser registers the starting position
+        void contentEl.offsetWidth;
+        contentEl.classList.remove('exit-left', 'exit-right');
+        contentEl.classList.add('enter');
+      }
+    };
+
+    if (direction) {
+      contentEl.classList.add(direction === 'next' ? 'exit-left' : 'exit-right');
+      setTimeout(swap, 220);
+    } else {
+      swap();
+    }
+
+    document.getElementById('prev-arrow').classList.toggle(
+      'disabled', currentSectionIdx === 0 && currentPageIdx === 0
+    );
+    document.getElementById('next-arrow').classList.toggle(
+      'disabled', currentSectionIdx === sections.length - 1 && currentPageIdx === pages.length - 1
+    );
+
+    const dotsEl = document.getElementById('page-dots');
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < pages.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === currentPageIdx ? ' active' : '');
+      dotsEl.appendChild(dot);
+    }
+    document.getElementById('page-caption').textContent = `Page ${currentPageIdx + 1} of ${pages.length}`;
+  }
+
+  function nextPage() {
+    const pages = currentPages();
+    if (currentPageIdx < pages.length - 1) {
+      currentPageIdx++;
+    } else if (currentSectionIdx < sections.length - 1) {
+      currentSectionIdx++;
+      currentPageIdx = 0;
+    } else {
+      return;
+    }
+    renderCurrentPage('next');
+  }
+
+  function prevPage() {
+    if (currentPageIdx > 0) {
+      currentPageIdx--;
+    } else if (currentSectionIdx > 0) {
+      currentSectionIdx--;
+      currentPageIdx = currentPages().length - 1;
+    } else {
+      return;
+    }
+    renderCurrentPage('prev');
+  }
+
+  // Touch swipe support (mobile): swipe left = next page, swipe right = previous page.
+  let touchStartX = null;
+  const viewport = document.getElementById('page-viewport');
+  viewport.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  viewport.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const SWIPE_THRESHOLD = 50;
+    if (deltaX <= -SWIPE_THRESHOLD) nextPage();
+    else if (deltaX >= SWIPE_THRESHOLD) prevPage();
+    touchStartX = null;
+  }, { passive: true });
+
+  // Search switches to a flat, unpaged list of matches — clearing it returns
+  // to browsing wherever the page-flip was left off.
+  function applyFilters() {
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    if (!q) {
+      document.getElementById('current-location').style.display = '';
+      document.querySelector('.flip-row').style.display = 'flex';
+      document.getElementById('page-dots').style.display = 'flex';
+      document.getElementById('page-caption').style.display = '';
+      renderCurrentPage(null);
+      return;
+    }
+
+    const matches = allItems.filter(i => itemMatchesCity(i) && i.item_number.toLowerCase().includes(q));
+
+    document.getElementById('current-location').style.display = 'none';
+    document.querySelector('.flip-row').style.display = 'none';
+    document.getElementById('page-dots').style.display = 'none';
+    document.getElementById('page-caption').style.display = 'none';
+
+    const contentEl = document.getElementById('page-content');
+    const empty = document.getElementById('empty');
+    if (matches.length === 0) {
+      empty.style.display = 'block';
+      empty.style.position = 'static';
+    } else {
+      empty.style.display = 'none';
+    }
+
+    const grid = document.createElement('div');
+    grid.className = 'product-grid';
+    for (const item of matches) grid.appendChild(renderCard(item));
+
+    // Render search results directly into the main content area, outside
+    // the page-flip viewport, so pagination doesn't apply to them.
+    let searchResults = document.getElementById('search-results');
+    if (!searchResults) {
+      searchResults = document.createElement('div');
+      searchResults.id = 'search-results';
+      document.getElementById('page-viewport').after(searchResults);
+    }
+    searchResults.innerHTML = '';
+    searchResults.appendChild(grid);
+    document.getElementById('page-viewport').style.display = 'none';
+    document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = 'none');
+  }
+
+  document.getElementById('search').addEventListener('input', () => {
+    const q = document.getElementById('search').value.trim();
+    if (!q) {
+      const searchResults = document.getElementById('search-results');
+      if (searchResults) searchResults.remove();
+      document.getElementById('page-viewport').style.display = '';
+      document.querySelectorAll('.flip-arrow').forEach(a => a.style.display = '');
+    }
+    applyFilters();
   });
 
   loadCatalogue();
