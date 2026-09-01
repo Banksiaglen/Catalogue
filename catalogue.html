@@ -94,21 +94,27 @@
     color: var(--muted);
   }
 
-  .flip-row { display: flex; align-items: center; gap: 12px; }
+  .flip-row { display: flex; align-items: flex-start; gap: 12px; }
   .flip-arrow {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--border);
     border-radius: 50%;
     background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: pointer;
     user-select: none;
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   }
+  #prev-arrow { left: 244px; }
+  #next-arrow { right: 24px; }
   .flip-arrow:hover { background: var(--bg); }
   .flip-arrow.disabled { opacity: 0.3; cursor: default; pointer-events: none; }
 
@@ -233,6 +239,9 @@
     }
     #sidebar.open { transform: translateX(0); }
     main { padding: 16px; }
+    #prev-arrow { left: 12px; }
+    #next-arrow { right: 12px; }
+    .flip-arrow { width: 38px; height: 38px; font-size: 1.1rem; }
   }
 </style>
 </head>
