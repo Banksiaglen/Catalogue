@@ -257,42 +257,42 @@
     border: 1px solid var(--border);
     box-shadow: 0 4px 24px rgba(0,0,0,0.12);
     transform-origin: center center;
-    padding: 48px;
+    padding: 48px 48px 60px;
     box-sizing: border-box;
     position: relative;
     transition: opacity 0.2s ease;
+    display: flex;
+    flex-direction: column;
   }
   #page-sheet.transitioning { opacity: 0.4; }
 
-  #sheet-heading {
-    height: 64px;
-    visibility: hidden;
+  #sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px 12px;
+    flex: 1;
+    min-height: 0;
   }
-  #sheet-heading .h-cat {
+  .sheet-heading-row { grid-column: 1 / -1; padding-bottom: 2px; }
+  .h-cat-inline {
     font-size: 28px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -0.01em;
     text-transform: lowercase;
   }
-  #sheet-heading .h-cat::first-letter { text-transform: uppercase; }
-  #sheet-heading .h-sub {
+  .h-cat-inline::first-letter { text-transform: uppercase; }
+  .h-sub-inline {
     font-size: 15px;
     color: var(--muted);
     margin-top: 2px;
   }
 
-  #sheet-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    gap: 12px;
-    height: 1032px;
-  }
-  #sheet-grid .sheet-card { display: flex; flex-direction: column; }
+  #sheet-grid .sheet-card { display: flex; flex-direction: column; min-height: 0; }
   #sheet-grid .sheet-card img {
     width: 100%;
     flex: 1;
+    min-height: 0;
     object-fit: contain;
     background: #fafafa;
     border: 1px solid #f0f0f0;
@@ -488,7 +488,6 @@
         <div class="flip-arrow prev-arrow" onclick="prevPage()">‹</div>
         <div id="page-scale-wrapper">
           <div id="page-sheet">
-            <div id="sheet-heading"></div>
             <div id="sheet-grid"></div>
             <div id="sheet-pagenum"></div>
           </div>
@@ -534,10 +533,10 @@
 
   let allItems = [];
   let selectedCity = '';
-  let sections = [];        // [{category, subcategory, items}]
-  let currentSectionIdx = 0;
+  let globalPages = [];      // built by buildGlobalPages() — continuous flow across all sections
   let currentPageIdx = 0;
-  const PAGE_SIZE = 30; // fixed 5 columns x 6 rows, matches the print layout
+  const ROWS = 6;
+  const COLS = 5;
 
   function slugify(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -570,8 +569,6 @@
     }
     select.addEventListener('change', (e) => {
       selectedCity = e.target.value;
-      currentSectionIdx = 0;
-      currentPageIdx = 0;
       rebuildSections();
     });
   }
@@ -631,10 +628,11 @@
   }
 
   function jumpToSection(catName, subName) {
-    const idx = sections.findIndex(s => s.category === catName && s.subcategory === subName);
+    const idx = globalPages.findIndex(page =>
+      page.rows.some(r => r.type === 'heading' && r.category === catName && (r.subcategory || null) === (subName || null))
+    );
     if (idx === -1) return; // e.g. filtered out by current city selection
-    currentSectionIdx = idx;
-    currentPageIdx = 0;
+    currentPageIdx = idx;
     renderCurrentPage(null);
     document.getElementById('sidebar').classList.remove('open');
   }
@@ -643,62 +641,102 @@
     return !selectedCity || !item.city || item.city === selectedCity;
   }
 
-  function rebuildSections() {
-    const filtered = allItems.filter(itemMatchesCity);
+  // Builds a continuous stream of pages: every page holds up to ROWS rows,
+  // each row either a heading (auto height) or up to COLS product cells
+  // (equal height). Whenever there's room left on a page, the next
+  // section's items flow straight in rather than leaving blank space —
+  // matching how an oversized section already spans multiple pages, just
+  // applied in both directions.
+  function buildGlobalPages(items) {
+    const pages = [];
+    let currentPage = [];
+    let currentRowCells = [];
+    let rowsUsed = 0;
+    let lastKey = null;
+    let lastCategory = null;
 
-    // Preserves first-seen order rather than alphabetizing.
-    const catMap = new Map();
-    for (const item of filtered) {
-      const cat = item.category || 'Uncategorized';
-      const sub = item.subcategory || null;
-      if (!catMap.has(cat)) catMap.set(cat, new Map());
-      const subMap = catMap.get(cat);
-      const subKey = sub === null ? '\0direct' : sub;
-      if (!subMap.has(subKey)) subMap.set(subKey, []);
-      subMap.get(subKey).push(item);
+    function flushItemRow() {
+      if (currentRowCells.length > 0) {
+        currentPage.push({ type: 'items', cells: currentRowCells });
+        currentRowCells = [];
+        rowsUsed++;
+      }
+    }
+    function finishPage() {
+      flushItemRow();
+      if (currentPage.length > 0) {
+        pages.push({ rows: currentPage });
+        currentPage = [];
+      }
+      rowsUsed = 0;
     }
 
-    sections = [];
-    for (const [cat, subMap] of catMap) {
-      for (const [subKey, subItems] of subMap) {
-        sections.push({
-          category: cat,
-          subcategory: subKey === '\0direct' ? null : subKey,
-          items: subItems,
-        });
+    for (const item of items) {
+      const cat = item.category || 'Uncategorized';
+      const sub = item.subcategory || null;
+      const key = cat + '\u0001' + (sub || '');
+
+      if (key !== lastKey) {
+        flushItemRow();
+        if (rowsUsed >= ROWS) finishPage();
+        currentPage.push({ type: 'heading', category: cat, subcategory: sub, isNewMain: cat !== lastCategory });
+        rowsUsed++;
+        lastCategory = cat;
+        lastKey = key;
+        if (rowsUsed >= ROWS) finishPage();
+      }
+
+      currentRowCells.push(item);
+      if (currentRowCells.length === COLS) {
+        flushItemRow();
+        if (rowsUsed >= ROWS) finishPage();
+      }
+    }
+    finishPage();
+
+    // Tag each page with whichever category/subcategory is showing at its
+    // very top, for sidebar highlighting — this is the heading on that page
+    // if it starts with one, otherwise whatever section carried over.
+    for (const page of pages) {
+      const first = page.rows[0];
+      if (first.type === 'heading') {
+        page.topCategory = first.category;
+        page.topSubcategory = first.subcategory;
+      } else {
+        page.topCategory = first.cells[0].category || 'Uncategorized';
+        page.topSubcategory = first.cells[0].subcategory || null;
       }
     }
 
-    if (currentSectionIdx >= sections.length) currentSectionIdx = 0;
-    currentPageIdx = 0;
-
-    document.getElementById('empty').style.display = sections.length === 0 ? 'block' : 'none';
-    document.getElementById('flipbook-area').style.display = sections.length === 0 ? 'none' : 'flex';
-
-    if (sections.length > 0) renderCurrentPage(null);
+    return pages;
   }
 
-  function currentPages() {
-    const items = sections[currentSectionIdx]?.items || [];
-    const pages = [];
-    for (let i = 0; i < items.length; i += PAGE_SIZE) pages.push(items.slice(i, i + PAGE_SIZE));
-    return pages.length > 0 ? pages : [[]];
+  function rebuildSections() {
+    const filtered = allItems.filter(itemMatchesCity);
+
+    globalPages = buildGlobalPages(filtered);
+    currentPageIdx = 0;
+
+    document.getElementById('empty').style.display = globalPages.length === 0 ? 'block' : 'none';
+    document.getElementById('flipbook-area').style.display = globalPages.length === 0 ? 'none' : 'flex';
+
+    if (globalPages.length > 0) renderCurrentPage(null);
   }
 
   function highlightActiveSidebarItem() {
     document.querySelectorAll('.active-cat').forEach(el => el.classList.remove('active-cat'));
     document.querySelectorAll('.active-sub').forEach(el => el.classList.remove('active-sub'));
 
-    const section = sections[currentSectionIdx];
-    if (!section) return;
+    const page = globalPages[currentPageIdx];
+    if (!page) return;
 
-    document.querySelectorAll(`.sidebar-cat-name[data-cat="${CSS.escape(section.category)}"]`)
+    document.querySelectorAll(`.sidebar-cat-name[data-cat="${CSS.escape(page.topCategory)}"]`)
       .forEach(el => el.classList.add('active-cat'));
 
-    if (section.subcategory) {
+    if (page.topSubcategory) {
       document.querySelectorAll('.sidebar-cat.expanded').forEach(el => el.classList.remove('expanded'));
       document.querySelectorAll(
-        `.sidebar-sub-name[data-cat="${CSS.escape(section.category)}"][data-sub="${CSS.escape(section.subcategory)}"]`
+        `.sidebar-sub-name[data-cat="${CSS.escape(page.topCategory)}"][data-sub="${CSS.escape(page.topSubcategory)}"]`
       ).forEach(el => {
         el.classList.add('active-sub');
         el.closest('.sidebar-cat')?.classList.add('expanded');
@@ -723,45 +761,43 @@
   });
 
   function renderCurrentPage(direction) {
-    const section = sections[currentSectionIdx];
-    if (!section) return;
-    const pages = currentPages();
-    if (currentPageIdx >= pages.length) currentPageIdx = pages.length - 1;
+    const page = globalPages[currentPageIdx];
+    if (!page) return;
 
     const sheet = document.getElementById('page-sheet');
 
     const build = () => {
-      // Heading — only on the first page of a section, matching print.
-      const headingEl = document.getElementById('sheet-heading');
-      if (currentPageIdx === 0) {
-        headingEl.innerHTML = section.subcategory
-          ? `<div class="h-cat">${section.category}</div><div class="h-sub">${section.subcategory}</div>`
-          : `<div class="h-cat">${section.category}</div>`;
-        headingEl.style.visibility = 'visible';
-      } else {
-        headingEl.innerHTML = '';
-        headingEl.style.visibility = 'hidden';
-      }
-
-      // Grid — always exactly 5x6 cells, empty cells left blank.
       const gridEl = document.getElementById('sheet-grid');
       gridEl.innerHTML = '';
-      const pageItems = pages[currentPageIdx];
-      for (let i = 0; i < PAGE_SIZE; i++) {
-        const item = pageItems[i];
-        const cell = document.createElement('div');
-        cell.className = 'sheet-card';
-        if (item) {
-          cell.innerHTML = `
-            <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
-            <div class="sheet-code">${item.item_number}</div>
-          `;
+      gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : '1fr').join(' ');
+
+      for (const row of page.rows) {
+        if (row.type === 'heading') {
+          const headingRow = document.createElement('div');
+          headingRow.className = 'sheet-heading-row';
+          headingRow.innerHTML = row.isNewMain
+            ? `<div class="h-cat-inline">${row.category}</div>${row.subcategory ? `<div class="h-sub-inline">${row.subcategory}</div>` : ''}`
+            : `<div class="h-sub-inline">${row.subcategory || row.category}</div>`;
+          gridEl.appendChild(headingRow);
+        } else {
+          for (const item of row.cells) {
+            const cell = document.createElement('div');
+            cell.className = 'sheet-card';
+            cell.innerHTML = `
+              <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+              <div class="sheet-code">${item.item_number}</div>
+            `;
+            gridEl.appendChild(cell);
+          }
+          // Pad a short trailing row (only happens on the very last row of
+          // the very last page) so cells still align to the 5-column grid.
+          for (let i = row.cells.length; i < COLS; i++) {
+            gridEl.appendChild(document.createElement('div'));
+          }
         }
-        gridEl.appendChild(cell);
       }
 
-      // Page number — counted continuously across the whole catalogue.
-      document.getElementById('sheet-pagenum').textContent = computeGlobalPageNumber();
+      document.getElementById('sheet-pagenum').textContent = currentPageIdx + 1;
     };
 
     if (direction) {
@@ -774,48 +810,25 @@
       build();
     }
 
-    document.querySelectorAll('.prev-arrow').forEach(el => el.classList.toggle(
-      'disabled', currentSectionIdx === 0 && currentPageIdx === 0
-    ));
-    document.querySelectorAll('.next-arrow').forEach(el => el.classList.toggle(
-      'disabled', currentSectionIdx === sections.length - 1 && currentPageIdx === pages.length - 1
-    ));
+    document.querySelectorAll('.prev-arrow').forEach(el => el.classList.toggle('disabled', currentPageIdx === 0));
+    document.querySelectorAll('.next-arrow').forEach(el => el.classList.toggle('disabled', currentPageIdx === globalPages.length - 1));
 
     highlightActiveSidebarItem();
     fitPageSheet();
   }
 
-  function computeGlobalPageNumber() {
-    let pageNum = 0;
-    for (let i = 0; i < currentSectionIdx; i++) {
-      pageNum += Math.max(1, Math.ceil(sections[i].items.length / PAGE_SIZE));
-    }
-    return pageNum + currentPageIdx + 1;
-  }
-
   function nextPage() {
-    const pages = currentPages();
-    if (currentPageIdx < pages.length - 1) {
+    if (currentPageIdx < globalPages.length - 1) {
       currentPageIdx++;
-    } else if (currentSectionIdx < sections.length - 1) {
-      currentSectionIdx++;
-      currentPageIdx = 0;
-    } else {
-      return;
+      renderCurrentPage('next');
     }
-    renderCurrentPage('next');
   }
 
   function prevPage() {
     if (currentPageIdx > 0) {
       currentPageIdx--;
-    } else if (currentSectionIdx > 0) {
-      currentSectionIdx--;
-      currentPageIdx = currentPages().length - 1;
-    } else {
-      return;
+      renderCurrentPage('prev');
     }
-    renderCurrentPage('prev');
   }
 
   // Touch swipe support (mobile): swipe left = next page, swipe right = previous page.
