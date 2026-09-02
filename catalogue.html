@@ -283,7 +283,8 @@
   }
   .h-cat-inline::first-letter { text-transform: uppercase; }
   .h-sub-inline {
-    font-size: 15px;
+    font-size: 12px;
+    font-weight: 700;
     color: var(--muted);
     margin-top: 2px;
   }
@@ -294,15 +295,49 @@
     flex: 1;
     min-height: 0;
     object-fit: contain;
-    background: #fafafa;
-    border: 1px solid #f0f0f0;
-    border-radius: 6px;
+    background: #ffffff;
   }
   #sheet-grid .sheet-code {
     text-align: center;
     font-size: 12px;
     font-weight: 700;
     margin-top: 4px;
+  }
+
+  .toc-wrap { padding-top: 20px; }
+  .toc-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .toc-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+  }
+  .toc-row:hover .toc-name { color: var(--accent); }
+  .toc-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-transform: lowercase;
+    flex-shrink: 0;
+  }
+  .toc-name::first-letter { text-transform: uppercase; }
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 4px;
+  }
+  .toc-page {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
   }
 
   #sheet-pagenum {
@@ -629,7 +664,7 @@
 
   function jumpToSection(catName, subName) {
     const idx = globalPages.findIndex(page =>
-      page.rows.some(r => r.type === 'heading' && r.category === catName && (r.subcategory || null) === (subName || null))
+      page.rows && page.rows.some(r => r.type === 'heading' && r.category === catName && (r.subcategory || null) === (subName || null))
     );
     if (idx === -1) return; // e.g. filtered out by current city selection
     currentPageIdx = idx;
@@ -678,12 +713,13 @@
 
       if (key !== lastKey) {
         flushItemRow();
-        if (rowsUsed >= ROWS) finishPage();
+        // Reserve room for the heading AND at least one product row after it —
+        // if there isn't space for both, start a fresh page for this section.
+        if (rowsUsed >= ROWS - 1) finishPage();
         currentPage.push({ type: 'heading', category: cat, subcategory: sub, isNewMain: cat !== lastCategory });
         rowsUsed++;
         lastCategory = cat;
         lastKey = key;
-        if (rowsUsed >= ROWS) finishPage();
       }
 
       currentRowCells.push(item);
@@ -711,10 +747,29 @@
     return pages;
   }
 
+  // Builds a Table of Contents page listing only the main category headings
+  // (not subcategories) and the page each one starts on. contentPages are
+  // 0-indexed here; +2 converts to the final page number (1 for the TOC
+  // page itself, +1 more for 1-based numbering).
+  function buildTocPage(contentPages) {
+    const entries = [];
+    const seen = new Set();
+    contentPages.forEach((page, idx) => {
+      for (const row of page.rows) {
+        if (row.type === 'heading' && row.isNewMain && !seen.has(row.category)) {
+          seen.add(row.category);
+          entries.push({ category: row.category, pageNumber: idx + 2 });
+        }
+      }
+    });
+    return { isToc: true, entries };
+  }
+
   function rebuildSections() {
     const filtered = allItems.filter(itemMatchesCity);
 
-    globalPages = buildGlobalPages(filtered);
+    const contentPages = buildGlobalPages(filtered);
+    globalPages = contentPages.length > 0 ? [buildTocPage(contentPages), ...contentPages] : [];
     currentPageIdx = 0;
 
     document.getElementById('empty').style.display = globalPages.length === 0 ? 'block' : 'none';
@@ -728,7 +783,7 @@
     document.querySelectorAll('.active-sub').forEach(el => el.classList.remove('active-sub'));
 
     const page = globalPages[currentPageIdx];
-    if (!page) return;
+    if (!page || page.isToc) return;
 
     document.querySelectorAll(`.sidebar-cat-name[data-cat="${CSS.escape(page.topCategory)}"]`)
       .forEach(el => el.classList.add('active-cat'));
@@ -769,6 +824,38 @@
     const build = () => {
       const gridEl = document.getElementById('sheet-grid');
       gridEl.innerHTML = '';
+
+      if (page.isToc) {
+        gridEl.style.gridTemplateRows = '';
+        gridEl.style.gridTemplateColumns = '1fr';
+        const tocWrap = document.createElement('div');
+        tocWrap.className = 'toc-wrap';
+        const title = document.createElement('div');
+        title.className = 'toc-title';
+        title.textContent = 'Contents';
+        tocWrap.appendChild(title);
+
+        for (const entry of page.entries) {
+          const row = document.createElement('div');
+          row.className = 'toc-row';
+          row.innerHTML = `
+            <span class="toc-name">${entry.category}</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">${entry.pageNumber}</span>
+          `;
+          row.onclick = () => {
+            currentPageIdx = entry.pageNumber - 1;
+            renderCurrentPage(null);
+          };
+          tocWrap.appendChild(row);
+        }
+        gridEl.appendChild(tocWrap);
+
+        document.getElementById('sheet-pagenum').textContent = currentPageIdx + 1;
+        return;
+      }
+
+      gridEl.style.gridTemplateColumns = '';
       gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : '1fr').join(' ');
 
       for (const row of page.rows) {
