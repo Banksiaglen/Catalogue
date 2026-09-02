@@ -422,19 +422,46 @@
     0%, 35% { box-shadow: 0 0 0 3px var(--accent); }
     100% { box-shadow: 0 0 0 3px transparent; }
   }
-  #sheet-grid .sheet-card img {
-    width: 100%;
-    max-height: 100%;
+  #sheet-grid .sheet-img-wrap {
+    flex: 1;
     min-height: 0;
-    object-fit: contain;
-    object-position: center bottom;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff;
+  }
+  #sheet-grid .sheet-img-wrap img {
+    display: block;
+    /* Deliberately not using object-fit: contain here — html2canvas (used
+       for the print PDF export) can mis-render object-fit and stretch the
+       image to fill its box instead of preserving aspect ratio, which
+       skewed product photos in the exported PDF even though they looked
+       fine on-screen. max-width/max-height + width/height:auto achieves
+       the same "shrink to fit, keep aspect" result using plain image
+       sizing, which html2canvas has always handled correctly. */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    /* Many source photos have generous white padding around a small
+       product (keychains, pins, etc.), which makes them look tiny even
+       though the cell itself is a normal size. A modest uniform zoom
+       trims that outer margin so the product fills more of its cell —
+       safe for the vast majority of photos, since the crop only removes
+       a thin band from every edge rather than targeting a fixed region. */
+    transform: scale(1.16);
   }
   #sheet-grid .sheet-code {
     text-align: center;
     font-size: 12px;
     font-weight: 700;
     margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   .toc-wrap { padding-top: 20px; }
@@ -533,23 +560,62 @@
   .about-footer {
     margin-top: auto;
     text-align: center;
-    padding-top: 26px;
+    padding-top: 22px;
   }
   .about-footer .about-biz {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
-  .about-footer .about-addr {
+  .about-footer .about-abn {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .about-contact-list {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    text-align: left;
+  }
+  .about-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
     color: var(--muted);
-    margin-bottom: 2px;
   }
-  .about-footer .about-links {
-    font-size: 12px;
+  .about-contact-row i.ti {
+    width: 16px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 14px;
     color: var(--muted);
-    margin-top: 16px;
-    line-height: 1.7;
+  }
+  .about-contact-row.about-socials-row i.ti {
+    width: auto;
+    font-size: 15px;
+  }
+  .about-contact-row.about-socials-row i.ti + i.ti {
+    margin-left: -2px;
+  }
+  .about-contact-row .about-link {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .about-footer-divider {
+    width: 200px;
+    border-top: 1px solid var(--border);
+    margin: 16px auto;
+  }
+  .about-footer-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 8px;
   }
   .blank-page { height: 100%; }
 
@@ -1183,9 +1249,28 @@
 
             <div class="about-footer">
               <div class="about-biz">Banksia Glen Australia Pty Ltd</div>
-              <div class="about-addr">12 Childs Rd, Chipping Norton NSW 2170</div>
-              <div class="about-addr">ABN 79 667 803 465</div>
-              <div class="about-links">www.banksiaglen.com<br>www.loveaus.com.au</div>
+              <div class="about-abn">ABN 79 667 803 465</div>
+
+              <div class="about-contact-list">
+                <div class="about-contact-row"><i class="ti ti-map-pin"></i><span>12 Childs Rd, Chipping Norton NSW 2170</span></div>
+                <div class="about-contact-row"><i class="ti ti-phone"></i><span>(02) 9728 5788</span></div>
+                <div class="about-contact-row"><i class="ti ti-mail"></i><span>info@banksiaglen.com</span></div>
+                <div class="about-contact-row"><i class="ti ti-brand-whatsapp"></i><span>+61 432 737 580</span></div>
+                <div class="about-contact-row"><i class="ti ti-brand-wechat"></i><span>banksiaglen</span></div>
+                <div class="about-contact-row"><i class="ti ti-world"></i><span class="about-link">banksiaglen.com</span></div>
+              </div>
+
+              <div class="about-footer-divider"></div>
+              <div class="about-footer-label">About Us</div>
+
+              <div class="about-contact-list">
+                <div class="about-contact-row"><i class="ti ti-world"></i><span class="about-link">loveaus.com.au</span></div>
+                <div class="about-contact-row about-socials-row">
+                  <i class="ti ti-brand-instagram"></i>
+                  <i class="ti ti-brand-tiktok"></i>
+                  <span>@iloveausofficial</span>
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -1254,7 +1339,9 @@
             cell.className = 'sheet-card';
             cell.dataset.itemNumber = item.item_number;
             cell.innerHTML = `
-              <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+              <div class="sheet-img-wrap">
+                <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+              </div>
               <div class="sheet-code">${item.item_number}</div>
             `;
             gridEl.appendChild(cell);
@@ -1474,6 +1561,7 @@
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
   const PDF_DOWNLOAD_PASSWORD = "2170";
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033"; // same access, but skips the "Downloaded <date>" stamp on every page
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1488,7 +1576,10 @@
     const val = document.getElementById('pdf-password-input').value;
     if (val === PDF_DOWNLOAD_PASSWORD) {
       closePdfPasswordModal();
-      generatePrintPdf();
+      generatePrintPdf({ includeDownloadStamp: true });
+    } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
+      closePdfPasswordModal();
+      generatePrintPdf({ includeDownloadStamp: false });
     } else {
       document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
     }
@@ -1541,7 +1632,27 @@
     }
   }
 
-  async function generatePrintPdf() {
+  // Rough encoded byte size of a base64 data URI (base64 is ~4/3 the size
+  // of the raw bytes it encodes).
+  function estimateBase64Bytes(dataUri) {
+    const base64 = dataUri.slice(dataUri.indexOf(',') + 1);
+    return Math.floor(base64.length * 0.75);
+  }
+
+  // Picks a page to use for calibrating JPEG quality against the file-size
+  // cap. Deliberately skips the About/blank/Contents pages — they're
+  // text-only and encode far smaller than a photo-heavy product grid, so
+  // using one as the sample would badly underestimate the final file size.
+  function findSampleGridPageIndex() {
+    for (let i = 0; i < globalPages.length; i++) {
+      const p = globalPages[i];
+      if (!p.isAbout && !p.isBlank && !p.isToc) return i;
+    }
+    return 0;
+  }
+
+  async function generatePrintPdf(options) {
+    const { includeDownloadStamp = true } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1575,9 +1686,53 @@
     const PAGE_W = TRIM_W + OFFSET * 2;
     const PAGE_H = TRIM_H + OFFSET * 2;
 
+    // scale 4 captures at roughly 400dpi for this trim size — a clear step
+    // up in sharpness from a lower capture scale. File size is controlled
+    // separately below (via JPEG quality), so raising resolution here
+    // doesn't fight the size cap.
+    const CAPTURE_SCALE = 4;
+    const MAX_FILE_BYTES = 100 * 1024 * 1024; // hard cap requested
+    const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
+    const QUALITY_START = 0.92;
+    const QUALITY_FLOOR = 0.45;
+    const QUALITY_STEP = 0.07;
+
     const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: 'portrait' });
 
     try {
+      // --- Calibration pass -------------------------------------------------
+      // Capture one representative product-grid page and use its JPEG size
+      // at various qualities to extrapolate the full export's size, so we
+      // can pick the highest quality that should still land under the cap.
+      // This avoids holding every page's canvas in memory at once (which
+      // would be enormous at this resolution across 100+ pages) while still
+      // being size-aware.
+      progressText.textContent = 'Calibrating quality for file size…';
+      const sampleIdx = findSampleGridPageIndex();
+      currentPageIdx = sampleIdx;
+      renderCurrentPage(null);
+      await waitForImages(document.getElementById('sheet-grid'));
+      await new Promise(r => setTimeout(r, 25));
+
+      const sampleCanvas = await html2canvas(sheet, {
+        scale: CAPTURE_SCALE,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+      });
+
+      let quality = QUALITY_START;
+      while (quality > QUALITY_FLOOR) {
+        const sampleBytes = estimateBase64Bytes(sampleCanvas.toDataURL('image/jpeg', quality));
+        const estimatedTotal = sampleBytes * globalPages.length;
+        if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
+        quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
+      }
+      quality = Math.max(quality, QUALITY_FLOOR);
+
+      // --- Main pass ----------------------------------------------------
+      const downloadedStamp = `Downloaded ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
         currentPageIdx = i;
@@ -1586,15 +1741,12 @@
         await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
 
         const canvas = await html2canvas(sheet, {
-          // scale 3 still captures at ~300dpi for this trim size (the
-          // standard minimum for commercial print) while being noticeably
-          // faster and producing smaller files than the previous scale 4.
-          scale: 3,
+          scale: CAPTURE_SCALE,
           backgroundColor: '#ffffff',
           useCORS: true,
           logging: false
         });
-        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const imgData = canvas.toDataURL('image/jpeg', quality);
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
 
@@ -1605,6 +1757,15 @@
         pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
 
         drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
+
+        // Small grey "Downloaded <date>" stamp, bottom-left, inside the
+        // trim area so it stays on the page after cutting.
+        if (includeDownloadStamp) {
+          pdf.setFont('helvetica', 'normal');
+          pdf.setFontSize(9);
+          pdf.setTextColor(140, 140, 140);
+          pdf.text(downloadedStamp, OFFSET + 8, OFFSET + TRIM_H - 8);
+        }
       }
 
       pdf.save('BGA-Catalogue-print-ready.pdf');
