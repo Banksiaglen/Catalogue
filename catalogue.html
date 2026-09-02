@@ -61,6 +61,87 @@
     background-repeat: no-repeat, no-repeat;
     background-position: 8px center, right 10px center;
   }
+  #download-pdf-btn {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--card-bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+  }
+  #download-pdf-btn:hover { background: var(--bg); }
+  #download-pdf-btn i { font-size: 15px; color: var(--muted); }
+
+  .pdf-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .pdf-modal-overlay.open { display: flex; }
+  .pdf-modal {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 24px;
+    width: 320px;
+    max-width: 100%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .pdf-modal h3 { margin: 0 0 16px; font-size: 1rem; }
+  .pdf-modal input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  #pdf-password-error {
+    color: #b3261e;
+    font-size: 0.85rem;
+    min-height: 1.2em;
+    margin-top: 8px;
+  }
+  .pdf-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .pdf-modal-actions button {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+  }
+  .pdf-modal-cancel { background: var(--card-bg); color: var(--text); }
+  .pdf-modal-confirm { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .pdf-progress-modal { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .pdf-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: pdf-spin 0.8s linear infinite;
+  }
+  @keyframes pdf-spin { to { transform: rotate(360deg); } }
+  .pdf-progress-text { font-size: 0.9rem; color: var(--text); }
+
   .layout { display: flex; align-items: flex-start; }
   #sidebar {
     width: 220px;
@@ -120,6 +201,11 @@
   }
   .sidebar-sub-name:hover { background: var(--bg); color: var(--text); }
   .sidebar-cat-name.active-cat { color: var(--accent); }
+  .sidebar-static {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
   .sidebar-sub-name.active-sub { color: var(--accent); font-weight: 600; background: var(--bg); }
 
   .sidebar-footer {
@@ -274,6 +360,7 @@
     min-height: 0;
   }
   .sheet-heading-row { grid-column: 1 / -1; padding-bottom: 2px; }
+  .sheet-heading-row:not(:first-child) { margin-top: 22px; }
   .h-cat-inline {
     font-size: 28px;
     font-weight: 700;
@@ -283,18 +370,19 @@
   }
   .h-cat-inline::first-letter { text-transform: uppercase; }
   .h-sub-inline {
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--muted);
-    margin-top: 2px;
+    margin-top: 4px;
   }
 
-  #sheet-grid .sheet-card { display: flex; flex-direction: column; min-height: 0; }
+  #sheet-grid .sheet-card { display: flex; flex-direction: column; min-height: 0; justify-content: flex-start; }
   #sheet-grid .sheet-card img {
     width: 100%;
-    flex: 1;
+    max-height: 100%;
     min-height: 0;
     object-fit: contain;
+    object-position: center bottom;
     background: #ffffff;
   }
   #sheet-grid .sheet-code {
@@ -315,7 +403,7 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
-    padding: 11px 0;
+    padding: 11px 0 11px 20px;
     border-bottom: 1px solid #f0f0f0;
     cursor: pointer;
   }
@@ -330,8 +418,6 @@
   .toc-name::first-letter { text-transform: uppercase; }
   .toc-dots {
     flex: 1;
-    border-bottom: 1px dotted #ccc;
-    margin-bottom: 4px;
   }
   .toc-page {
     font-size: 14px;
@@ -339,6 +425,7 @@
     color: var(--muted);
     flex-shrink: 0;
   }
+
 
   #sheet-pagenum {
     position: absolute;
@@ -350,6 +437,56 @@
     font-weight: 600;
     color: var(--muted);
   }
+
+  .about-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #1a1a1a;
+    padding-top: 8px;
+  }
+  .about-page h2.about-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin: 0 0 20px;
+  }
+  .about-section { margin-bottom: 16px; }
+  .about-section h3 {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0 0 6px;
+  }
+  .about-section p {
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .about-heart { color: var(--accent); }
+  .about-footer {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 20px;
+  }
+  .about-footer .about-biz {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .about-footer .about-addr {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .about-footer .about-links {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+  .blank-page { height: 100%; }
 
   @media (max-width: 768px) {
     #flipbook-area { height: calc(100vh - 200px); gap: 8px; }
@@ -464,7 +601,29 @@
       <select id="city-filter">
         <option value="">All cities</option>
       </select>
+      <button id="download-pdf-btn" onclick="openPdfPasswordModal()" title="Download print-ready PDF">
+        <i class="ti ti-download"></i> Download PDF
+      </button>
       <input id="search" type="text" placeholder="Search item number...">
+    </div>
+  </div>
+
+  <div id="pdf-password-overlay" class="pdf-modal-overlay">
+    <div class="pdf-modal">
+      <h3>Enter password to download the print-ready PDF</h3>
+      <input id="pdf-password-input" type="password" placeholder="Password" autocomplete="off">
+      <div id="pdf-password-error"></div>
+      <div class="pdf-modal-actions">
+        <button class="pdf-modal-cancel" onclick="closePdfPasswordModal()">Cancel</button>
+        <button class="pdf-modal-confirm" onclick="checkPdfPassword()">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pdf-progress-overlay" class="pdf-modal-overlay">
+    <div class="pdf-modal pdf-progress-modal">
+      <div class="pdf-spinner"></div>
+      <div class="pdf-progress-text">Preparing print-ready PDF…</div>
     </div>
   </div>
 
@@ -621,6 +780,25 @@
     const tree = document.getElementById('sidebar-tree');
     tree.innerHTML = '';
 
+    const staticWrap = document.createElement('div');
+    staticWrap.className = 'sidebar-static';
+
+    const introLabel = document.createElement('div');
+    introLabel.className = 'sidebar-cat-name sidebar-static-link';
+    introLabel.dataset.staticPage = 'about';
+    introLabel.textContent = 'Introduction';
+    introLabel.onclick = () => jumpToStaticPage('about');
+    staticWrap.appendChild(introLabel);
+
+    const contentsLabel = document.createElement('div');
+    contentsLabel.className = 'sidebar-cat-name sidebar-static-link';
+    contentsLabel.dataset.staticPage = 'toc';
+    contentsLabel.textContent = 'Contents';
+    contentsLabel.onclick = () => jumpToStaticPage('toc');
+    staticWrap.appendChild(contentsLabel);
+
+    tree.appendChild(staticWrap);
+
     for (const [catName, subs] of cats) {
       const catDiv = document.createElement('div');
       catDiv.className = 'sidebar-cat';
@@ -660,6 +838,14 @@
 
       tree.appendChild(catDiv);
     }
+  }
+
+  function jumpToStaticPage(type) {
+    const idx = globalPages.findIndex(p => type === 'about' ? p.isAbout : p.isToc);
+    if (idx === -1) return; // e.g. no items loaded yet
+    currentPageIdx = idx;
+    renderCurrentPage(null);
+    document.getElementById('sidebar').classList.remove('open');
   }
 
   function jumpToSection(catName, subName) {
@@ -747,10 +933,21 @@
     return pages;
   }
 
+  // Static cover page 1: company "About Us" info.
+  function buildAboutPage() {
+    return { isAbout: true };
+  }
+
+  // Static cover page 2: intentionally blank.
+  function buildBlankPage() {
+    return { isBlank: true };
+  }
+
   // Builds a Table of Contents page listing only the main category headings
   // (not subcategories) and the page each one starts on. contentPages are
-  // 0-indexed here; +2 converts to the final page number (1 for the TOC
-  // page itself, +1 more for 1-based numbering).
+  // 0-indexed here; the final layout is [About, Blank, TOC, ...contentPages],
+  // so a contentPages index of idx lands on final 1-based page idx + 4
+  // (1: About, 2: Blank, 3: TOC, 4: first content page).
   function buildTocPage(contentPages) {
     const entries = [];
     const seen = new Set();
@@ -758,7 +955,7 @@
       for (const row of page.rows) {
         if (row.type === 'heading' && row.isNewMain && !seen.has(row.category)) {
           seen.add(row.category);
-          entries.push({ category: row.category, pageNumber: idx + 2 });
+          entries.push({ category: row.category, pageNumber: idx + 4 });
         }
       }
     });
@@ -767,9 +964,12 @@
 
   function rebuildSections() {
     const filtered = allItems.filter(itemMatchesCity);
+    const sorted = sortWithinHeadings(filtered);
 
-    const contentPages = buildGlobalPages(filtered);
-    globalPages = contentPages.length > 0 ? [buildTocPage(contentPages), ...contentPages] : [];
+    const contentPages = buildGlobalPages(sorted);
+    globalPages = contentPages.length > 0
+      ? [buildAboutPage(), buildBlankPage(), buildTocPage(contentPages), ...contentPages]
+      : [];
     currentPageIdx = 0;
 
     document.getElementById('empty').style.display = globalPages.length === 0 ? 'block' : 'none';
@@ -778,12 +978,47 @@
     if (globalPages.length > 0) renderCurrentPage(null);
   }
 
+  // Keeps categories/subcategories in their original (first-seen) order —
+  // buildGlobalPages relies on that order to know when a new heading
+  // starts — but alphabetizes the items by item_number within each
+  // category+subcategory group.
+  function sortWithinHeadings(items) {
+    const groupOrder = [];
+    const groups = new Map();
+
+    for (const item of items) {
+      const key = (item.category || 'Uncategorized') + '\u0001' + (item.subcategory || '');
+      if (!groups.has(key)) {
+        groups.set(key, []);
+        groupOrder.push(key);
+      }
+      groups.get(key).push(item);
+    }
+
+    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+    const result = [];
+    for (const key of groupOrder) {
+      const group = groups.get(key);
+      group.sort((a, b) => collator.compare(a.item_number || '', b.item_number || ''));
+      result.push(...group);
+    }
+    return result;
+  }
+
   function highlightActiveSidebarItem() {
     document.querySelectorAll('.active-cat').forEach(el => el.classList.remove('active-cat'));
     document.querySelectorAll('.active-sub').forEach(el => el.classList.remove('active-sub'));
 
     const page = globalPages[currentPageIdx];
-    if (!page || page.isToc) return;
+    if (!page) return;
+
+    if (page.isAbout || page.isToc) {
+      const key = page.isAbout ? 'about' : 'toc';
+      document.querySelectorAll(`.sidebar-static-link[data-static-page="${key}"]`)
+        .forEach(el => el.classList.add('active-cat'));
+      return;
+    }
+    if (page.isBlank) return;
 
     document.querySelectorAll(`.sidebar-cat-name[data-cat="${CSS.escape(page.topCategory)}"]`)
       .forEach(el => el.classList.add('active-cat'));
@@ -825,9 +1060,63 @@
       const gridEl = document.getElementById('sheet-grid');
       gridEl.innerHTML = '';
 
+      if (page.isAbout) {
+        gridEl.style.gridTemplateRows = '1fr';
+        gridEl.style.gridTemplateColumns = '1fr';
+        gridEl.style.alignContent = '';
+        gridEl.innerHTML = `
+          <div class="about-page">
+            <h2 class="about-title">About Us</h2>
+
+            <div class="about-section">
+              <p>Banksia Glen Australia Pty Ltd is an Australian company who has been wholesaling top quality souvenirs and gifts all over Australia since 1989. With a strong manufacturing base overseas, a creative team of designers and an efficient team of sales staff, we have since become a leading wholesaler for the Australian tourism market.</p>
+            </div>
+
+            <div class="about-section">
+              <h3>Our Staff</h3>
+              <p>Our staff consists of efficient, hardworking and experienced professionals who are highly knowledgeable in our products, ensuring that we are able to satisfy the needs of every customer. Our friendly sales staff believe that maintaining strong long-term relationships with our customers is highly important and are always willing to assist our customers with top quality service.</p>
+            </div>
+
+            <div class="about-section">
+              <h3>Our Products</h3>
+              <p>Product development, originality and innovation are strong values of Banksia Glen Australia Pty Ltd. To satisfy our customers, we stock a wide range of souvenir products with manufacturing processes that are strictly controlled to ensure the highest quality and workmanship, and are consistently adding new innovative designs to our collection. We believe you will get value for your money with the most competitive prices we offer. With over 3000 items in stock, you can count on us for your quality souvenir needs.</p>
+            </div>
+
+            <div class="about-section">
+              <h3>Our Responsibility and Environment</h3>
+              <p>We strongly believe that the appropriate use of world resources is a major issue in the souvenir industry. We ensure that the materials chosen for our products are carefully considered in that they produce the least harm to the environment. Our factories are all professionally audited to comply with the world standards and related certification can be provided upon request.</p>
+            </div>
+
+            <div class="about-section">
+              <h3>Our Trademarks</h3>
+              <p>Banksia Glen owns the "I <span class="about-heart">&#9829;</span>AUS." and a series of "I <span class="about-heart">&#9829;</span>" trademarks that enjoys a high popularity throughout Australia and overseas, becoming a renowned souvenir brand for its top quality and creative design ideas.</p>
+            </div>
+
+            <div class="about-footer">
+              <div class="about-biz">Banksia Glen Australia Pty Ltd</div>
+              <div class="about-addr">12 Childs Rd, Chipping Norton NSW 2170</div>
+              <div class="about-addr">ABN 79 667 803 465</div>
+              <div class="about-links">www.banksiaglen.com<br>www.loveaus.com.au</div>
+            </div>
+          </div>
+        `;
+        document.getElementById('sheet-pagenum').textContent = currentPageIdx + 1;
+        return;
+      }
+
+      if (page.isBlank) {
+        gridEl.style.gridTemplateRows = '1fr';
+        gridEl.style.gridTemplateColumns = '1fr';
+        gridEl.style.alignContent = '';
+        gridEl.innerHTML = `<div class="blank-page"></div>`;
+        document.getElementById('sheet-pagenum').textContent = currentPageIdx + 1;
+        return;
+      }
+
       if (page.isToc) {
         gridEl.style.gridTemplateRows = '';
         gridEl.style.gridTemplateColumns = '1fr';
+        gridEl.style.alignContent = '';
         const tocWrap = document.createElement('div');
         tocWrap.className = 'toc-wrap';
         const title = document.createElement('div');
@@ -856,7 +1145,11 @@
       }
 
       gridEl.style.gridTemplateColumns = '';
-      gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : '1fr').join(' ');
+      // Item rows are capped at a max height so a page with few rows doesn't
+      // stretch each image row (and the gap to its caption) too tall; any
+      // leftover space is simply left blank at the bottom of the sheet.
+      gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : 'minmax(0, 200px)').join(' ');
+      gridEl.style.alignContent = 'start';
 
       for (const row of page.rows) {
         if (row.type === 'heading') {
@@ -1015,7 +1308,158 @@
     }
     applyFilters();
   });
+
+  // ---------------------------------------------------------------------
+  // Print-ready PDF export (password protected)
+  // ---------------------------------------------------------------------
+  const PDF_DOWNLOAD_PASSWORD = "2170";
+
+  function openPdfPasswordModal() {
+    document.getElementById('pdf-password-input').value = '';
+    document.getElementById('pdf-password-error').textContent = '';
+    document.getElementById('pdf-password-overlay').classList.add('open');
+    document.getElementById('pdf-password-input').focus();
+  }
+  function closePdfPasswordModal() {
+    document.getElementById('pdf-password-overlay').classList.remove('open');
+  }
+  function checkPdfPassword() {
+    const val = document.getElementById('pdf-password-input').value;
+    if (val === PDF_DOWNLOAD_PASSWORD) {
+      closePdfPasswordModal();
+      generatePrintPdf();
+    } else {
+      document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
+    }
+  }
+  document.getElementById('pdf-password-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPdfPassword();
+  });
+
+  function waitForImages(container) {
+    const imgs = Array.from(container.querySelectorAll('img'));
+    return Promise.all(imgs.map(img => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(resolve => {
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    }));
+  }
+
+  // Draws bleed guide lines and corner crop marks around a trim box.
+  // Uses a 4-channel (CMYK) draw color set to 100/100/100/100 — a
+  // "registration" black that shows up on every printing plate, which is
+  // the standard convention for crop marks so a printer can see them
+  // regardless of which separation they're checking.
+  function drawPrintMarks(pdf, OFFSET, BLEED, GAP, LEN, TRIM_W, TRIM_H) {
+    const x0 = OFFSET, y0 = OFFSET, x1 = OFFSET + TRIM_W, y1 = OFFSET + TRIM_H;
+    const bx0 = x0 - BLEED, by0 = y0 - BLEED, bx1 = x1 + BLEED, by1 = y1 + BLEED;
+
+    pdf.setLineWidth(0.5);
+    pdf.setDrawColor(100, 100, 100, 100);
+
+    // Bleed guide: dashed rectangle at the bleed edge.
+    pdf.setLineDashPattern([2, 2], 0);
+    pdf.rect(bx0, by0, bx1 - bx0, by1 - by0, 'S');
+    pdf.setLineDashPattern([], 0);
+
+    // Crop marks: 2 short lines per corner, continuing the trim edge lines,
+    // starting a small gap beyond the bleed edge and extending further out.
+    const corners = [
+      { cx: x0, cy: y0, hx: -1, vy: -1 },
+      { cx: x1, cy: y0, hx: 1, vy: -1 },
+      { cx: x0, cy: y1, hx: -1, vy: 1 },
+      { cx: x1, cy: y1, hx: 1, vy: 1 },
+    ];
+    for (const c of corners) {
+      const hxStart = c.cx + c.hx * (BLEED + GAP);
+      const hxEnd = hxStart + c.hx * LEN;
+      pdf.line(hxStart, c.cy, hxEnd, c.cy);
+
+      const vyStart = c.cy + c.vy * (BLEED + GAP);
+      const vyEnd = vyStart + c.vy * LEN;
+      pdf.line(c.cx, vyStart, c.cx, vyEnd);
+    }
+  }
+
+  async function generatePrintPdf() {
+    if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
+      alert('PDF export libraries failed to load — check your internet connection and try again.');
+      return;
+    }
+    if (!globalPages.length) {
+      alert('No catalogue pages are loaded yet.');
+      return;
+    }
+
+    const progressOverlay = document.getElementById('pdf-progress-overlay');
+    const progressText = progressOverlay.querySelector('.pdf-progress-text');
+    progressOverlay.classList.add('open');
+
+    const savedPageIdx = currentPageIdx;
+    const sheet = document.getElementById('page-sheet');
+    const savedTransform = sheet.style.transform;
+    sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
+
+    const { jsPDF } = window.jspdf;
+
+    // Trim size matches the master "About Us" PDF you supplied
+    // (663.48 x 876.24 pt / 234.06 x 309.12mm) so this stays consistent
+    // with your existing print artwork.
+    const PT_PER_MM = 72 / 25.4;
+    const TRIM_W = 663.48;
+    const TRIM_H = 876.24;
+    const BLEED = 3 * PT_PER_MM;      // 3mm bleed — industry standard
+    const MARK_GAP = 2 * PT_PER_MM;   // gap between bleed edge and crop mark
+    const MARK_LEN = 6 * PT_PER_MM;   // crop mark length
+    const OFFSET = BLEED + MARK_GAP + MARK_LEN; // trim edge inset from PDF page edge
+    const PAGE_W = TRIM_W + OFFSET * 2;
+    const PAGE_H = TRIM_H + OFFSET * 2;
+
+    const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: 'portrait' });
+
+    try {
+      for (let i = 0; i < globalPages.length; i++) {
+        progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
+        currentPageIdx = i;
+        renderCurrentPage(null);
+        await waitForImages(document.getElementById('sheet-grid'));
+        await new Promise(r => setTimeout(r, 60)); // let layout settle before capture
+
+        const canvas = await html2canvas(sheet, {
+          scale: 4, // high-res capture for print
+          backgroundColor: '#ffffff',
+          useCORS: true
+        });
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+        if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
+
+        // The design has no artwork drawn specifically for bleed, so as a
+        // pragmatic safeguard against a white sliver if the trim cut isn't
+        // perfectly registered, the captured page is stretched slightly to
+        // fill the bleed box rather than just the trim box.
+        pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
+
+        drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
+      }
+
+      pdf.save('BGA-Catalogue-print-ready.pdf');
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong generating the PDF: ' + err.message);
+    } finally {
+      sheet.style.transform = savedTransform;
+      currentPageIdx = savedPageIdx;
+      renderCurrentPage(null);
+      progressOverlay.classList.remove('open');
+    }
+  }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
 </html>
