@@ -175,7 +175,7 @@ CATEGORY_TREE = [
         ("Body-care-and-Foods", "Body care and Foods", ["National"]),
         ("Boomerangs", "Boomerangs", []),
         ("Kangaroo-Scrotum-products", "Kangaroo Scrotum products", []),
-        ("Plush-Toys-and-Others", "Plush Toys and Others", []),
+        ("Plush-Coin-Purse,-Handbags-and-Pencil-Cases", "Plush Coin Purse, Handbags and Pencil Cases", []),
     ]),
     ("Bags", "Bags", [
         ("Foldable-Bags", "Foldable Bags", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
@@ -232,8 +232,8 @@ CATEGORY_TREE = [
         ("Backpacks", "Backpacks", ["Cairns", "National"]),
         ("Clip-On", "Clip On", []),
         ("Others", "Others", ["National"]),
-        ("Plush-Toy-Koalas-and-Kangroos", "Plush Toy Koalas and Kangroos", ["National"]),
-        ("Plush-Toys-and-Others", "Plush Toys and Others", ["National"]),
+        ("Plush-Toy-Animals", "Plush Toy Animals", ["National"]),
+        ("Plush-Coin-Purse,-Handbags-and-Pencil-Cases", "Plush Coin Purse, Handbags and Pencil Cases", ["National"]),
         ("Soft-Toy-Keyings-and-Magnets", "Soft Toy Keyings and Magnets", ["Melbourne", "National"]),
     ]),
     ("Souvenir-Keyrings-and-Keyring-Sets", "Souvenir Keyrings and Keyring Sets", [
@@ -349,44 +349,45 @@ def main():
     login(session)
 
     all_items = []
+    failed_sections = []  # (label, url, error) for everything that didn't scrape — reported at the end
+
+    def scrape_one(label, url, category, subcategory, city):
+        """Scrape a single category/subcategory/city URL. On failure (e.g. a
+        404 because the section was renamed/removed on the site), logs a
+        warning and returns an empty list instead of crashing the whole run —
+        every other section still gets scraped and saved."""
+        print(f"Scraping {label} ...")
+        try:
+            items = scrape_section_pages(session, url)
+        except requests.exceptions.RequestException as e:
+            print(f"  ! FAILED — skipping this section: {e}")
+            failed_sections.append((label, url, str(e)))
+            return []
+        for item in items:
+            item["category"] = category
+            item["subcategory"] = subcategory
+            item["city"] = city
+        print(f"  -> {len(items)} products")
+        return items
 
     for cat_slug, cat_name, subcategories in CATEGORY_TREE:
         if not subcategories:
             url = f"{SITE_ROOT}{cat_slug}/pl.php?filters="
-            print(f"Scraping {cat_name} ...")
-            items = scrape_section_pages(session, url)
-            for item in items:
-                item["category"] = cat_name
-                item["subcategory"] = None
-                item["city"] = None
-            print(f"  -> {len(items)} products")
-            all_items.extend(items)
+            all_items.extend(scrape_one(cat_name, url, cat_name, None, None))
             continue
 
         for sub_slug, sub_name, cities in subcategories:
             if not cities:
                 url = f"{SITE_ROOT}{cat_slug}/{sub_slug}/pl.php?filters="
-                print(f"Scraping {cat_name} > {sub_name} ...")
-                items = scrape_section_pages(session, url)
-                for item in items:
-                    item["category"] = cat_name
-                    item["subcategory"] = sub_name
-                    item["city"] = None
-                print(f"  -> {len(items)} products")
-                all_items.extend(items)
+                label = f"{cat_name} > {sub_name}"
+                all_items.extend(scrape_one(label, url, cat_name, sub_name, None))
                 continue
 
             for city_slug in cities:
                 city_name = city_slug.replace("-", " ")
                 url = f"{SITE_ROOT}{cat_slug}/{sub_slug}/{city_slug}/pl.php?filters="
-                print(f"Scraping {cat_name} > {sub_name} > {city_name} ...")
-                items = scrape_section_pages(session, url)
-                for item in items:
-                    item["category"] = cat_name
-                    item["subcategory"] = sub_name
-                    item["city"] = city_name
-                print(f"  -> {len(items)} products")
-                all_items.extend(items)
+                label = f"{cat_name} > {sub_name} > {city_name}"
+                all_items.extend(scrape_one(label, url, cat_name, sub_name, city_name))
 
     # A product can legitimately appear under more than one category/city on
     # the site — each combination is kept as its own row so it shows up in
@@ -408,6 +409,15 @@ def main():
         json.dump(all_items, f, indent=2)
 
     print(f"Done. Saved {len(all_items)} items to {DATA_FILE}")
+
+    if failed_sections:
+        print(f"\n{len(failed_sections)} section(s) failed and were skipped — these likely need")
+        print("their CATEGORY_TREE entry updated (renamed/removed/restructured on the site):")
+        for label, url, err in failed_sections:
+            print(f"  - {label}\n      {url}\n      {err}")
+        # Non-zero exit so a CI dashboard still flags the run as "needs attention",
+        # without discarding the successfully-scraped data above.
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
