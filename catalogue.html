@@ -507,7 +507,7 @@
        This is only a fallback: getImageZoomScale()/needsPortraitRotation()
        in the script set the actual per-item transform inline (stronger
        zoom for Soft Toys, 90° rotation for Beach/Tea Towels). */
-    transform: scale(1.16);
+    transform: scale(1.06);
   }
   #sheet-grid .sheet-code {
     text-align: center;
@@ -959,8 +959,8 @@
   // apparent product size consistent across the page.
   function getImageZoomScale(item) {
     const category = (item.category || '').toLowerCase();
-    if (category.includes('soft toy')) return 1.4;
-    return 1.16;
+    if (category.includes('soft toy')) return 1.2;
+    return 1.06;
   }
 
   // Beach Towels and Tea Towels are meant to display upright (portrait).
