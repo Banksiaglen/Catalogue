@@ -1467,7 +1467,7 @@
     "item_number": "MM-STKA1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MM-STKA1.jpg",
     "category": "Australian Made",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
     "city": null,
     "local_image": "images/MM-STKA1.jpg"
   },
@@ -1475,7 +1475,7 @@
     "item_number": "MM-STKA5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MM-STKA5.jpg",
     "category": "Australian Made",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
     "city": null,
     "local_image": "images/MM-STKA5.jpg"
   },
@@ -1483,7 +1483,7 @@
     "item_number": "MM-STKO1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MM-STKO1.jpg",
     "category": "Australian Made",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
     "city": null,
     "local_image": "images/MM-STKO1.jpg"
   },
@@ -1491,7 +1491,7 @@
     "item_number": "MM-STKO5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MM-STKO5.jpg",
     "category": "Australian Made",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
     "city": null,
     "local_image": "images/MM-STKO5.jpg"
   },
@@ -1592,14 +1592,6 @@
     "local_image": "images/GW69-ME.jpg"
   },
   {
-    "item_number": "HN-FGW-56(ME)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-56(ME).jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "Melbourne",
-    "local_image": "images/HN-FGW-56_ME_.jpg"
-  },
-  {
     "item_number": "HN-GW050-ME",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW050-ME.jpg",
     "category": "Bags",
@@ -1672,14 +1664,6 @@
     "local_image": "images/HN-FGW-1.jpg"
   },
   {
-    "item_number": "HN-FGW-10",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-10.jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "National",
-    "local_image": "images/HN-FGW-10.jpg"
-  },
-  {
     "item_number": "HN-FGW-32BL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-32BL.jpg",
     "category": "Bags",
@@ -1694,14 +1678,6 @@
     "subcategory": "Foldable Bags",
     "city": "National",
     "local_image": "images/HN-FGW-32CM.jpg"
-  },
-  {
-    "item_number": "HN-FGW-4",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-4.jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "National",
-    "local_image": "images/HN-FGW-4.jpg"
   },
   {
     "item_number": "HN-FGW-53",
@@ -1726,22 +1702,6 @@
     "subcategory": "Foldable Bags",
     "city": "National",
     "local_image": "images/HN-FGW-73.jpg"
-  },
-  {
-    "item_number": "HN-FGW-74",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-74.jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "National",
-    "local_image": "images/HN-FGW-74.jpg"
-  },
-  {
-    "item_number": "HN-FGW-82",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-FGW-82.jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "National",
-    "local_image": "images/HN-FGW-82.jpg"
   },
   {
     "item_number": "HN-GW042",
@@ -4488,14 +4448,6 @@
     "local_image": "images/YL-ASH-ST.jpg"
   },
   {
-    "item_number": "YL-ASH8-SY",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YL-ASH8-SY.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Ash Trays",
-    "city": "Sydney",
-    "local_image": "images/YL-ASH8-SY.jpg"
-  },
-  {
     "item_number": "YL-ASH9-SY",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YL-ASH9-SY.jpg",
     "category": "Display Plates, Frames and Premium Gifts",
@@ -5925,7 +5877,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Gold Coast",
-    "local_image": "images/OP6W-GC2.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-GC2.jpg"
   },
   {
     "item_number": "YL-PLT08-GC",
@@ -5933,7 +5885,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Gold Coast",
-    "local_image": "images/YL-PLT08-GC.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-GC.jpg"
   },
   {
     "item_number": "OP6W-ME2(B)",
@@ -5941,7 +5893,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Melbourne",
-    "local_image": "images/OP6W-ME2_B_.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-ME2(B).jpg"
   },
   {
     "item_number": "YL-PLT08-ME",
@@ -5949,7 +5901,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Melbourne",
-    "local_image": "images/YL-PLT08-ME.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-ME.jpg"
   },
   {
     "item_number": "OP6W-OMP",
@@ -5957,7 +5909,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/OP6W-OMP.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-OMP.jpg"
   },
   {
     "item_number": "PLT08-AN",
@@ -5965,7 +5917,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/PLT08-AN.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PLT08-AN.jpg"
   },
   {
     "item_number": "PLT08-AU3",
@@ -5973,7 +5925,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/PLT08-AU3.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PLT08-AU3.jpg"
   },
   {
     "item_number": "PLT10-AU",
@@ -5981,7 +5933,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/PLT10-AU.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PLT10-AU.jpg"
   },
   {
     "item_number": "YL-PLT08-AU",
@@ -5989,7 +5941,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/YL-PLT08-AU.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-AU.jpg"
   },
   {
     "item_number": "YL-PLT08-AU2",
@@ -5997,7 +5949,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "National",
-    "local_image": "images/YL-PLT08-AU2.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-AU2.jpg"
   },
   {
     "item_number": "OP6W-PH",
@@ -6005,7 +5957,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Perth",
-    "local_image": "images/OP6W-PH.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-PH.jpg"
   },
   {
     "item_number": "YL-PLT08-PH",
@@ -6013,7 +5965,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Perth",
-    "local_image": "images/YL-PLT08-PH.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-PH.jpg"
   },
   {
     "item_number": "L-OP4-SY",
@@ -6021,7 +5973,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-OP4-SY.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-OP4-SY.jpg"
   },
   {
     "item_number": "L-OP4W-OH",
@@ -6029,7 +5981,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-OP4W-OH.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-OP4W-OH.jpg"
   },
   {
     "item_number": "L-OP6-SY(3D)",
@@ -6037,7 +5989,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-OP6-SY_3D_.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-OP6-SY(3D).jpg"
   },
   {
     "item_number": "L-OP6W-OH",
@@ -6045,7 +5997,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-OP6W-OH.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-OP6W-OH.jpg"
   },
   {
     "item_number": "L-PL4W-OH",
@@ -6053,7 +6005,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-PL4W-OH.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-PL4W-OH.jpg"
   },
   {
     "item_number": "L-PL4W-OH2",
@@ -6061,7 +6013,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-PL4W-OH2.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-PL4W-OH2.jpg"
   },
   {
     "item_number": "L-PL6W-SY",
@@ -6069,7 +6021,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/L-PL6W-SY.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-PL6W-SY.jpg"
   },
   {
     "item_number": "OP6W-SY",
@@ -6077,7 +6029,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/OP6W-SY.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-SY.jpg"
   },
   {
     "item_number": "PLT08-SY2",
@@ -6085,7 +6037,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/PLT08-SY2.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PLT08-SY2.jpg"
   },
   {
     "item_number": "PLT10-SY",
@@ -6093,7 +6045,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/PLT10-SY.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PLT10-SY.jpg"
   },
   {
     "item_number": "YL-PLT08-SY",
@@ -6101,7 +6053,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Plates",
     "city": "Sydney",
-    "local_image": "images/YL-PLT08-SY.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PLT08-SY.jpg"
   },
   {
     "item_number": "HC-ASH-RS",
@@ -6109,7 +6061,7 @@
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Shot Glasses",
     "city": "National",
-    "local_image": "images/HC-ASH-RS.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/HC-ASH-RS.jpg"
   },
   {
     "item_number": "CUP01-SY",
@@ -9590,14 +9542,6 @@
     "subcategory": "Foil Magnets",
     "city": "National",
     "local_image": "images/BK-MGT27.jpg"
-  },
-  {
-    "item_number": "BK-MGT44-AN",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-MGT44-AN.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "National",
-    "local_image": "images/BK-MGT44-AN.jpg"
   },
   {
     "item_number": "BK-MGT44-AU",
@@ -14712,14 +14656,6 @@
     "local_image": "images/HN-T13.jpg"
   },
   {
-    "item_number": "HN-T20",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T20.jpg",
-    "category": "Kitchen Accessories and Tea Towels",
-    "subcategory": "Tea Towels",
-    "city": "National",
-    "local_image": "images/HN-T20.jpg"
-  },
-  {
     "item_number": "HN-T22",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T22.jpg",
     "category": "Kitchen Accessories and Tea Towels",
@@ -14768,36 +14704,12 @@
     "local_image": "images/HN-T72.jpg"
   },
   {
-    "item_number": "HN-T73",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T73.jpg",
-    "category": "Kitchen Accessories and Tea Towels",
-    "subcategory": "Tea Towels",
-    "city": "National",
-    "local_image": "images/HN-T73.jpg"
-  },
-  {
-    "item_number": "HN-T74",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T74.jpg",
-    "category": "Kitchen Accessories and Tea Towels",
-    "subcategory": "Tea Towels",
-    "city": "National",
-    "local_image": "images/HN-T74.jpg"
-  },
-  {
     "item_number": "HN-T77",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T77.jpg",
     "category": "Kitchen Accessories and Tea Towels",
     "subcategory": "Tea Towels",
     "city": "National",
     "local_image": "images/HN-T77.jpg"
-  },
-  {
-    "item_number": "HN-T80",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T80.jpg",
-    "category": "Kitchen Accessories and Tea Towels",
-    "subcategory": "Tea Towels",
-    "city": "National",
-    "local_image": "images/HN-T80.jpg"
   },
   {
     "item_number": "HN-T81",
@@ -14990,14 +14902,6 @@
     "subcategory": "Tea Towels",
     "city": "Sydney",
     "local_image": "images/HN-T94_SY_.jpg"
-  },
-  {
-    "item_number": "HN-T97(SY)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T97(SY).jpg",
-    "category": "Kitchen Accessories and Tea Towels",
-    "subcategory": "Tea Towels",
-    "city": "Sydney",
-    "local_image": "images/HN-T97_SY_.jpg"
   },
   {
     "item_number": "HN-T98(SY)",
@@ -15376,102 +15280,6 @@
     "local_image": "images/A662.jpg"
   },
   {
-    "item_number": "BK-KC67(CM2)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-KC67(CM2).jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/BK-KC67_CM2_.jpg"
-  },
-  {
-    "item_number": "HS5575-10",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5575-10.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5575-10.jpg"
-  },
-  {
-    "item_number": "HS5575-8",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5575-8.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5575-8.jpg"
-  },
-  {
-    "item_number": "HS5576-6",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5576-6.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5576-6.jpg"
-  },
-  {
-    "item_number": "HS5849",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5849.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5849.jpg"
-  },
-  {
-    "item_number": "HS5852",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5852.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5852.jpg"
-  },
-  {
-    "item_number": "HS5880-12",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5880-12.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5880-12.jpg"
-  },
-  {
-    "item_number": "HS5880-15",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5880-15.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS5880-15.jpg"
-  },
-  {
-    "item_number": "HS6056-5",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6056-5.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS6056-5.jpg"
-  },
-  {
-    "item_number": "HS6056-8",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6056-8.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HS6056-8.jpg"
-  },
-  {
-    "item_number": "HZ3182R",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ3182R.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HZ3182R.jpg"
-  },
-  {
-    "item_number": "HZ3182W",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ3182W.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/HZ3182W.jpg"
-  },
-  {
     "item_number": "TB6063-KA-PH",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/TB6063-KA-PH.jpg",
     "category": "Soft Toys",
@@ -15544,46 +15352,6 @@
     "local_image": "images/YC-0105.jpg"
   },
   {
-    "item_number": "YC-0201",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0201.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/YC-0201.jpg"
-  },
-  {
-    "item_number": "YC-0202",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0202.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/YC-0202.jpg"
-  },
-  {
-    "item_number": "YC-0202P",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0202P.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/YC-0202P.jpg"
-  },
-  {
-    "item_number": "YC-0210G",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0210G.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/YC-0210G.jpg"
-  },
-  {
-    "item_number": "YC-0210P",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0210P.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/YC-0210P.jpg"
-  },
-  {
     "item_number": "YC-0303",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0303.jpg",
     "category": "Soft Toys",
@@ -15632,10 +15400,18 @@
     "local_image": "images/YC-62583.jpg"
   },
   {
+    "item_number": "FD251",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/FD251.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/FD251.jpg"
+  },
+  {
     "item_number": "HS4835B",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS4835B.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS4835B.jpg"
   },
@@ -15643,15 +15419,39 @@
     "item_number": "HS4835F",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS4835F.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS4835F.jpg"
+  },
+  {
+    "item_number": "HS5575-10",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5575-10.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5575-10.jpg"
+  },
+  {
+    "item_number": "HS5575-8",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5575-8.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5575-8.jpg"
+  },
+  {
+    "item_number": "HS5576-6",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5576-6.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5576-6.jpg"
   },
   {
     "item_number": "HS5714B-9",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5714B-9.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5714B-9.jpg"
   },
@@ -15659,7 +15459,7 @@
     "item_number": "HS5715B-7",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5715B-7.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5715B-7.jpg"
   },
@@ -15667,7 +15467,7 @@
     "item_number": "HS5715B-9",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5715B-9.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5715B-9.jpg"
   },
@@ -15675,7 +15475,7 @@
     "item_number": "HS5716B-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5716B-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5716B-10.jpg"
   },
@@ -15683,7 +15483,7 @@
     "item_number": "HS5716B-12",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5716B-12.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5716B-12.jpg"
   },
@@ -15691,7 +15491,7 @@
     "item_number": "HS5716B-14",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5716B-14.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5716B-14.jpg"
   },
@@ -15699,7 +15499,7 @@
     "item_number": "HS5716B-7",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5716B-7.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5716B-7.jpg"
   },
@@ -15707,15 +15507,23 @@
     "item_number": "HS5807-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5807-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5807-10.jpg"
+  },
+  {
+    "item_number": "HS5849",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5849.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5849.jpg"
   },
   {
     "item_number": "HS5851-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5851-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5851-10.jpg"
   },
@@ -15723,7 +15531,7 @@
     "item_number": "HS5851-15.5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5851-15.5.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5851-15.5.jpg"
   },
@@ -15731,15 +15539,39 @@
     "item_number": "HS5851P-15.5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5851P-15.5.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5851P-15.5.jpg"
+  },
+  {
+    "item_number": "HS5852",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5852.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5852.jpg"
+  },
+  {
+    "item_number": "HS5880-12",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5880-12.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5880-12.jpg"
+  },
+  {
+    "item_number": "HS5880-15",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5880-15.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS5880-15.jpg"
   },
   {
     "item_number": "HS5911KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5911KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5911KA.jpg"
   },
@@ -15747,7 +15579,7 @@
     "item_number": "HS5911KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5911KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5911KO.jpg"
   },
@@ -15755,7 +15587,7 @@
     "item_number": "HS5930G-6.5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5930G-6.5.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5930G-6.5.jpg"
   },
@@ -15763,7 +15595,7 @@
     "item_number": "HS5930P-6.5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5930P-6.5.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5930P-6.5.jpg"
   },
@@ -15771,7 +15603,7 @@
     "item_number": "HS5930P-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS5930P-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS5930P-8.jpg"
   },
@@ -15779,7 +15611,7 @@
     "item_number": "HS6031-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6031-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6031-8.jpg"
   },
@@ -15787,7 +15619,7 @@
     "item_number": "HS6054-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6054-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6054-KO.jpg"
   },
@@ -15795,15 +15627,31 @@
     "item_number": "HS6054F-5",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6054F-5.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6054F-5.jpg"
+  },
+  {
+    "item_number": "HS6056-5",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6056-5.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS6056-5.jpg"
+  },
+  {
+    "item_number": "HS6056-8",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6056-8.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS6056-8.jpg"
   },
   {
     "item_number": "HS6062KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6062KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6062KA.jpg"
   },
@@ -15811,7 +15659,7 @@
     "item_number": "HS6062KB",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6062KB.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6062KB.jpg"
   },
@@ -15819,7 +15667,7 @@
     "item_number": "HS6062KO-11",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6062KO-11.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6062KO-11.jpg"
   },
@@ -15827,7 +15675,7 @@
     "item_number": "HS6064KA-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6064KA-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6064KA-8.jpg"
   },
@@ -15835,15 +15683,23 @@
     "item_number": "HS6225F-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6225F-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6225F-10.jpg"
+  },
+  {
+    "item_number": "HS6534B-8",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6534B-8.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/HS6534B-8.jpg"
   },
   {
     "item_number": "HS6540-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6540-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6540-6.jpg"
   },
@@ -15851,7 +15707,7 @@
     "item_number": "HS6560-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6560-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6560-8.jpg"
   },
@@ -15859,7 +15715,7 @@
     "item_number": "HS6561-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6561-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6561-8.jpg"
   },
@@ -15867,7 +15723,7 @@
     "item_number": "HS6562-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6562-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6562-10.jpg"
   },
@@ -15875,7 +15731,7 @@
     "item_number": "HS6565-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6565-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6565-6.jpg"
   },
@@ -15883,7 +15739,7 @@
     "item_number": "HS6566-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6566-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6566-6.jpg"
   },
@@ -15891,7 +15747,7 @@
     "item_number": "HS6567-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6567-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6567-6.jpg"
   },
@@ -15899,7 +15755,7 @@
     "item_number": "HS6568-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6568-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6568-6.jpg"
   },
@@ -15907,7 +15763,7 @@
     "item_number": "HS6569-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6569-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6569-6.jpg"
   },
@@ -15915,7 +15771,7 @@
     "item_number": "HS6570-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6570-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6570-6.jpg"
   },
@@ -15923,7 +15779,7 @@
     "item_number": "HS6571-KO1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6571-KO1.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6571-KO1.jpg"
   },
@@ -15931,7 +15787,7 @@
     "item_number": "HS6571-KO2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6571-KO2.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6571-KO2.jpg"
   },
@@ -15939,7 +15795,7 @@
     "item_number": "HS6575-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6575-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6575-6.jpg"
   },
@@ -15947,7 +15803,7 @@
     "item_number": "HS6576-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6576-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6576-6.jpg"
   },
@@ -15955,7 +15811,7 @@
     "item_number": "HS6577-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6577-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6577-6.jpg"
   },
@@ -15963,7 +15819,7 @@
     "item_number": "HS6579-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6579-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6579-6.jpg"
   },
@@ -15971,7 +15827,7 @@
     "item_number": "HS6580-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6580-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6580-6.jpg"
   },
@@ -15979,7 +15835,7 @@
     "item_number": "HS6581-6",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6581-6.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6581-6.jpg"
   },
@@ -15987,7 +15843,7 @@
     "item_number": "HS6583-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583-KA.jpg"
   },
@@ -15995,7 +15851,7 @@
     "item_number": "HS6583-KK",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583-KK.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583-KK.jpg"
   },
@@ -16003,7 +15859,7 @@
     "item_number": "HS6583-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583-KO.jpg"
   },
@@ -16011,7 +15867,7 @@
     "item_number": "HS6583B-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583B-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583B-KA.jpg"
   },
@@ -16019,7 +15875,7 @@
     "item_number": "HS6583B-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583B-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583B-KO.jpg"
   },
@@ -16027,7 +15883,7 @@
     "item_number": "HS6583C-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583C-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583C-KA.jpg"
   },
@@ -16035,7 +15891,7 @@
     "item_number": "HS6583C-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583C-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583C-KO.jpg"
   },
@@ -16043,7 +15899,7 @@
     "item_number": "HS6583L-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6583L-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6583L-KO.jpg"
   },
@@ -16051,7 +15907,7 @@
     "item_number": "HS6584-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6584-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6584-KA.jpg"
   },
@@ -16059,7 +15915,7 @@
     "item_number": "HS6584-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6584-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS6584-KO.jpg"
   },
@@ -16067,7 +15923,7 @@
     "item_number": "HS8811A-11",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS8811A-11.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS8811A-11.jpg"
   },
@@ -16075,7 +15931,7 @@
     "item_number": "HS8811A-13",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS8811A-13.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS8811A-13.jpg"
   },
@@ -16083,7 +15939,7 @@
     "item_number": "HS8811A-16",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS8811A-16.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS8811A-16.jpg"
   },
@@ -16091,7 +15947,7 @@
     "item_number": "HS8813A-7",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS8813A-7.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS8813A-7.jpg"
   },
@@ -16099,7 +15955,7 @@
     "item_number": "HS8813A-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS8813A-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/HS8813A-8.jpg"
   },
@@ -16107,7 +15963,7 @@
     "item_number": "YC-0101-17",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0101-17.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-0101-17.jpg"
   },
@@ -16115,7 +15971,7 @@
     "item_number": "YC-0106-20",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0106-20.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-0106-20.jpg"
   },
@@ -16123,7 +15979,7 @@
     "item_number": "YC-0106-25",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0106-25.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-0106-25.jpg"
   },
@@ -16131,7 +15987,7 @@
     "item_number": "YC-0109-20",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0109-20.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-0109-20.jpg"
   },
@@ -16139,7 +15995,7 @@
     "item_number": "YC-62559KA-8",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-62559KA-8.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-62559KA-8.jpg"
   },
@@ -16147,7 +16003,7 @@
     "item_number": "YC-62923KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-62923KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-62923KA.jpg"
   },
@@ -16155,7 +16011,7 @@
     "item_number": "YC-62923KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-62923KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-62923KO.jpg"
   },
@@ -16163,15 +16019,23 @@
     "item_number": "YC-63467",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63467.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63467.jpg"
+  },
+  {
+    "item_number": "YC-63488",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63488.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/YC-63488.jpg"
   },
   {
     "item_number": "YC-63521C",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63521C.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63521C.jpg"
   },
@@ -16179,7 +16043,7 @@
     "item_number": "YC-63947AU(GRN)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63947AU(GRN).jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63947AU_GRN_.jpg"
   },
@@ -16187,7 +16051,7 @@
     "item_number": "YC-63947AU(YW)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63947AU(YW).jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63947AU_YW_.jpg"
   },
@@ -16195,7 +16059,7 @@
     "item_number": "YC-63947FL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63947FL.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63947FL.jpg"
   },
@@ -16203,7 +16067,7 @@
     "item_number": "YC-63948AU",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63948AU.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63948AU.jpg"
   },
@@ -16211,7 +16075,7 @@
     "item_number": "YC-63948FL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63948FL.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-63948FL.jpg"
   },
@@ -16219,7 +16083,7 @@
     "item_number": "YC-64011KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64011KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64011KA.jpg"
   },
@@ -16227,7 +16091,7 @@
     "item_number": "YC-64011KA2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64011KA2.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64011KA2.jpg"
   },
@@ -16235,7 +16099,7 @@
     "item_number": "YC-64011KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64011KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64011KO.jpg"
   },
@@ -16243,7 +16107,7 @@
     "item_number": "YC-64011KO2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64011KO2.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64011KO2.jpg"
   },
@@ -16251,7 +16115,7 @@
     "item_number": "YC-64140KA-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-10.jpg"
   },
@@ -16259,7 +16123,7 @@
     "item_number": "YC-64140KA-13",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-13.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-13.jpg"
   },
@@ -16267,7 +16131,7 @@
     "item_number": "YC-64140KA-17",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-17.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-17.jpg"
   },
@@ -16275,7 +16139,7 @@
     "item_number": "YC-64140KA-20",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-20.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-20.jpg"
   },
@@ -16283,7 +16147,7 @@
     "item_number": "YC-64140KA-C13",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-C13.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-C13.jpg"
   },
@@ -16291,7 +16155,7 @@
     "item_number": "YC-64140KA-C17",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-C17.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-C17.jpg"
   },
@@ -16299,7 +16163,7 @@
     "item_number": "YC-64140KA-C20",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-C20.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-C20.jpg"
   },
@@ -16307,7 +16171,7 @@
     "item_number": "YC-64140KA-F10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-F10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-F10.jpg"
   },
@@ -16315,7 +16179,7 @@
     "item_number": "YC-64140KA-F13",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-F13.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-F13.jpg"
   },
@@ -16323,7 +16187,7 @@
     "item_number": "YC-64140KA-F17",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-F17.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-F17.jpg"
   },
@@ -16331,7 +16195,7 @@
     "item_number": "YC-64140KA-F20",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64140KA-F20.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64140KA-F20.jpg"
   },
@@ -16339,7 +16203,7 @@
     "item_number": "YC-64141KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64141KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64141KA.jpg"
   },
@@ -16347,7 +16211,7 @@
     "item_number": "YC-64141KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64141KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64141KO.jpg"
   },
@@ -16355,7 +16219,7 @@
     "item_number": "YC-64142KA-13",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64142KA-13.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64142KA-13.jpg"
   },
@@ -16363,7 +16227,7 @@
     "item_number": "YC-64142KA-15",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64142KA-15.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64142KA-15.jpg"
   },
@@ -16371,7 +16235,7 @@
     "item_number": "YC-64142KO-10",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64142KO-10.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64142KO-10.jpg"
   },
@@ -16379,7 +16243,7 @@
     "item_number": "YC-64142KO-12",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64142KO-12.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64142KO-12.jpg"
   },
@@ -16387,7 +16251,7 @@
     "item_number": "YC-64142KO-14",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64142KO-14.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64142KO-14.jpg"
   },
@@ -16395,7 +16259,7 @@
     "item_number": "YC-64143KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64143KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64143KA.jpg"
   },
@@ -16403,63 +16267,15 @@
     "item_number": "YC-64143KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-64143KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-64143KO.jpg"
-  },
-  {
-    "item_number": "YC-65200KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65200KO.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
-    "city": "National",
-    "local_image": "images/YC-65200KO.jpg"
-  },
-  {
-    "item_number": "YC-65203",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65203.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
-    "city": "National",
-    "local_image": "images/YC-65203.jpg"
-  },
-  {
-    "item_number": "YC-67974G",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-67974G.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toy Koalas and Kangroos",
-    "city": "National",
-    "local_image": "images/YC-67974G.jpg"
-  },
-  {
-    "item_number": "FD251",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/FD251.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
-    "city": "National",
-    "local_image": "images/FD251.jpg"
-  },
-  {
-    "item_number": "HS6534B-8",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HS6534B-8.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
-    "city": "National",
-    "local_image": "images/HS6534B-8.jpg"
-  },
-  {
-    "item_number": "YC-63488",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-63488.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
-    "city": "National",
-    "local_image": "images/YC-63488.jpg"
   },
   {
     "item_number": "YC-65097-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65097-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-65097-KA.jpg"
   },
@@ -16467,15 +16283,39 @@
     "item_number": "YC-65098",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65098.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC-65098.jpg"
+  },
+  {
+    "item_number": "YC-65200KO",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65200KO.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/YC-65200KO.jpg"
+  },
+  {
+    "item_number": "YC-65203",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-65203.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/YC-65203.jpg"
+  },
+  {
+    "item_number": "YC-67974G",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-67974G.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/YC-67974G.jpg"
   },
   {
     "item_number": "YC64829-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC64829-KA.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC64829-KA.jpg"
   },
@@ -16483,9 +16323,65 @@
     "item_number": "YC64829-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC64829-KO.jpg",
     "category": "Soft Toys",
-    "subcategory": "Plush Toys and Others",
+    "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC64829-KO.jpg"
+  },
+  {
+    "item_number": "HZ3182R",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ3182R.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ3182R.jpg"
+  },
+  {
+    "item_number": "HZ3182W",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ3182W.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ3182W.jpg"
+  },
+  {
+    "item_number": "YC-0201",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0201.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/YC-0201.jpg"
+  },
+  {
+    "item_number": "YC-0202",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0202.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/YC-0202.jpg"
+  },
+  {
+    "item_number": "YC-0202P",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0202P.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/YC-0202P.jpg"
+  },
+  {
+    "item_number": "YC-0210G",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0210G.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/YC-0210G.jpg"
+  },
+  {
+    "item_number": "YC-0210P",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0210P.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/YC-0210P.jpg"
   },
   {
     "item_number": "YC-65049(ME)",
@@ -16502,6 +16398,14 @@
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "Melbourne",
     "local_image": "images/YC-65050_ME_.jpg"
+  },
+  {
+    "item_number": "BK-KC67(CM2)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-KC67(CM2).jpg",
+    "category": "Soft Toys",
+    "subcategory": "Soft Toy Keyings and Magnets",
+    "city": "National",
+    "local_image": "images/BK-KC67_CM2_.jpg"
   },
   {
     "item_number": "YC-0102KA",
