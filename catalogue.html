@@ -181,6 +181,58 @@
   @keyframes pdf-spin { to { transform: rotate(360deg); } }
   .pdf-progress-text { font-size: 0.9rem; color: var(--text); }
 
+  .image-zoom-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px 24px;
+  }
+  .image-zoom-overlay.open { display: flex; }
+  .image-zoom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: min(90vw, 720px);
+    max-height: 100%;
+  }
+  #image-zoom-img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  #image-zoom-code {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  #image-zoom-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  #image-zoom-close:hover { background: rgba(255,255,255,0.22); }
+
   .layout { display: flex; align-items: flex-start; }
   #sidebar {
     width: 220px;
@@ -393,7 +445,7 @@
 
   #sheet-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px 12px;
     flex: 1;
     min-height: 0;
@@ -430,6 +482,7 @@
     align-items: center;
     justify-content: center;
     background: #ffffff;
+    cursor: zoom-in;
   }
   #sheet-grid .sheet-img-wrap img {
     display: block;
@@ -450,7 +503,10 @@
        though the cell itself is a normal size. A modest uniform zoom
        trims that outer margin so the product fills more of its cell —
        safe for the vast majority of photos, since the crop only removes
-       a thin band from every edge rather than targeting a fixed region. */
+       a thin band from every edge rather than targeting a fixed region.
+       This is only a fallback: getImageZoomScale()/needsPortraitRotation()
+       in the script set the actual per-item transform inline (stronger
+       zoom for Soft Toys, 90° rotation for Beach/Tea Towels). */
     transform: scale(1.16);
   }
   #sheet-grid .sheet-code {
@@ -761,6 +817,16 @@
     </div>
   </div>
 
+  <div id="image-zoom-overlay" class="image-zoom-overlay" onclick="if (event.target === this) closeImageZoom();">
+    <button id="image-zoom-close" onclick="closeImageZoom()" aria-label="Close">
+      <i class="ti ti-x"></i>
+    </button>
+    <div class="image-zoom-content">
+      <img id="image-zoom-img" src="" alt="">
+      <div id="image-zoom-code"></div>
+    </div>
+  </div>
+
   <div class="layout">
     <nav id="sidebar">
       <div class="sidebar-header">
@@ -869,8 +935,8 @@
   let selectedCity = '';
   let globalPages = [];      // built by buildGlobalPages() — continuous flow across all sections
   let currentPageIdx = 0;
-  const ROWS = 6;
-  const COLS = 5;
+  const ROWS = 5;
+  const COLS = 4;
 
   function slugify(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -884,6 +950,43 @@
     if (!str) return str;
     const lower = str.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
+  }
+
+  // How much to zoom into a product photo to crop out excess white padding
+  // (see the .sheet-img-wrap img CSS for the default). Some categories —
+  // Soft Toys in particular — tend to have much more white space around a
+  // smaller subject than average, so they get a stronger crop here to keep
+  // apparent product size consistent across the page.
+  function getImageZoomScale(item) {
+    const category = (item.category || '').toLowerCase();
+    if (category.includes('soft toy')) return 1.4;
+    return 1.16;
+  }
+
+  // Beach Towels and Tea Towels are meant to display upright (portrait).
+  // Many source photos already are portrait, so this only rotates the ones
+  // that are actually landscape — checked against the real loaded image
+  // dimensions, not assumed from the subcategory alone, to avoid flipping
+  // already-correct photos sideways.
+  function needsPortraitRotation(item) {
+    const sub = (item.subcategory || '').toLowerCase();
+    return sub.includes('beach towel') || sub.includes('tea towel');
+  }
+
+  function applyImageOrientation(imgEl, item) {
+    const zoomScale = getImageZoomScale(item);
+    const checkAndApply = () => {
+      const isLandscape = imgEl.naturalWidth > imgEl.naturalHeight;
+      imgEl.style.transform = (needsPortraitRotation(item) && isLandscape)
+        ? `rotate(90deg) scale(${zoomScale})`
+        : `scale(${zoomScale})`;
+    };
+    if (imgEl.complete && imgEl.naturalWidth) {
+      checkAndApply();
+    } else {
+      imgEl.style.transform = `scale(${zoomScale})`; // sensible default until we know the real dimensions
+      imgEl.addEventListener('load', checkAndApply, { once: true });
+    }
   }
 
   async function loadCatalogue() {
@@ -1322,7 +1425,7 @@
       // Item rows are capped at a max height so a page with few rows doesn't
       // stretch each image row (and the gap to its caption) too tall; any
       // leftover space is simply left blank at the bottom of the sheet.
-      gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : 'minmax(0, 200px)').join(' ');
+      gridEl.style.gridTemplateRows = page.rows.map(r => r.type === 'heading' ? 'auto' : 'minmax(0, 220px)').join(' ');
       gridEl.style.alignContent = 'start';
 
       for (const row of page.rows) {
@@ -1339,15 +1442,22 @@
             cell.className = 'sheet-card';
             cell.dataset.itemNumber = item.item_number;
             cell.innerHTML = `
-              <div class="sheet-img-wrap">
+              <div class="sheet-img-wrap" role="button" tabindex="0" aria-label="Zoom image for ${item.item_number}">
                 <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
               </div>
               <div class="sheet-code">${item.item_number}</div>
             `;
+            const imgWrap = cell.querySelector('.sheet-img-wrap');
+            const imgEl = imgWrap.querySelector('img');
+            applyImageOrientation(imgEl, item);
+            imgWrap.addEventListener('click', () => openImageZoom(item));
+            imgWrap.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openImageZoom(item); }
+            });
             gridEl.appendChild(cell);
           }
           // Pad a short trailing row (only happens on the very last row of
-          // the very last page) so cells still align to the 5-column grid.
+          // the very last page) so cells still align to the grid.
           for (let i = row.cells.length; i < COLS; i++) {
             gridEl.appendChild(document.createElement('div'));
           }
@@ -1504,6 +1614,22 @@
     document.getElementById('search-suggestions').classList.remove('open');
   }
 
+  function openImageZoom(item) {
+    document.getElementById('image-zoom-img').src = item.local_image || item.image_url;
+    document.getElementById('image-zoom-img').alt = item.item_number;
+    document.getElementById('image-zoom-code').textContent = item.item_number;
+    document.getElementById('image-zoom-overlay').classList.add('open');
+  }
+  function closeImageZoom() {
+    document.getElementById('image-zoom-overlay').classList.remove('open');
+    document.getElementById('image-zoom-img').src = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('image-zoom-overlay').classList.contains('open')) {
+      closeImageZoom();
+    }
+  });
+
   function jumpToItem(item) {
     const idx = globalPages.findIndex(page =>
       page.rows && page.rows.some(r => r.type === 'items' && r.cells.includes(item))
@@ -1560,8 +1686,8 @@
   // ---------------------------------------------------------------------
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
-  const PDF_DOWNLOAD_PASSWORD = "2170";
-  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033"; // same access, but skips the "Downloaded <date>" stamp on every page
+  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm, no bleed, no crop marks, includes "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 28.5 x 21cm + 3mm bleed on all sides, no "Downloaded" stamp
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1576,10 +1702,10 @@
     const val = document.getElementById('pdf-password-input').value;
     if (val === PDF_DOWNLOAD_PASSWORD) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: true });
+      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 285, trimHMm: 210, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: false });
+      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
     } else {
       document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
     }
@@ -1597,39 +1723,6 @@
         img.addEventListener('error', resolve, { once: true });
       });
     }));
-  }
-
-  // Draws bleed guide lines and corner crop marks around a trim box.
-  // Uses a 4-channel (CMYK) draw color set to 100/100/100/100 — a
-  // "registration" black that shows up on every printing plate, which is
-  // the standard convention for crop marks so a printer can see them
-  // regardless of which separation they're checking.
-  function drawPrintMarks(pdf, OFFSET, BLEED, GAP, LEN, TRIM_W, TRIM_H) {
-    const x0 = OFFSET, y0 = OFFSET, x1 = OFFSET + TRIM_W, y1 = OFFSET + TRIM_H;
-    const bx0 = x0 - BLEED, by0 = y0 - BLEED, bx1 = x1 + BLEED, by1 = y1 + BLEED;
-
-    pdf.setLineWidth(0.5);
-    pdf.setDrawColor(100, 100, 100, 100);
-
-    // (No bleed guide line drawn — only crop marks at the corners below.)
-
-    // Crop marks: 2 short lines per corner, continuing the trim edge lines,
-    // starting a small gap beyond the bleed edge and extending further out.
-    const corners = [
-      { cx: x0, cy: y0, hx: -1, vy: -1 },
-      { cx: x1, cy: y0, hx: 1, vy: -1 },
-      { cx: x0, cy: y1, hx: -1, vy: 1 },
-      { cx: x1, cy: y1, hx: 1, vy: 1 },
-    ];
-    for (const c of corners) {
-      const hxStart = c.cx + c.hx * (BLEED + GAP);
-      const hxEnd = hxStart + c.hx * LEN;
-      pdf.line(hxStart, c.cy, hxEnd, c.cy);
-
-      const vyStart = c.cy + c.vy * (BLEED + GAP);
-      const vyEnd = vyStart + c.vy * LEN;
-      pdf.line(c.cx, vyStart, c.cx, vyEnd);
-    }
   }
 
   // Rough encoded byte size of a base64 data URI (base64 is ~4/3 the size
@@ -1651,8 +1744,38 @@
     return 0;
   }
 
+  // Draws corner crop marks just outside the bleed edge of a trim box.
+  // Uses a 4-channel (CMYK) draw color set to 100/100/100/100 — a
+  // "registration" black that shows up on every printing plate, which is
+  // the standard convention for crop marks so a printer can see them
+  // regardless of which separation they're checking.
+  function drawPrintMarks(pdf, OFFSET, BLEED, GAP, LEN, TRIM_W, TRIM_H) {
+    const x0 = OFFSET, y0 = OFFSET, x1 = OFFSET + TRIM_W, y1 = OFFSET + TRIM_H;
+
+    pdf.setLineWidth(0.5);
+    pdf.setDrawColor(100, 100, 100, 100);
+
+    // 2 short lines per corner, continuing the trim edge lines, starting a
+    // small gap beyond the bleed edge and extending further out.
+    const corners = [
+      { cx: x0, cy: y0, hx: -1, vy: -1 },
+      { cx: x1, cy: y0, hx: 1, vy: -1 },
+      { cx: x0, cy: y1, hx: -1, vy: 1 },
+      { cx: x1, cy: y1, hx: 1, vy: 1 },
+    ];
+    for (const c of corners) {
+      const hxStart = c.cx + c.hx * (BLEED + GAP);
+      const hxEnd = hxStart + c.hx * LEN;
+      pdf.line(hxStart, c.cy, hxEnd, c.cy);
+
+      const vyStart = c.cy + c.vy * (BLEED + GAP);
+      const vyEnd = vyStart + c.vy * LEN;
+      pdf.line(c.cx, vyStart, c.cx, vyEnd);
+    }
+  }
+
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210 } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1673,18 +1796,23 @@
 
     const { jsPDF } = window.jspdf;
 
-    // Trim size matches the master "About Us" PDF you supplied
-    // (663.48 x 876.24 pt / 234.06 x 309.12mm) so this stays consistent
-    // with your existing print artwork.
+    // Trim size and bleed are password-specific:
+    //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
+    //    the PDF page is exactly that finished size.
+    //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
+    //    on all sides plus corner crop marks just outside the bleed edge.
     const PT_PER_MM = 72 / 25.4;
-    const TRIM_W = 663.48;
-    const TRIM_H = 876.24;
-    const BLEED = 3 * PT_PER_MM;      // 3mm bleed — industry standard
-    const MARK_GAP = 2 * PT_PER_MM;   // gap between bleed edge and crop mark
-    const MARK_LEN = 6 * PT_PER_MM;   // crop mark length
-    const OFFSET = BLEED + MARK_GAP + MARK_LEN; // trim edge inset from PDF page edge
+    const TRIM_W = trimWMm * PT_PER_MM;
+    const TRIM_H = trimHMm * PT_PER_MM;
+    const BLEED = bleedMm * PT_PER_MM;
+    const MARK_GAP = 2 * PT_PER_MM;  // gap between bleed edge and crop mark
+    const MARK_LEN = 6 * PT_PER_MM;  // crop mark length
+    // Extra room beyond the bleed edge to fit crop marks, only when requested.
+    const MARK_MARGIN = includeCropMarks ? (MARK_GAP + MARK_LEN) : 0;
+    const OFFSET = BLEED + MARK_MARGIN; // trim edge inset from the PDF page edge
     const PAGE_W = TRIM_W + OFFSET * 2;
     const PAGE_H = TRIM_H + OFFSET * 2;
+    const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
 
     // scale 4 captures at roughly 400dpi for this trim size — a clear step
     // up in sharpness from a lower capture scale. File size is controlled
@@ -1697,7 +1825,7 @@
     const QUALITY_FLOOR = 0.45;
     const QUALITY_STEP = 0.07;
 
-    const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: 'portrait' });
+    const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
 
     try {
       // --- Calibration pass -------------------------------------------------
@@ -1748,18 +1876,22 @@
         });
         const imgData = canvas.toDataURL('image/jpeg', quality);
 
-        if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
+        if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
-        // The design has no artwork drawn specifically for bleed, so as a
-        // pragmatic safeguard against a white sliver if the trim cut isn't
-        // perfectly registered, the captured page is stretched slightly to
-        // fill the bleed box rather than just the trim box.
+        // With no bleed and no marks (password 2170) the page IS the trim
+        // size, so the image fills it exactly. With bleed (password 9033)
+        // the captured page is stretched slightly to run to the bleed
+        // edge, which is how bleed artwork is meant to work — there's a
+        // 3mm safety margin for the trim cut on every side, plus room
+        // further out for the crop marks themselves.
         pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
 
-        drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
+        if (includeCropMarks) {
+          drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
+        }
 
-        // Small grey "Downloaded <date>" stamp, bottom-left, inside the
-        // trim area so it stays on the page after cutting.
+        // Small grey "Downloaded <date>" stamp, bottom-left, inset from
+        // the trim edge (i.e. inside the finished page area either way).
         if (includeDownloadStamp) {
           pdf.setFont('helvetica', 'normal');
           pdf.setFontSize(9);
