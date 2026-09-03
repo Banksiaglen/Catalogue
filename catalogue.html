@@ -1451,7 +1451,17 @@
     }
   }
 
+  // Set true for the duration of a PDF export (see generatePrintPdf) so
+  // fitPageSheet() can't reapply the on-screen shrink-to-fit transform
+  // mid-export. Without this, a window resize event that fires (or was
+  // already pending from a debounce timer) during the export loop could
+  // land right before any given page's capture and silently re-shrink just
+  // that page — which is exactly why this bug showed up on a couple of
+  // essentially random pages rather than every page or a fixed one.
+  let isExportingPdf = false;
+
   function fitPageSheet() {
+    if (isExportingPdf) return;
     const wrapper = document.getElementById('page-scale-wrapper');
     const sheet = document.getElementById('page-sheet');
     const availW = wrapper.clientWidth;
@@ -1956,6 +1966,8 @@
     const savedPageIdx = currentPageIdx;
     const sheet = document.getElementById('page-sheet');
     const savedTransform = sheet.style.transform;
+    isExportingPdf = true;      // stop fitPageSheet() from firing mid-export (see its definition)
+    clearTimeout(resizeTimer);  // and cancel any resize-debounce already in flight
     sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
 
     const { jsPDF } = window.jspdf;
@@ -2110,6 +2122,7 @@
       console.error(err);
       alert('Something went wrong generating the PDF: ' + err.message);
     } finally {
+      isExportingPdf = false; // safe to let fitPageSheet() run again from here on
       sheet.style.transform = savedTransform;
       currentPageIdx = savedPageIdx;
       renderCurrentPage(null);
