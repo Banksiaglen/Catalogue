@@ -952,15 +952,123 @@
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   }
 
+  // Products that share a code apart from one size token (e.g.
+  // "ABC123-S-RED", "ABC-M-001", "TOWEL-L", or with no separator at all —
+  // "GW111" vs "GW111S") are the same item photographed at different
+  // physical sizes. This applies across all categories, not just clothing.
+  //
+  // Two detection passes:
+  //  1. Split the code on common separators (space/hyphen/underscore/
+  //     slash) and check each *whole* segment against known size words —
+  //     an exact match after splitting, not a substring match, so a
+  //     segment that merely contains an "L" or "S" (e.g. "SM01", "BLUE")
+  //     isn't mistaken for a size.
+  //  2. If that finds nothing (no separator present, e.g. "GW111S"), try
+  //     stripping a size-shaped tail directly off the end of the code and
+  //     check whether what's left matches another real item number in the
+  //     catalogue — e.g. "GW111S" minus "S" is "GW111", and if "GW111"
+  //     exists as its own item, "S" is almost certainly a size suffix. This
+  //     sibling check is what stops a code that simply happens to end in a
+  //     letter like "S" or "M" from being misread as a size every time —
+  //     without it, "GW111" itself (which doesn't have a base to strip
+  //     down to) is correctly left alone.
+  const SIZE_WORDS = new Set(['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']);
+  const NUMERIC_XL_RE = /^[2-9]XL$/; // 2XL, 3XL, 4XL, ... treated as synonyms of XXL, XXXL, ...
+
+  // Longest-first so "XXL" is tried before "XL" before "L" when stripping a
+  // tail off a code with no separator, avoiding e.g. reading "XXL" as an
+  // "L" size with a leftover "XX" stuck to the base code.
+  const NO_SEP_SIZE_TOKENS = (() => {
+    const words = Array.from(SIZE_WORDS);
+    const numeric = [];
+    for (let n = 2; n <= 9; n++) numeric.push(n + 'XL');
+    return [...words, ...numeric].sort((a, b) => b.length - a.length);
+  })();
+
+  function isSizeToken(segment) {
+    const upper = segment.toUpperCase();
+    return SIZE_WORDS.has(upper) || NUMERIC_XL_RE.test(upper);
+  }
+
+  // Rank used to scale the zoom adjustment below — larger sizes get a
+  // higher rank. Numeric XL forms (2XL, 3XL, ...) line up with XXL/XXXL/...
+  function sizeRank(token) {
+    const upper = token.toUpperCase();
+    if (SIZE_WORDS.has(upper)) {
+      return ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].indexOf(upper);
+    }
+    const match = upper.match(NUMERIC_XL_RE);
+    if (match) return 4 + Number(upper[0]); // 2XL -> 6 (= XXL), 3XL -> 7 (= XXXL), 4XL -> 8, ...
+    return undefined;
+  }
+
+  // Lazily-built lookup of every item number in the catalogue (uppercased),
+  // used only to support pass 2 above. Rebuilt whenever allItems is
+  // (re)loaded — see loadCatalogue().
+  let itemNumberIndex = null;
+  function getItemNumberIndex() {
+    if (!itemNumberIndex) {
+      itemNumberIndex = new Set();
+      for (const it of allItems) {
+        const key = (it.item_number || '').trim().toUpperCase();
+        if (key) itemNumberIndex.add(key);
+      }
+    }
+    return itemNumberIndex;
+  }
+
+  function findNoSeparatorSize(itemNumberUpper) {
+    const index = getItemNumberIndex();
+    for (const token of NO_SEP_SIZE_TOKENS) {
+      if (itemNumberUpper.length <= token.length) continue;
+      if (!itemNumberUpper.endsWith(token)) continue;
+      const baseUpper = itemNumberUpper.slice(0, itemNumberUpper.length - token.length);
+      if (index.has(baseUpper)) return token;
+    }
+    return null;
+  }
+
+  function parseSizeSuffix(itemNumber) {
+    if (!itemNumber) return null;
+    const trimmed = itemNumber.trim();
+
+    const segments = trimmed.split(/[\s\-_/]+/).filter(Boolean);
+    for (const segment of segments) {
+      if (isSizeToken(segment)) {
+        return { size: segment.toUpperCase() };
+      }
+    }
+
+    const noSepSize = findNoSeparatorSize(trimmed.toUpperCase());
+    if (noSepSize) return { size: noSepSize };
+
+    return null;
+  }
+
   // How much to zoom into a product photo to crop out excess white padding
   // (see the .sheet-img-wrap img CSS for the default). Some categories —
   // Soft Toys in particular — tend to have much more white space around a
   // smaller subject than average, so they get a stronger crop here to keep
   // apparent product size consistent across the page.
+  //
+  // On top of that category baseline, items that are a size variant of the
+  // same code get a small additional adjustment scaled around M: larger
+  // sizes (L, XL, ...) zoom in a bit more, smaller sizes (S, XS, ...) zoom
+  // in a bit less, so the crop reflects the item's relative physical size
+  // rather than treating every size identically.
   function getImageZoomScale(item) {
     const category = (item.category || '').toLowerCase();
-    if (category.includes('soft toy')) return 1.2;
-    return 1.06;
+    let scale = category.includes('soft toy') ? 1.2 : 1.06;
+
+    const sizeInfo = parseSizeSuffix(item.item_number);
+    if (sizeInfo) {
+      const rank = sizeRank(sizeInfo.size);
+      const M_RANK = sizeRank('M');
+      if (rank !== undefined) {
+        scale += (rank - M_RANK) * 0.02;
+      }
+    }
+    return scale;
   }
 
   // Beach Towels and Tea Towels are meant to display upright (portrait).
@@ -993,6 +1101,7 @@
     try {
       const res = await fetch('catalogue.json');
       allItems = await res.json();
+      itemNumberIndex = null; // invalidate the size-suffix lookup cache built from the old data
 
       buildCityFilter();
       buildSidebar();
@@ -1814,11 +1923,15 @@
     const PAGE_H = TRIM_H + OFFSET * 2;
     const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
 
-    // scale 4 captures at roughly 400dpi for this trim size — a clear step
-    // up in sharpness from a lower capture scale. File size is controlled
-    // separately below (via JPEG quality), so raising resolution here
-    // doesn't fight the size cap.
-    const CAPTURE_SCALE = 4;
+    // scale 3 captures at roughly 300dpi for this trim size — the standard
+    // minimum for commercial print — while keeping export time reasonable.
+    // (This was previously 4/~400dpi: html2canvas render + encode cost
+    // scales with the *square* of this number, so that extra headroom over
+    // the print minimum was making every export ~1.8x slower than it
+    // needed to be for a resolution bump most printers won't use anyway.)
+    // File size is controlled separately below (via JPEG quality), so
+    // resolution here doesn't fight the size cap.
+    const CAPTURE_SCALE = 3;
     const MAX_FILE_BYTES = 100 * 1024 * 1024; // hard cap requested
     const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
     const QUALITY_START = 0.92;
@@ -1849,32 +1962,49 @@
         logging: false
       });
 
+      // Keep the winning quality's encoded JPEG from the calibration pass
+      // instead of throwing it away — the loop below used to discard this
+      // and then re-render + re-capture + re-encode that exact same page
+      // from scratch in the main pass, which was pure wasted work (a full
+      // html2canvas capture at print resolution is the single most
+      // expensive step in this whole function). Reusing it here means the
+      // sample page is only ever captured once.
       let quality = QUALITY_START;
+      let sampleImgData = null;
       while (quality > QUALITY_FLOOR) {
-        const sampleBytes = estimateBase64Bytes(sampleCanvas.toDataURL('image/jpeg', quality));
-        const estimatedTotal = sampleBytes * globalPages.length;
+        sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
+        const estimatedTotal = estimateBase64Bytes(sampleImgData) * globalPages.length;
         if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
         quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
       }
       quality = Math.max(quality, QUALITY_FLOOR);
+      if (quality === QUALITY_FLOOR) sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
 
       // --- Main pass ----------------------------------------------------
       const downloadedStamp = `Downloaded ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
 
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
-        currentPageIdx = i;
-        renderCurrentPage(null);
-        await waitForImages(document.getElementById('sheet-grid'));
-        await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
 
-        const canvas = await html2canvas(sheet, {
-          scale: CAPTURE_SCALE,
-          backgroundColor: '#ffffff',
-          useCORS: true,
-          logging: false
-        });
-        const imgData = canvas.toDataURL('image/jpeg', quality);
+        let imgData;
+        if (i === sampleIdx) {
+          // Already captured and encoded above at the final chosen quality — skip re-rendering it.
+          imgData = sampleImgData;
+          currentPageIdx = i;
+        } else {
+          currentPageIdx = i;
+          renderCurrentPage(null);
+          await waitForImages(document.getElementById('sheet-grid'));
+          await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
+
+          const canvas = await html2canvas(sheet, {
+            scale: CAPTURE_SCALE,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false
+          });
+          imgData = canvas.toDataURL('image/jpeg', quality);
+        }
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
