@@ -953,27 +953,42 @@
   }
 
   // Products that share a code apart from one size token (e.g.
-  // "ABC123-S-RED", "ABC-M-001", "TOWEL-L", or with no separator at all —
-  // "GW111" vs "GW111S") are the same item photographed at different
-  // physical sizes. This applies across all categories, not just clothing.
+  // "ABC123-S-RED", "ABC-M-001", "TOWEL-L", "BK-TS10-L(BLK)", or with no
+  // separator at all — "GW111" vs "GW111S") are the same item photographed
+  // at different physical sizes. This applies across all categories, not
+  // just clothing.
   //
   // Two detection passes:
   //  1. Split the code on common separators (space/hyphen/underscore/
   //     slash) and check each *whole* segment against known size words —
   //     an exact match after splitting, not a substring match, so a
   //     segment that merely contains an "L" or "S" (e.g. "SM01", "BLUE")
-  //     isn't mistaken for a size.
-  //  2. If that finds nothing (no separator present, e.g. "GW111S"), try
+  //     isn't mistaken for a size. A trailing parenthetical annotation on
+  //     the same segment (e.g. the "(BLK)"/"(WHT)" colourway note in
+  //     "BK-TS10-L(BLK)") is stripped before matching, since it's not part
+  //     of the size token itself.
+  //  2. If that finds nothing (no separator present, e.g. "BK-TH01L"), try
   //     stripping a size-shaped tail directly off the end of the code and
-  //     check whether what's left matches another real item number in the
-  //     catalogue — e.g. "GW111S" minus "S" is "GW111", and if "GW111"
-  //     exists as its own item, "S" is almost certainly a size suffix. This
-  //     sibling check is what stops a code that simply happens to end in a
-  //     letter like "S" or "M" from being misread as a size every time —
-  //     without it, "GW111" itself (which doesn't have a base to strip
-  //     down to) is correctly left alone.
+  //     confirm it's really a size — rather than a code that just happens
+  //     to end in a letter like "S" or "M" — one of two ways:
+  //       a) the stripped base matches another real (unsized) item number
+  //          in the catalogue, e.g. "GW111S" minus "S" is "GW111", and
+  //          "GW111" exists as its own item; or
+  //       b) the stripped base matches at least one OTHER item's stripped
+  //          base within the same category — e.g. "BK-TH01L", "BK-TH01M"
+  //          and "BK-TH01S" all reduce to "BK-TH01" once their own size
+  //          letter is removed, which is confirmation enough even though
+  //          a bare "BK-TH01" (no size) never exists on its own. This is
+  //          the common case for footwear/shoe-style codes where every
+  //          listed variant already has a size letter and there's no
+  //          "sizeless" version to check against.
   const SIZE_WORDS = new Set(['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']);
   const NUMERIC_XL_RE = /^[2-9]XL$/; // 2XL, 3XL, 4XL, ... treated as synonyms of XXL, XXXL, ...
+  const TRAILING_ANNOTATION_RE = /\([^()]*\)\s*$/; // a trailing "(...)" note, e.g. "(BLK)"
+
+  function stripTrailingAnnotation(segment) {
+    return segment.replace(TRAILING_ANNOTATION_RE, '');
+  }
 
   // Longest-first so "XXL" is tried before "XL" before "L" when stripping a
   // tail off a code with no separator, avoiding e.g. reading "XXL" as an
@@ -986,7 +1001,7 @@
   })();
 
   function isSizeToken(segment) {
-    const upper = segment.toUpperCase();
+    const upper = stripTrailingAnnotation(segment).toUpperCase();
     return SIZE_WORDS.has(upper) || NUMERIC_XL_RE.test(upper);
   }
 
@@ -1002,10 +1017,12 @@
     return undefined;
   }
 
-  // Lazily-built lookup of every item number in the catalogue (uppercased),
-  // used only to support pass 2 above. Rebuilt whenever allItems is
-  // (re)loaded — see loadCatalogue().
-  let itemNumberIndex = null;
+  // Lazily-built lookups over the whole catalogue, used only to support
+  // pass 2 above. Both are rebuilt whenever allItems is (re)loaded — see
+  // loadCatalogue().
+  let itemNumberIndex = null;   // Set of every item number, uppercased — for check (a)
+  let sizeSiblingCounts = null; // Map "CATEGORY\u0001BASE" -> how many items reduce to that base — for check (b)
+
   function getItemNumberIndex() {
     if (!itemNumberIndex) {
       itemNumberIndex = new Set();
@@ -1017,29 +1034,55 @@
     return itemNumberIndex;
   }
 
-  function findNoSeparatorSize(itemNumberUpper) {
-    const index = getItemNumberIndex();
+  function getSizeSiblingCounts() {
+    if (!sizeSiblingCounts) {
+      sizeSiblingCounts = new Map();
+      for (const it of allItems) {
+        const itemNumber = stripTrailingAnnotation((it.item_number || '').trim()).toUpperCase();
+        if (!itemNumber) continue;
+        const category = (it.category || '').trim().toUpperCase();
+        for (const token of NO_SEP_SIZE_TOKENS) {
+          if (itemNumber.length <= token.length) continue;
+          if (!itemNumber.endsWith(token)) continue;
+          const base = itemNumber.slice(0, itemNumber.length - token.length);
+          const key = category + '\u0001' + base;
+          sizeSiblingCounts.set(key, (sizeSiblingCounts.get(key) || 0) + 1);
+          break; // only count each item once, against its own longest-matching token
+        }
+      }
+    }
+    return sizeSiblingCounts;
+  }
+
+  function findNoSeparatorSize(itemNumberUpper, category) {
+    const exactIndex = getItemNumberIndex();
+    const siblingCounts = getSizeSiblingCounts();
+    const categoryKey = (category || '').trim().toUpperCase();
     for (const token of NO_SEP_SIZE_TOKENS) {
       if (itemNumberUpper.length <= token.length) continue;
       if (!itemNumberUpper.endsWith(token)) continue;
       const baseUpper = itemNumberUpper.slice(0, itemNumberUpper.length - token.length);
-      if (index.has(baseUpper)) return token;
+      if (exactIndex.has(baseUpper)) return token; // (a) an unsized sibling exists
+      const key = categoryKey + '\u0001' + baseUpper;
+      if ((siblingCounts.get(key) || 0) >= 2) return token; // (b) at least one other sized sibling shares this base
     }
     return null;
   }
 
-  function parseSizeSuffix(itemNumber) {
+  function parseSizeSuffix(itemNumber, category) {
     if (!itemNumber) return null;
     const trimmed = itemNumber.trim();
 
     const segments = trimmed.split(/[\s\-_/]+/).filter(Boolean);
     for (const segment of segments) {
       if (isSizeToken(segment)) {
-        return { size: segment.toUpperCase() };
+        return { size: stripTrailingAnnotation(segment).toUpperCase() };
       }
     }
 
-    const noSepSize = findNoSeparatorSize(trimmed.toUpperCase());
+    // Also strip a trailing "(...)" annotation before the no-separator
+    // fallback, so e.g. "GW111S(RED)" still matches "GW111" + "S".
+    const noSepSize = findNoSeparatorSize(stripTrailingAnnotation(trimmed).toUpperCase(), category);
     if (noSepSize) return { size: noSepSize };
 
     return null;
@@ -1056,19 +1099,21 @@
   // (L, XL, ...) zoom in noticeably more, smaller sizes (S, XS, ...) zoom
   // in noticeably less, so the size difference is actually visible at a
   // glance rather than a few-percent difference nobody would spot.
-  // (SIZE_ZOOM_STEP was 0.02 — too subtle to read as a size difference at
-  // all — raised to 0.08 per size step and clamped to a sane range so
-  // extreme sizes like XXS/XXXL don't end up absurdly shrunk or cropped
-  // into an unrecognizable close-up.)
-  const SIZE_ZOOM_STEP = 0.08;
-  const SIZE_ZOOM_MIN = 0.85;
-  const SIZE_ZOOM_MAX = 1.6;
+  // (SIZE_ZOOM_STEP has already been raised once, from 0.02 to 0.08, and
+  // was STILL not obvious enough side-by-side in a real product grid —
+  // e.g. S vs XL vs XXL of the same tee looked basically identical. Raised
+  // again to 0.15 per size step, which puts roughly a 60%+ zoom spread
+  // between S and XXL — genuinely "the L one looks bigger" at a glance,
+  // not just measurably different on paper. Clamp range widened to match.)
+  const SIZE_ZOOM_STEP = 0.15;
+  const SIZE_ZOOM_MIN = 0.8;
+  const SIZE_ZOOM_MAX = 1.7;
 
   function getImageZoomScale(item) {
     const category = (item.category || '').toLowerCase();
     let scale = category.includes('soft toy') ? 1.2 : 1.06;
 
-    const sizeInfo = parseSizeSuffix(item.item_number);
+    const sizeInfo = parseSizeSuffix(item.item_number, item.category);
     if (sizeInfo) {
       const rank = sizeRank(sizeInfo.size);
       const M_RANK = sizeRank('M');
@@ -1110,7 +1155,8 @@
     try {
       const res = await fetch('catalogue.json');
       allItems = await res.json();
-      itemNumberIndex = null; // invalidate the size-suffix lookup cache built from the old data
+      itemNumberIndex = null; // invalidate the size-suffix lookup caches built from the old data
+      sizeSiblingCounts = null;
 
       buildCityFilter();
       buildSidebar();
@@ -1804,8 +1850,8 @@
   // ---------------------------------------------------------------------
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
-  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm landscape, no bleed, no crop marks, includes "Downloaded" stamp
-  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "1234";  // 21 x 28.5cm portrait + 3mm bleed on all sides + crop marks, no "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD = "2170";           // 285 x 210mm, portrait (21cm wide x 28.5cm tall), no bleed, no crop marks, includes "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 21 x 28.5cm portrait + 3mm bleed on all sides + crop marks, no "Downloaded" stamp
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1820,7 +1866,7 @@
     const val = document.getElementById('pdf-password-input').value;
     if (val === PDF_DOWNLOAD_PASSWORD) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 285, trimHMm: 210, includeCropMarks: false });
+      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 210, trimHMm: 285, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
       generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
@@ -1915,9 +1961,10 @@
     const { jsPDF } = window.jspdf;
 
     // Trim size and bleed are password-specific:
-    //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
-    //    the PDF page is exactly that finished size.
-    //  - password 1234: 210 x 285mm (portrait) trim, with 3mm bleed added
+    //  - password 2170: 285 x 210mm, portrait (210mm wide x 285mm tall),
+    //    no bleed, no crop marks — the PDF page is exactly that finished
+    //    size.
+    //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
     //    on all sides plus corner crop marks just outside the bleed edge.
     const PT_PER_MM = 72 / 25.4;
     const TRIM_W = trimWMm * PT_PER_MM;
@@ -1983,6 +2030,12 @@
       const sampleIdx = findSampleGridPageIndex();
       currentPageIdx = sampleIdx;
       renderCurrentPage(null);
+      sheet.style.transform = 'none'; // renderCurrentPage() calls fitPageSheet() internally, which
+                                       // re-applies the on-screen shrink-to-fit transform — undoing
+                                       // the 'none' override above on every single render. Without
+                                       // reasserting it here after each render, html2canvas ends up
+                                       // capturing the shrunk on-screen size (small content, big
+                                       // white margins) instead of the page at its true full size.
       await waitForImages(document.getElementById('sheet-grid'));
       await new Promise(r => setTimeout(r, 25));
 
@@ -2020,6 +2073,7 @@
         } else {
           currentPageIdx = i;
           renderCurrentPage(null);
+          sheet.style.transform = 'none'; // see the matching note in the calibration pass above
           await waitForImages(document.getElementById('sheet-grid'));
           await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
 
@@ -2030,7 +2084,7 @@
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
         // With no bleed and no marks (password 2170) the page IS the trim
-        // size, so the image fills it exactly. With bleed (password 1234)
+        // size, so the image fills it exactly. With bleed (password 9033)
         // the captured page is stretched slightly to run to the bleed
         // edge, which is how bleed artwork is meant to work — there's a
         // 3mm safety margin for the trim cut on every side, plus room
