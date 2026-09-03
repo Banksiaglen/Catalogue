@@ -1052,10 +1052,18 @@
   // apparent product size consistent across the page.
   //
   // On top of that category baseline, items that are a size variant of the
-  // same code get a small additional adjustment scaled around M: larger
-  // sizes (L, XL, ...) zoom in a bit more, smaller sizes (S, XS, ...) zoom
-  // in a bit less, so the crop reflects the item's relative physical size
-  // rather than treating every size identically.
+  // same code get an additional adjustment scaled around M: larger sizes
+  // (L, XL, ...) zoom in noticeably more, smaller sizes (S, XS, ...) zoom
+  // in noticeably less, so the size difference is actually visible at a
+  // glance rather than a few-percent difference nobody would spot.
+  // (SIZE_ZOOM_STEP was 0.02 — too subtle to read as a size difference at
+  // all — raised to 0.08 per size step and clamped to a sane range so
+  // extreme sizes like XXS/XXXL don't end up absurdly shrunk or cropped
+  // into an unrecognizable close-up.)
+  const SIZE_ZOOM_STEP = 0.08;
+  const SIZE_ZOOM_MIN = 0.85;
+  const SIZE_ZOOM_MAX = 1.6;
+
   function getImageZoomScale(item) {
     const category = (item.category || '').toLowerCase();
     let scale = category.includes('soft toy') ? 1.2 : 1.06;
@@ -1065,7 +1073,8 @@
       const rank = sizeRank(sizeInfo.size);
       const M_RANK = sizeRank('M');
       if (rank !== undefined) {
-        scale += (rank - M_RANK) * 0.02;
+        scale += (rank - M_RANK) * SIZE_ZOOM_STEP;
+        scale = Math.max(SIZE_ZOOM_MIN, Math.min(scale, SIZE_ZOOM_MAX));
       }
     }
     return scale;
@@ -1795,8 +1804,8 @@
   // ---------------------------------------------------------------------
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
-  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm, no bleed, no crop marks, includes "Downloaded" stamp
-  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 28.5 x 21cm + 3mm bleed on all sides, no "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm landscape, no bleed, no crop marks, includes "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "1234";  // 21 x 28.5cm portrait + 3mm bleed on all sides + crop marks, no "Downloaded" stamp
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1884,7 +1893,7 @@
   }
 
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210 } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1908,7 +1917,7 @@
     // Trim size and bleed are password-specific:
     //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
     //    the PDF page is exactly that finished size.
-    //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
+    //  - password 1234: 210 x 285mm (portrait) trim, with 3mm bleed added
     //    on all sides plus corner crop marks just outside the bleed edge.
     const PT_PER_MM = 72 / 25.4;
     const TRIM_W = trimWMm * PT_PER_MM;
@@ -1940,6 +1949,28 @@
 
     const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
 
+    // Captures #page-sheet at its real, current content size — including
+    // any overflow beyond its nominal 936x1236 box. html2canvas only
+    // captures the target element's own box by default, so a page whose
+    // content runs even slightly past that box (e.g. a full 5-row grid
+    // plus a category heading) would otherwise have its bottom silently
+    // cut off in the exported PDF, even though it renders fine on screen.
+    // Passing the element's live scrollWidth/scrollHeight as both the
+    // capture size and the layout window size makes sure the whole page is
+    // always captured, whether or not it happens to overflow.
+    function captureSheet() {
+      return html2canvas(sheet, {
+        scale: CAPTURE_SCALE,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        width: sheet.scrollWidth,
+        height: sheet.scrollHeight,
+        windowWidth: sheet.scrollWidth,
+        windowHeight: sheet.scrollHeight
+      });
+    }
+
     try {
       // --- Calibration pass -------------------------------------------------
       // Capture one representative product-grid page and use its JPEG size
@@ -1955,12 +1986,7 @@
       await waitForImages(document.getElementById('sheet-grid'));
       await new Promise(r => setTimeout(r, 25));
 
-      const sampleCanvas = await html2canvas(sheet, {
-        scale: CAPTURE_SCALE,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-      });
+      const sampleCanvas = await captureSheet();
 
       // Keep the winning quality's encoded JPEG from the calibration pass
       // instead of throwing it away — the loop below used to discard this
@@ -1997,19 +2023,14 @@
           await waitForImages(document.getElementById('sheet-grid'));
           await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
 
-          const canvas = await html2canvas(sheet, {
-            scale: CAPTURE_SCALE,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            logging: false
-          });
+          const canvas = await captureSheet();
           imgData = canvas.toDataURL('image/jpeg', quality);
         }
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
         // With no bleed and no marks (password 2170) the page IS the trim
-        // size, so the image fills it exactly. With bleed (password 9033)
+        // size, so the image fills it exactly. With bleed (password 1234)
         // the captured page is stretched slightly to run to the bleed
         // edge, which is how bleed artwork is meant to work — there's a
         // 3mm safety margin for the trim cut on every side, plus room
