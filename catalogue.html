@@ -1879,7 +1879,7 @@
       generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 210, trimHMm: 285, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
+      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true, vectorText: true });
     } else {
       document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
     }
@@ -1949,7 +1949,7 @@
   }
 
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false, vectorText = false } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1975,9 +1975,21 @@
     // Trim size and bleed are password-specific:
     //  - password 2170: 285 x 210mm, portrait (210mm wide x 285mm tall),
     //    no bleed, no crop marks — the PDF page is exactly that finished
-    //    size.
+    //    size. Every page (text and photos) is exported as one flattened
+    //    screenshot — fine for a quick-share copy, not for commercial print.
     //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
     //    on all sides plus corner crop marks just outside the bleed edge.
+    //    This is the actual print-ready file: vectorText mode (below) is
+    //    used so all body text (item codes, category headings, page
+    //    numbers) is real vector PDF text — sharp at any zoom, selectable,
+    //    and near-zero bytes — while only the product photos themselves
+    //    are embedded as JPEGs. The three non-grid pages (About Us, TOC,
+    //    Blank) are few enough in number that they're still exported as a
+    //    single flattened screenshot each; fully vectorising those too
+    //    (icon-font glyphs, wrapped paragraphs, the trademark logo image)
+    //    would be a lot of extra surface area for a couple of pages that
+    //    aren't dense with repeated small text the way the product grid
+    //    is. Flag this if it matters for your print job.
     const PT_PER_MM = 72 / 25.4;
     const TRIM_W = trimWMm * PT_PER_MM;
     const TRIM_H = trimHMm * PT_PER_MM;
@@ -2000,7 +2012,17 @@
     // File size is controlled separately below (via JPEG quality), so
     // resolution here doesn't fight the size cap.
     const CAPTURE_SCALE = 3;
-    const MAX_FILE_BYTES = 100 * 1024 * 1024; // hard cap requested
+    // In vectorText mode, individual product images are captured on their
+    // own (see captureElement below) instead of as part of one big page
+    // screenshot. Because that screenshot's white background/text pixels
+    // are gone, file size is far cheaper per page, so images can afford a
+    // sharper capture than CAPTURE_SCALE above — still ~300dpi-equivalent
+    // for that small element's physical print size (an image cell and the
+    // full page scale to the same real-world mm per CSS px, so the same
+    // dpi math applies), just with more headroom to raise it further
+    // before the size cap becomes a concern.
+    const IMAGE_CAPTURE_SCALE = 4;
+    const MAX_FILE_BYTES = 250 * 1024 * 1024; // hard cap requested
     const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
     const QUALITY_START = 0.92;
     const QUALITY_FLOOR = 0.45;
@@ -2030,14 +2052,74 @@
       });
     }
 
+    // Captures one small element (an individual product photo's wrapper,
+    // in vectorText mode) rather than the whole page.
+    function captureElement(el, scale) {
+      return html2canvas(el, {
+        scale,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+      });
+    }
+
+    // How many product images the whole export will embed — used to scale
+    // up a single sample image's byte size into a whole-file estimate for
+    // the vectorText quality calibration below.
+    function countTotalGridImages() {
+      let count = 0;
+      for (const page of globalPages) {
+        if (page.isAbout || page.isBlank || page.isToc) continue;
+        for (const row of page.rows) {
+          if (row.type === 'items') count += row.cells.length;
+        }
+      }
+      return count;
+    }
+
+    // Maps CSS pixel positions/sizes measured on the live #page-sheet (via
+    // getBoundingClientRect(), while it's rendered at native/untransformed
+    // size — see 'sheet.style.transform = none' above) into PDF points
+    // within the trim box, for placing vector text and cropped product
+    // images at exactly the same layout the on-screen grid produced.
+    function makeMapper() {
+      const rect = sheet.getBoundingClientRect();
+      const ptPerPxX = TRIM_W / rect.width;
+      const ptPerPxY = TRIM_H / rect.height;
+      return {
+        x: (px) => OFFSET + (px - rect.left) * ptPerPxX,
+        y: (px) => OFFSET + (px - rect.top) * ptPerPxY,
+        w: (px) => px * ptPerPxX,
+        h: (px) => px * ptPerPxY,
+        font: (pxSize) => pxSize * (ptPerPxY) // CSS px font-size -> pt, using the same px:pt ratio as the vertical axis (fonts scale with line height, not width)
+      };
+    }
+
+    // Sets the given text at (x, y) sized to fit within maxWidthPt,
+    // shrinking the font (down to a floor) rather than truncating — every
+    // item code stays fully readable in print, just smaller if it would
+    // otherwise have run into the next cell.
+    function drawFittedText(pdf, text, x, y, maxWidthPt, fontSizePt, opts) {
+      const MIN_FONT_PT = fontSizePt * 0.6;
+      let size = fontSizePt;
+      pdf.setFontSize(size);
+      let width = pdf.getTextWidth(text);
+      if (width > maxWidthPt && maxWidthPt > 0) {
+        size = Math.max(MIN_FONT_PT, size * (maxWidthPt / width) * 0.98);
+        pdf.setFontSize(size);
+      }
+      pdf.text(text, x, y, opts);
+    }
+
     try {
       // --- Calibration pass -------------------------------------------------
-      // Capture one representative product-grid page and use its JPEG size
-      // at various qualities to extrapolate the full export's size, so we
-      // can pick the highest quality that should still land under the cap.
-      // This avoids holding every page's canvas in memory at once (which
-      // would be enormous at this resolution across 100+ pages) while still
-      // being size-aware.
+      // Capture one representative sample and use its JPEG size at various
+      // qualities to extrapolate the full export's size, so we can pick the
+      // highest quality that should still land under the cap. In vectorText
+      // mode the sample is a single product image (file size there is
+      // driven by per-image bytes summed across every photo in the
+      // catalogue, since pages themselves are no longer big screenshots);
+      // otherwise it's one whole representative page, as before.
       progressText.textContent = 'Calibrating quality for file size…';
       const sampleIdx = findSampleGridPageIndex();
       currentPageIdx = sampleIdx;
@@ -2051,57 +2133,145 @@
       await waitForImages(document.getElementById('sheet-grid'));
       await new Promise(r => setTimeout(r, 25));
 
-      const sampleCanvas = await captureSheet();
-
-      // Keep the winning quality's encoded JPEG from the calibration pass
-      // instead of throwing it away — the loop below used to discard this
-      // and then re-render + re-capture + re-encode that exact same page
-      // from scratch in the main pass, which was pure wasted work (a full
-      // html2canvas capture at print resolution is the single most
-      // expensive step in this whole function). Reusing it here means the
-      // sample page is only ever captured once.
       let quality = QUALITY_START;
-      let sampleImgData = null;
-      while (quality > QUALITY_FLOOR) {
-        sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
-        const estimatedTotal = estimateBase64Bytes(sampleImgData) * globalPages.length;
-        if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
-        quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
+      let sampleImgData = null; // only used in non-vector mode (whole-page reuse)
+
+      if (vectorText) {
+        const sampleWrap = document.querySelector('#sheet-grid .sheet-img-wrap');
+        const totalImages = Math.max(1, countTotalGridImages());
+        if (sampleWrap) {
+          const sampleCanvas = await captureElement(sampleWrap, IMAGE_CAPTURE_SCALE);
+          while (quality > QUALITY_FLOOR) {
+            const testData = sampleCanvas.toDataURL('image/jpeg', quality);
+            const estimatedTotal = estimateBase64Bytes(testData) * totalImages;
+            if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
+            quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
+          }
+          quality = Math.max(quality, QUALITY_FLOOR);
+        }
+      } else {
+        const sampleCanvas = await captureSheet();
+        // Keep the winning quality's encoded JPEG from the calibration pass
+        // instead of throwing it away — the loop below used to discard this
+        // and then re-render + re-capture + re-encode that exact same page
+        // from scratch in the main pass, which was pure wasted work (a full
+        // html2canvas capture at print resolution is the single most
+        // expensive step in this whole function). Reusing it here means the
+        // sample page is only ever captured once.
+        while (quality > QUALITY_FLOOR) {
+          sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
+          const estimatedTotal = estimateBase64Bytes(sampleImgData) * globalPages.length;
+          if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
+          quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
+        }
+        quality = Math.max(quality, QUALITY_FLOOR);
+        if (quality === QUALITY_FLOOR) sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
       }
-      quality = Math.max(quality, QUALITY_FLOOR);
-      if (quality === QUALITY_FLOOR) sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
 
       // --- Main pass ----------------------------------------------------
       const downloadedStamp = `Downloaded ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+      // CSS colours used by vector text below, matching the on-screen
+      // catalogue's --text / --muted / --accent custom properties exactly.
+      const COLOR_TEXT = [26, 26, 26];
+      const COLOR_MUTED = [153, 153, 153];
+      const COLOR_ACCENT = [216, 52, 43];
 
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
-
-        let imgData;
-        if (i === sampleIdx) {
-          // Already captured and encoded above at the final chosen quality — skip re-rendering it.
-          imgData = sampleImgData;
-          currentPageIdx = i;
-        } else {
-          currentPageIdx = i;
-          renderCurrentPage(null);
-          sheet.style.transform = 'none'; // see the matching note in the calibration pass above
-          await waitForImages(document.getElementById('sheet-grid'));
-          await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
-
-          const canvas = await captureSheet();
-          imgData = canvas.toDataURL('image/jpeg', quality);
-        }
+        const page = globalPages[i];
+        currentPageIdx = i;
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
-        // With no bleed and no marks (password 2170) the page IS the trim
-        // size, so the image fills it exactly. With bleed (password 9033)
-        // the captured page is stretched slightly to run to the bleed
-        // edge, which is how bleed artwork is meant to work — there's a
-        // 3mm safety margin for the trim cut on every side, plus room
-        // further out for the crop marks themselves.
-        pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
+        const isVectorGridPage = vectorText && !page.isAbout && !page.isBlank && !page.isToc;
+
+        if (isVectorGridPage) {
+          // ---- Vector page: real PDF text for every label, JPEGs only for
+          // ---- each individual product photo. ----
+          renderCurrentPage(null);
+          sheet.style.transform = 'none';
+          await waitForImages(document.getElementById('sheet-grid'));
+          await new Promise(r => setTimeout(r, 25));
+
+          const map = makeMapper();
+          const gridEl = document.getElementById('sheet-grid');
+
+          for (const child of Array.from(gridEl.children)) {
+            if (child.classList.contains('sheet-heading-row')) {
+              const catEl = child.querySelector('.h-cat-inline');
+              const subEl = child.querySelector('.h-sub-inline');
+              if (catEl && catEl.textContent.trim()) {
+                const r = catEl.getBoundingClientRect();
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(map.font(28));
+                pdf.setTextColor(...COLOR_ACCENT);
+                pdf.text(catEl.textContent, map.x(r.left), map.y(r.top), { baseline: 'top' });
+              }
+              if (subEl && subEl.textContent.trim()) {
+                const r = subEl.getBoundingClientRect();
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(map.font(20));
+                pdf.setTextColor(...COLOR_MUTED);
+                pdf.text(subEl.textContent, map.x(r.left), map.y(r.top), { baseline: 'top' });
+              }
+              continue;
+            }
+
+            if (!child.classList.contains('sheet-card')) continue; // skip blank trailing filler cells
+
+            const wrap = child.querySelector('.sheet-img-wrap');
+            if (wrap) {
+              const r = wrap.getBoundingClientRect();
+              const canvas = await captureElement(wrap, IMAGE_CAPTURE_SCALE);
+              const imgData = canvas.toDataURL('image/jpeg', quality);
+              pdf.addImage(imgData, 'JPEG', map.x(r.left), map.y(r.top), map.w(r.width), map.h(r.height));
+            }
+
+            const codeEl = child.querySelector('.sheet-code');
+            if (codeEl && codeEl.textContent.trim()) {
+              const r = codeEl.getBoundingClientRect();
+              pdf.setFont('helvetica', 'bold');
+              pdf.setTextColor(...COLOR_TEXT);
+              const centerX = map.x(r.left) + map.w(r.width) / 2;
+              drawFittedText(pdf, codeEl.textContent, centerX, map.y(r.top), map.w(r.width), map.font(12), { baseline: 'top', align: 'center' });
+            }
+          }
+
+          const pagenumEl = document.getElementById('sheet-pagenum');
+          if (pagenumEl && pagenumEl.textContent.trim()) {
+            const r = pagenumEl.getBoundingClientRect();
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(map.font(13));
+            pdf.setTextColor(...COLOR_MUTED);
+            const centerX = map.x(r.left) + map.w(r.width) / 2;
+            pdf.text(pagenumEl.textContent, centerX, map.y(r.top), { baseline: 'top', align: 'center' });
+          }
+        } else {
+          // ---- Raster page: one flattened screenshot — used for
+          // ---- About/TOC/Blank always, and for every page when not in
+          // ---- vectorText mode. ----
+          let imgData;
+          if (!vectorText && i === sampleIdx) {
+            // Already captured and encoded during calibration — skip re-rendering it.
+            imgData = sampleImgData;
+          } else {
+            renderCurrentPage(null);
+            sheet.style.transform = 'none'; // see the matching note in the calibration pass above
+            await waitForImages(document.getElementById('sheet-grid'));
+            await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
+
+            const canvas = await captureSheet();
+            imgData = canvas.toDataURL('image/jpeg', vectorText ? QUALITY_START : quality);
+          }
+
+          // With no bleed and no marks (password 2170) the page IS the trim
+          // size, so the image fills it exactly. With bleed (password 9033)
+          // the captured page is stretched slightly to run to the bleed
+          // edge, which is how bleed artwork is meant to work — there's a
+          // 3mm safety margin for the trim cut on every side, plus room
+          // further out for the crop marks themselves.
+          pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
+        }
 
         if (includeCropMarks) {
           drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
