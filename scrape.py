@@ -55,6 +55,22 @@ IMAGE_ATTR_SELECTOR = 'img[src*="/productimages/"]'
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(OUTPUT_DIR, "images")
 DATA_FILE = os.path.join(OUTPUT_DIR, "catalogue.json")
+REPORT_FILE = os.path.join(OUTPUT_DIR, "scrape_report.json")
+
+# Safety net for when the site is broken/restructured much more seriously
+# than "one section moved" (e.g. login broke, the whole site is down, a
+# template change broke every selector at once). Rather than silently
+# overwriting a good catalogue.json with a near-empty one, the run refuses
+# to overwrite and exits non-zero if the new item count falls below this
+# fraction of the previous run's count. A handful of sections disappearing
+# (normal site churn) won't trip this — a mass failure will.
+MIN_ITEMS_FRACTION_OF_PREVIOUS = 0.7
+
+# Transient errors (a dropped connection, a momentary 502/503) shouldn't
+# permanently sink a whole section — retry a couple of times with a short
+# pause before giving up on a page.
+REQUEST_RETRIES = 3
+REQUEST_RETRY_BACKOFF_SECONDS = 3
 
 # ============================================================================
 
@@ -65,11 +81,32 @@ def login(session):
     return resp
 
 
+def fetch_with_retries(session, url):
+    """GET a URL, retrying a few times on transient network errors
+    (timeouts, connection resets, 502/503/504) before giving up. A real 404
+    (section renamed/removed) fails immediately — retrying won't fix that."""
+    last_error = None
+    for attempt in range(1, REQUEST_RETRIES + 1):
+        try:
+            resp = session.get(url, timeout=30)
+            if resp.status_code in (502, 503, 504) and attempt < REQUEST_RETRIES:
+                print(f"    (attempt {attempt}: {resp.status_code}, retrying...)")
+                time.sleep(REQUEST_RETRY_BACKOFF_SECONDS)
+                continue
+            resp.raise_for_status()
+            return resp
+        except requests.exceptions.RequestException as e:
+            last_error = e
+            if attempt < REQUEST_RETRIES:
+                print(f"    (attempt {attempt} failed: {e}, retrying...)")
+                time.sleep(REQUEST_RETRY_BACKOFF_SECONDS)
+    raise last_error
+
+
 def scrape_static_page(session, url):
     """Use this if the product list is present in the raw HTML (view-source
     shows the products). Fast and reliable — try this first."""
-    resp = session.get(url)
-    resp.raise_for_status()
+    resp = fetch_with_retries(session, url)
     soup = BeautifulSoup(resp.text, "html.parser")
 
     codes = soup.select(ITEM_NUMBER_ATTR_SELECTOR)
@@ -346,22 +383,37 @@ def main():
     })
 
     print("Logging in...")
-    login(session)
+    try:
+        login(session)
+    except requests.exceptions.RequestException as e:
+        # Can't scrape anything meaningful while logged out (this is a
+        # wholesale site — product listings require an account). Stop here
+        # rather than scraping a bunch of empty/login-redirect pages and
+        # mistaking that for "everything got deleted". Existing catalogue.json
+        # is left untouched so a bad login never wipes out good data.
+        print(f"! Login FAILED: {type(e).__name__}: {e}")
+        print("  catalogue.json was left untouched. Check BANKSIA_USERNAME / "
+              "BANKSIA_PASSWORD and whether the login form on the site changed.")
+        raise SystemExit(1)
 
     all_items = []
     failed_sections = []  # (label, url, error) for everything that didn't scrape — reported at the end
 
     def scrape_one(label, url, category, subcategory, city):
         """Scrape a single category/subcategory/city URL. On failure (e.g. a
-        404 because the section was renamed/removed on the site), logs a
-        warning and returns an empty list instead of crashing the whole run —
-        every other section still gets scraped and saved."""
+        404 because the section was renamed/removed on the site, or *any*
+        other error scraping that one section — a parsing surprise from a
+        restructured page included) logs a warning and returns an empty list
+        instead of crashing the whole run — every other section still gets
+        scraped and saved. Catching Exception broadly here is deliberate:
+        one broken section must never take down the whole day's catalogue
+        update."""
         print(f"Scraping {label} ...")
         try:
             items = scrape_section_pages(session, url)
-        except requests.exceptions.RequestException as e:
-            print(f"  ! FAILED — skipping this section: {e}")
-            failed_sections.append((label, url, str(e)))
+        except Exception as e:
+            print(f"  ! FAILED — skipping this section: {type(e).__name__}: {e}")
+            failed_sections.append((label, url, f"{type(e).__name__}: {e}"))
             return []
         for item in items:
             item["category"] = category
@@ -405,6 +457,47 @@ def main():
     for item in all_items:
         item["local_image"] = download_image(session, item["image_url"], item["item_number"])
 
+    # Sanity check before overwriting: a handful of sections disappearing
+    # (a product line discontinued in one city, say) is normal site churn —
+    # the catalogue should still update. But if the item count collapses
+    # compared to last time, something bigger broke (login silently failing,
+    # a template change breaking every selector, the site being down) and
+    # blindly overwriting a good catalogue.json with a near-empty one would
+    # be worse than just leaving yesterday's data in place. So: refuse to
+    # overwrite, and exit non-zero to flag it for a human, only in that case.
+    previous_count = None
+    if os.path.exists(DATA_FILE):
+        try:
+            with open(DATA_FILE) as f:
+                previous_count = len(json.load(f))
+        except (json.JSONDecodeError, OSError):
+            previous_count = None  # unreadable/corrupt old file — don't block on it
+
+    catastrophic_drop = (
+        len(all_items) == 0
+        or (previous_count and len(all_items) < previous_count * MIN_ITEMS_FRACTION_OF_PREVIOUS)
+    )
+
+    report = {
+        "scraped_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+        "item_count": len(all_items),
+        "previous_item_count": previous_count,
+        "catalogue_updated": not catastrophic_drop,
+        "failed_sections": [
+            {"section": label, "url": url, "error": err} for label, url, err in failed_sections
+        ],
+    }
+    with open(REPORT_FILE, "w") as f:
+        json.dump(report, f, indent=2)
+
+    if catastrophic_drop:
+        print(f"\n! Item count ({len(all_items)}) is far below the previous run's "
+              f"({previous_count}) — this looks like more than normal site churn "
+              f"(login issue, site outage, or a template change breaking scraping "
+              f"broadly). catalogue.json was NOT overwritten so yesterday's good "
+              f"data stays live. See {REPORT_FILE} for details.")
+        raise SystemExit(1)
+
     with open(DATA_FILE, "w") as f:
         json.dump(all_items, f, indent=2)
 
@@ -412,12 +505,17 @@ def main():
 
     if failed_sections:
         print(f"\n{len(failed_sections)} section(s) failed and were skipped — these likely need")
-        print("their CATEGORY_TREE entry updated (renamed/removed/restructured on the site):")
+        print("their CATEGORY_TREE entry updated (renamed/removed/restructured on the site).")
+        print(f"This is normal, expected site churn — catalogue.json was still updated "
+              f"with everything else. See {REPORT_FILE} for the list, or below:")
         for label, url, err in failed_sections:
             print(f"  - {label}\n      {url}\n      {err}")
-        # Non-zero exit so a CI dashboard still flags the run as "needs attention",
-        # without discarding the successfully-scraped data above.
-        raise SystemExit(1)
+        # Deliberately exit 0: a handful of renamed/removed sections is routine
+        # maintenance, not a failure — the catalogue update should proceed and
+        # your CI/commit step shouldn't be skipped or flagged red over it.
+        # Check scrape_report.json periodically (or alert on its
+        # failed_sections list) to catch these and update CATEGORY_TREE
+        # when convenient — it's no longer urgent.
 
 
 if __name__ == "__main__":
