@@ -3352,14 +3352,6 @@
     "local_image": "images/C12-KA_GREY_.jpg"
   },
   {
-    "item_number": "C2-70(AD)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-70(AD).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "Adelaide",
-    "local_image": "images/C2-70_AD_.jpg"
-  },
-  {
     "item_number": "C2-62(GC)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-62(GC).jpg",
     "category": "Caps and Hats",
@@ -3374,22 +3366,6 @@
     "subcategory": "Polyester Caps",
     "city": "Melbourne",
     "local_image": "images/C2-71_ME_.jpg"
-  },
-  {
-    "item_number": "C2-10",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-10.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "National",
-    "local_image": "images/C2-10.jpg"
-  },
-  {
-    "item_number": "C2-25",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-25.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "National",
-    "local_image": "images/C2-25.jpg"
   },
   {
     "item_number": "C2-29",
@@ -3432,22 +3408,6 @@
     "local_image": "images/C2-49.jpg"
   },
   {
-    "item_number": "C2-52",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-52.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "National",
-    "local_image": "images/C2-52.jpg"
-  },
-  {
-    "item_number": "C2-57",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-57.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "National",
-    "local_image": "images/C2-57.jpg"
-  },
-  {
     "item_number": "C2-58",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-58.jpg",
     "category": "Caps and Hats",
@@ -3486,14 +3446,6 @@
     "subcategory": "Polyester Caps",
     "city": "National",
     "local_image": "images/C2-67.jpg"
-  },
-  {
-    "item_number": "C2-68",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C2-68.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Polyester Caps",
-    "city": "National",
-    "local_image": "images/C2-68.jpg"
   },
   {
     "item_number": "C2-30(PH)",
@@ -3552,22 +3504,6 @@
     "local_image": "images/C7-6_BR_.jpg"
   },
   {
-    "item_number": "C1-51(CN)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C1-51(CN).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "Cairns",
-    "local_image": "images/C1-51_CN_.jpg"
-  },
-  {
-    "item_number": "C7-26(CN)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-26(CN).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "Cairns",
-    "local_image": "images/C7-26_CN_.jpg"
-  },
-  {
     "item_number": "C1-45(GC)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C1-45(GC).jpg",
     "category": "Caps and Hats",
@@ -3584,28 +3520,12 @@
     "local_image": "images/C1-52_GC_.jpg"
   },
   {
-    "item_number": "C1-44(HI)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C1-44(HI).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "Hamilton Island",
-    "local_image": "images/C1-44_HI_.jpg"
-  },
-  {
     "item_number": "C1-37(ME)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C1-37(ME).jpg",
     "category": "Caps and Hats",
     "subcategory": "Premium Caps",
     "city": "Melbourne",
     "local_image": "images/C1-37_ME_.jpg"
-  },
-  {
-    "item_number": "C1-50(ME)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C1-50(ME).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "Melbourne",
-    "local_image": "images/C1-50_ME_.jpg"
   },
   {
     "item_number": "C1-55(ME)",
@@ -3832,28 +3752,12 @@
     "local_image": "images/C7-30.jpg"
   },
   {
-    "item_number": "C7-34",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-34.jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "National",
-    "local_image": "images/C7-34.jpg"
-  },
-  {
     "item_number": "C7-38(DBLU)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-38(DBLU).jpg",
     "category": "Caps and Hats",
     "subcategory": "Premium Caps",
     "city": "National",
     "local_image": "images/C7-38_DBLU_.jpg"
-  },
-  {
-    "item_number": "C7-38(LBLU)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-38(LBLU).jpg",
-    "category": "Caps and Hats",
-    "subcategory": "Premium Caps",
-    "city": "National",
-    "local_image": "images/C7-38_LBLU_.jpg"
   },
   {
     "item_number": "C7-4",
@@ -3896,12 +3800,28 @@
     "local_image": "images/C7-65_KO_.jpg"
   },
   {
-    "item_number": "C7-66",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-66.jpg",
+    "item_number": "C7-71",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-71.jpg",
     "category": "Caps and Hats",
     "subcategory": "Premium Caps",
     "city": "National",
-    "local_image": "images/C7-66.jpg"
+    "local_image": "images/C7-71.jpg"
+  },
+  {
+    "item_number": "C7-72(KA)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-72(KA).jpg",
+    "category": "Caps and Hats",
+    "subcategory": "Premium Caps",
+    "city": "National",
+    "local_image": "images/C7-72_KA_.jpg"
+  },
+  {
+    "item_number": "C7-73(AU)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/C7-73(AU).jpg",
+    "category": "Caps and Hats",
+    "subcategory": "Premium Caps",
+    "city": "National",
+    "local_image": "images/C7-73_AU_.jpg"
   },
   {
     "item_number": "C8-1",
@@ -6048,14 +5968,6 @@
     "local_image": "images/ASH6-KA2.jpg"
   },
   {
-    "item_number": "BC13-KK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BC13-KK.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Ash Trays",
-    "city": "National",
-    "local_image": "images/BC13-KK.jpg"
-  },
-  {
     "item_number": "L-CT11-BR",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/L-CT11-BR.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -6192,6 +6104,14 @@
     "local_image": "images/M-CT05-ME.jpg"
   },
   {
+    "item_number": "SG-BD-ME1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SG-BD-ME1.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Coasters and Placements",
+    "city": "Melbourne",
+    "local_image": "images/SG-BD-ME1.jpg"
+  },
+  {
     "item_number": "BK-CS03-MP",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-CS03-MP.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -6270,22 +6190,6 @@
     "subcategory": "Coasters and Placements",
     "city": "National",
     "local_image": "images/CT14-GC2.jpg"
-  },
-  {
-    "item_number": "CT14-KA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/CT14-KA.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Coasters and Placements",
-    "city": "National",
-    "local_image": "images/CT14-KA.jpg"
-  },
-  {
-    "item_number": "CT14-KA2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/CT14-KA2.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Coasters and Placements",
-    "city": "National",
-    "local_image": "images/CT14-KA2.jpg"
   },
   {
     "item_number": "CT14-KA3",
@@ -6568,6 +6472,14 @@
     "local_image": "images/SG-BD-AR3.jpg"
   },
   {
+    "item_number": "SG-BD-AU1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SG-BD-AU1.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Coasters and Placements",
+    "city": "National",
+    "local_image": "images/SG-BD-AU1.jpg"
+  },
+  {
     "item_number": "SG-BD-MP2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SG-BD-MP2.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -6598,14 +6510,6 @@
     "subcategory": "Coasters and Placements",
     "city": "National",
     "local_image": "images/ZH-BD-AU.jpg"
-  },
-  {
-    "item_number": "ZH-BD-AU6",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-BD-AU6.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Coasters and Placements",
-    "city": "National",
-    "local_image": "images/ZH-BD-AU6.jpg"
   },
   {
     "item_number": "ZH-BD-MP",
@@ -6822,6 +6726,14 @@
     "subcategory": "Coasters and Placements",
     "city": "Sydney",
     "local_image": "images/SG-BD-SY.jpg"
+  },
+  {
+    "item_number": "SG-BD-SY1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SG-BD-SY1.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Coasters and Placements",
+    "city": "Sydney",
+    "local_image": "images/SG-BD-SY1.jpg"
   },
   {
     "item_number": "YL-CSS03-SY",
@@ -11192,6 +11104,14 @@
     "local_image": "images/MGT112-3KO2.jpg"
   },
   {
+    "item_number": "MGT112-AN1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AN1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "MDF Magnets & Keyrings",
+    "city": "National",
+    "local_image": "images/MGT112-AN1.jpg"
+  },
+  {
     "item_number": "MGT112-AU",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AU.jpg",
     "category": "Fridge Magnets",
@@ -11206,6 +11126,30 @@
     "subcategory": "MDF Magnets & Keyrings",
     "city": "National",
     "local_image": "images/MGT112-AU2.jpg"
+  },
+  {
+    "item_number": "MGT112-AU3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AU3.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "MDF Magnets & Keyrings",
+    "city": "National",
+    "local_image": "images/MGT112-AU3.jpg"
+  },
+  {
+    "item_number": "MGT112-AU4",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AU4.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "MDF Magnets & Keyrings",
+    "city": "National",
+    "local_image": "images/MGT112-AU4.jpg"
+  },
+  {
+    "item_number": "MGT112-AU5",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AU5.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "MDF Magnets & Keyrings",
+    "city": "National",
+    "local_image": "images/MGT112-AU5.jpg"
   },
   {
     "item_number": "MGT112-KA",
@@ -14936,38 +14880,6 @@
     "local_image": "images/HZ2181KO.jpg"
   },
   {
-    "item_number": "HZ2183KA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KA.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Backpacks",
-    "city": "National",
-    "local_image": "images/HZ2183KA.jpg"
-  },
-  {
-    "item_number": "HZ2183KK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KK.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Backpacks",
-    "city": "National",
-    "local_image": "images/HZ2183KK.jpg"
-  },
-  {
-    "item_number": "HZ2183KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KO.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Backpacks",
-    "city": "National",
-    "local_image": "images/HZ2183KO.jpg"
-  },
-  {
-    "item_number": "HZ2183PKO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183PKO.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Backpacks",
-    "city": "National",
-    "local_image": "images/HZ2183PKO.jpg"
-  },
-  {
     "item_number": "HZ3148PKO1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ3148PKO1.jpg",
     "category": "Soft Toys",
@@ -16190,6 +16102,38 @@
     "subcategory": "Plush Toy Animals",
     "city": "National",
     "local_image": "images/YC64829-KO.jpg"
+  },
+  {
+    "item_number": "HZ2183KA",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KA.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ2183KA.jpg"
+  },
+  {
+    "item_number": "HZ2183KK",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KK.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ2183KK.jpg"
+  },
+  {
+    "item_number": "HZ2183KO",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183KO.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ2183KO.jpg"
+  },
+  {
+    "item_number": "HZ2183PKO",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HZ2183PKO.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": "National",
+    "local_image": "images/HZ2183PKO.jpg"
   },
   {
     "item_number": "HZ3182R",
@@ -22632,14 +22576,6 @@
     "local_image": "images/WDPEN02-KK1.jpg"
   },
   {
-    "item_number": "LY-YB12-23(PH)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/LY-YB12-23(PH).jpg",
-    "category": "Stationery",
-    "subcategory": "Pens and Pencils",
-    "city": "Perth",
-    "local_image": "images/LY-YB12-23_PH_.jpg"
-  },
-  {
     "item_number": "LY-PEN016-SY",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/LY-PEN016-SY.jpg",
     "category": "Stationery",
@@ -22960,14 +22896,6 @@
     "local_image": "images/LY-NP4-ME.jpg"
   },
   {
-    "item_number": "LY-NP4-PL",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/LY-NP4-PL.jpg",
-    "category": "Stationery",
-    "subcategory": "Stationery Sets",
-    "city": "National",
-    "local_image": "images/LY-NP4-PL.jpg"
-  },
-  {
     "item_number": "LY-NP5-AB",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/LY-NP5-AB.jpg",
     "category": "Stationery",
@@ -23190,6 +23118,14 @@
     "subcategory": "Stationery Sets",
     "city": "National",
     "local_image": "images/NP6-RS.jpg"
+  },
+  {
+    "item_number": "NP7-AU2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/NP7-AU2.jpg",
+    "category": "Stationery",
+    "subcategory": "Stationery Sets",
+    "city": "National",
+    "local_image": "images/NP7-AU2.jpg"
   },
   {
     "item_number": "NP7-SY",
@@ -24072,14 +24008,6 @@
     "local_image": "images/AC-LW09-BLK.jpg"
   },
   {
-    "item_number": "AC-LW09-LBR",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW09-LBR.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Lady's Wallets",
-    "city": "National",
-    "local_image": "images/AC-LW09-LBR.jpg"
-  },
-  {
     "item_number": "AC-LW09-RED",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW09-RED.jpg",
     "category": "Wallets and Leather Products",
@@ -24102,14 +24030,6 @@
     "subcategory": "Lady's Wallets",
     "city": "National",
     "local_image": "images/AC-LW27-LBR.jpg"
-  },
-  {
-    "item_number": "AC-LW34-BL",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW34-BL.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Lady's Wallets",
-    "city": "National",
-    "local_image": "images/AC-LW34-BL.jpg"
   },
   {
     "item_number": "AC-LW34-DBR",
@@ -24920,22 +24840,6 @@
     "local_image": "images/MW127B-BRN.jpg"
   },
   {
-    "item_number": "MW128-BLK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW128-BLK.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Men's Wallets",
-    "city": "National",
-    "local_image": "images/MW128-BLK.jpg"
-  },
-  {
-    "item_number": "MW128-BRN",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW128-BRN.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Men's Wallets",
-    "city": "National",
-    "local_image": "images/MW128-BRN.jpg"
-  },
-  {
     "item_number": "MW129-BR",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW129-BR.jpg",
     "category": "Wallets and Leather Products",
@@ -25616,6 +25520,14 @@
     "local_image": "images/BG2317-KA.jpg"
   },
   {
+    "item_number": "BG2317-QU",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG2317-QU.jpg",
+    "category": "Water Globes and Polyresin Ornaments",
+    "subcategory": "Polyresin Ornaments",
+    "city": "National",
+    "local_image": "images/BG2317-QU.jpg"
+  },
+  {
     "item_number": "BG2324",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG2324.jpg",
     "category": "Water Globes and Polyresin Ornaments",
@@ -25696,12 +25608,12 @@
     "local_image": "images/BG2501-KO3.jpg"
   },
   {
-    "item_number": "BG1211(PH)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1211(PH).jpg",
+    "item_number": "BG2601",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG2601.jpg",
     "category": "Water Globes and Polyresin Ornaments",
     "subcategory": "Polyresin Ornaments",
-    "city": "Perth",
-    "local_image": "images/BG1211_PH_.jpg"
+    "city": "National",
+    "local_image": "images/BG2601.jpg"
   },
   {
     "item_number": "BG0107(OH)",
@@ -25886,6 +25798,14 @@
     "subcategory": "Water Globes and Others",
     "city": "National",
     "local_image": "images/ZH-WB4-KK.jpg"
+  },
+  {
+    "item_number": "ZH-WB4-KK2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-WB4-KK2.jpg",
+    "category": "Water Globes and Polyresin Ornaments",
+    "subcategory": "Water Globes and Others",
+    "city": "National",
+    "local_image": "images/ZH-WB4-KK2.jpg"
   },
   {
     "item_number": "ZH-WB4-KO",
