@@ -185,8 +185,8 @@ CATEGORY_TREE = [
     ]),
     ("Caps-and-Hats", "Caps and Hats", [
         ("Bucket-Hats-and-Cork-Hats", "Bucket Hats and Cork Hats", ["National"]),
-        ("Polyester-Caps", "Polyester Caps", ["Adelaide", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
-        ("Premium-Caps", "Premium Caps", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Hamilton-Island", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Polyester-Caps", "Polyester Caps", ["Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Premium-Caps", "Premium Caps", ["Adelaide", "Brisbane", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
     ]),
     ("Clocks", "Clocks", [
         ("Clocks", "Clocks", ["Brisbane", "Gold-Coast", "National", "Perth", "Sydney"]),
@@ -255,7 +255,7 @@ CATEGORY_TREE = [
         ("Neoprene-Coin-Bags", "Neoprene Coin Bags", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "National", "Perth", "Sydney"]),
         ("Others", "Others", ["National", "Sydney"]),
         ("Pencil-Cases", "Pencil Cases", ["Adelaide", "Brisbane", "Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
-        ("Pens-and-Pencils", "Pens and Pencils", ["Cairns", "Gold-Coast", "Melbourne", "National", "Perth", "Sydney"]),
+        ("Pens-and-Pencils", "Pens and Pencils", ["Cairns", "Gold-Coast", "Melbourne", "National", "Sydney"]),
         ("Postcards", "Postcards", ["National", "Sydney"]),
         ("Ruler-Sets", "Ruler Sets", ["Adelaide", "Melbourne", "National", "Sydney"]),
         ("Stationery-Sets", "Stationery Sets", ["Melbourne", "National", "Sydney"]),
@@ -269,7 +269,7 @@ CATEGORY_TREE = [
     ]),
     ("Water-Globes-and-Polyresin-Ornaments", "Water Globes and Polyresin Ornaments", [
         ("Polyresin-Magnets", "Polyresin Magnets", ["National"]),
-        ("Polyresin-Ornaments", "Polyresin Ornaments", ["Melbourne", "National", "Perth", "Sydney"]),
+        ("Polyresin-Ornaments", "Polyresin Ornaments", ["Melbourne", "National", "Sydney"]),
         ("Salt-and-Pepper-Shakers", "Salt and Pepper Shakers", ["National"]),
         ("Water-Globes-and-Others", "Water Globes and Others", ["Adelaide", "Brisbane", "Cairns", "Melbourne", "National", "Perth", "Sydney"]),
     ]),
