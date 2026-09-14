@@ -2576,14 +2576,6 @@
     "local_image": "images/GW89-SY_WHT_.jpg"
   },
   {
-    "item_number": "GW89-SY2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW89-SY2.jpg",
-    "category": "Bags",
-    "subcategory": "Premium canvas cotton Bags",
-    "city": "Sydney",
-    "local_image": "images/GW89-SY2.jpg"
-  },
-  {
     "item_number": "GW89-SY4",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW89-SY4.jpg",
     "category": "Bags",
@@ -23840,14 +23832,6 @@
     "local_image": "images/MW108-BRN.jpg"
   },
   {
-    "item_number": "MW115-BRN",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW115-BRN.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Coin Purses, Passport Holder and Key Wallets",
-    "city": "National",
-    "local_image": "images/MW115-BRN.jpg"
-  },
-  {
     "item_number": "MW117-PK",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW117-PK.jpg",
     "category": "Wallets and Leather Products",
@@ -24424,14 +24408,6 @@
     "local_image": "images/AC-MW54-KA2GREY.jpg"
   },
   {
-    "item_number": "AC-MW57-BLK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW57-BLK.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Men's Wallets",
-    "city": "National",
-    "local_image": "images/AC-MW57-BLK.jpg"
-  },
-  {
     "item_number": "AC-MW57-DBR",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW57-DBR.jpg",
     "category": "Wallets and Leather Products",
@@ -24494,6 +24470,14 @@
     "subcategory": "Men's Wallets",
     "city": "National",
     "local_image": "images/AC-MW68-BRN.jpg"
+  },
+  {
+    "item_number": "AC-MW75-BLK",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW75-BLK.jpg",
+    "category": "Wallets and Leather Products",
+    "subcategory": "Men's Wallets",
+    "city": "National",
+    "local_image": "images/AC-MW75-BLK.jpg"
   },
   {
     "item_number": "AC-MW75-BR",
@@ -24622,22 +24606,6 @@
     "subcategory": "Men's Wallets",
     "city": "National",
     "local_image": "images/MW100-DBR.jpg"
-  },
-  {
-    "item_number": "MW101-BLK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW101-BLK.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Men's Wallets",
-    "city": "National",
-    "local_image": "images/MW101-BLK.jpg"
-  },
-  {
-    "item_number": "MW101-DBR",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MW101-DBR.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Men's Wallets",
-    "city": "National",
-    "local_image": "images/MW101-DBR.jpg"
   },
   {
     "item_number": "MW103-03BLK",
@@ -25182,14 +25150,6 @@
     "subcategory": "Other Leather Bags",
     "city": "National",
     "local_image": "images/GW107-BRN.jpg"
-  },
-  {
-    "item_number": "GW109-RED",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW109-RED.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Other Leather Bags",
-    "city": "National",
-    "local_image": "images/GW109-RED.jpg"
   },
   {
     "item_number": "GW70-BRNL",
