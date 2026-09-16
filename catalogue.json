@@ -6176,14 +6176,6 @@
     "local_image": "images/CT14-FL.jpg"
   },
   {
-    "item_number": "CT14-GC2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/CT14-GC2.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Coasters and Placements",
-    "city": "National",
-    "local_image": "images/CT14-GC2.jpg"
-  },
-  {
     "item_number": "CT14-KA3",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/CT14-KA3.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -16672,8 +16664,24 @@
     "local_image": "images/YC-65399.jpg"
   },
   {
-    "item_number": "YC-6965-1",
+    "item_number": "YC-65907-1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6965-1.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Soft Toy Keyings and Magnets",
+    "city": "National",
+    "local_image": "images/YC-65907-1.jpg"
+  },
+  {
+    "item_number": "YC-65907-2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6965-2.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Soft Toy Keyings and Magnets",
+    "city": "National",
+    "local_image": "images/YC-65907-2.jpg"
+  },
+  {
+    "item_number": "YC-6965-1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6976-1.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16681,7 +16689,7 @@
   },
   {
     "item_number": "YC-6965-2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6965-2.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6978-1.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16689,7 +16697,7 @@
   },
   {
     "item_number": "YC-6976-1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6976-1.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6978-2.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16697,7 +16705,7 @@
   },
   {
     "item_number": "YC-6978-1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6978-1.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC64011-KO(5.5).jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16705,7 +16713,7 @@
   },
   {
     "item_number": "YC-6978-2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-6978-2.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65410-KO.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16713,7 +16721,7 @@
   },
   {
     "item_number": "YC64011-KO(5.5)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC64011-KO(5.5).jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65481-KO.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16721,7 +16729,7 @@
   },
   {
     "item_number": "YC65410-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65410-KO.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65572-KO.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16729,7 +16737,7 @@
   },
   {
     "item_number": "YC65481-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65481-KO.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65581-KABLU.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
@@ -16737,27 +16745,11 @@
   },
   {
     "item_number": "YC65572-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65572-KO.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Soft Toy Keyings and Magnets",
-    "city": "National",
-    "local_image": "images/YC65572-KO.jpg"
-  },
-  {
-    "item_number": "YC65581-KABLU",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65581-KABLU.jpg",
-    "category": "Soft Toys",
-    "subcategory": "Soft Toy Keyings and Magnets",
-    "city": "National",
-    "local_image": "images/YC65581-KABLU.jpg"
-  },
-  {
-    "item_number": "YC65581-KAGRAY",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC65581-KAGRAY.jpg",
     "category": "Soft Toys",
     "subcategory": "Soft Toy Keyings and Magnets",
     "city": "National",
-    "local_image": "images/YC65581-KAGRAY.jpg"
+    "local_image": "images/YC65572-KO.jpg"
   },
   {
     "item_number": "YC65581-KAGRN",
