@@ -2928,14 +2928,6 @@
     "local_image": "images/HN-GW-1.jpg"
   },
   {
-    "item_number": "HN-GW-10",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW-10.jpg",
-    "category": "Bags",
-    "subcategory": "Shopping Bags",
-    "city": "National",
-    "local_image": "images/HN-GW-10.jpg"
-  },
-  {
     "item_number": "HN-GW-32BL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW-32BL.jpg",
     "category": "Bags",
@@ -12366,6 +12358,14 @@
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
     "local_image": "images/BG1904-CN5.jpg"
+  },
+  {
+    "item_number": "BG1904-CN6",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-CN6.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Polyresin Magnets",
+    "city": "Cairns",
+    "local_image": "images/BG1904-CN6.jpg"
   },
   {
     "item_number": "BG1913-CN",
