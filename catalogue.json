@@ -11120,6 +11120,14 @@
     "local_image": "images/MGT112-AU5.jpg"
   },
   {
+    "item_number": "MGT112-AU6",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-AU6.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "MDF Magnets & Keyrings",
+    "city": "National",
+    "local_image": "images/MGT112-AU6.jpg"
+  },
+  {
     "item_number": "MGT112-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT112-KA.jpg",
     "category": "Fridge Magnets",
@@ -12616,6 +12624,14 @@
     "local_image": "images/BG1904-ME.jpg"
   },
   {
+    "item_number": "BG1904-ME2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-ME2.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Polyresin Magnets",
+    "city": "Melbourne",
+    "local_image": "images/BG1904-ME2.jpg"
+  },
+  {
     "item_number": "BG1913-ME",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-ME.jpg",
     "category": "Fridge Magnets",
@@ -13598,6 +13614,46 @@
     "subcategory": "Polyresin Ornaments",
     "city": "Sydney",
     "local_image": "images/BG2502-SY1.jpg"
+  },
+  {
+    "item_number": "MGT142-KA1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KA1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Wooden Magnets",
+    "city": "National",
+    "local_image": "images/MGT142-KA1.jpg"
+  },
+  {
+    "item_number": "MGT142-KK1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KK1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Wooden Magnets",
+    "city": "National",
+    "local_image": "images/MGT142-KK1.jpg"
+  },
+  {
+    "item_number": "MGT142-KK2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KK2.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Wooden Magnets",
+    "city": "National",
+    "local_image": "images/MGT142-KK2.jpg"
+  },
+  {
+    "item_number": "MGT142-KO1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KO1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Wooden Magnets",
+    "city": "National",
+    "local_image": "images/MGT142-KO1.jpg"
+  },
+  {
+    "item_number": "MGT142-KO2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KO2.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Wooden Magnets",
+    "city": "National",
+    "local_image": "images/MGT142-KO2.jpg"
   },
   {
     "item_number": "WDMGT01-KA1",
@@ -19160,14 +19216,6 @@
     "local_image": "images/L-KC5-KA2.jpg"
   },
   {
-    "item_number": "L-KC5-KA4",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/L-KC5-KA4.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Keyrings",
-    "city": "National",
-    "local_image": "images/L-KC5-KA4.jpg"
-  },
-  {
     "item_number": "L-KC5-KA4B",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/L-KC5-KA4B.jpg",
     "category": "Souvenir Keyrings and Keyring Sets",
@@ -19494,14 +19542,6 @@
     "subcategory": "Keyrings",
     "city": "National",
     "local_image": "images/SF-K620-P.jpg"
-  },
-  {
-    "item_number": "SF-K623-B",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SF-K623-B.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Keyrings",
-    "city": "National",
-    "local_image": "images/SF-K623-B.jpg"
   },
   {
     "item_number": "SF-K623-P",
@@ -20464,14 +20504,6 @@
     "local_image": "images/KC142-GC1.jpg"
   },
   {
-    "item_number": "MGT142-GC1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-GC1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "Gold Coast",
-    "local_image": "images/MGT142-GC1.jpg"
-  },
-  {
     "item_number": "KC142-ME1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/KC142-ME1.jpg",
     "category": "Souvenir Keyrings and Keyring Sets",
@@ -20480,76 +20512,12 @@
     "local_image": "images/KC142-ME1.jpg"
   },
   {
-    "item_number": "MGT142-ME1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-ME1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "Melbourne",
-    "local_image": "images/MGT142-ME1.jpg"
-  },
-  {
     "item_number": "KC142-KK1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/KC142-KK1.jpg",
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Wooden Magnets",
     "city": "National",
     "local_image": "images/KC142-KK1.jpg"
-  },
-  {
-    "item_number": "MGT142-KA1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KA1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "National",
-    "local_image": "images/MGT142-KA1.jpg"
-  },
-  {
-    "item_number": "MGT142-KK1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KK1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "National",
-    "local_image": "images/MGT142-KK1.jpg"
-  },
-  {
-    "item_number": "MGT142-KK2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KK2.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "National",
-    "local_image": "images/MGT142-KK2.jpg"
-  },
-  {
-    "item_number": "MGT142-KO1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KO1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "National",
-    "local_image": "images/MGT142-KO1.jpg"
-  },
-  {
-    "item_number": "MGT142-KO2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-KO2.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "National",
-    "local_image": "images/MGT142-KO2.jpg"
-  },
-  {
-    "item_number": "MGT142-PH1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-PH1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "Perth",
-    "local_image": "images/MGT142-PH1.jpg"
-  },
-  {
-    "item_number": "MGT142-SY1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT142-SY1.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Wooden Magnets",
-    "city": "Sydney",
-    "local_image": "images/MGT142-SY1.jpg"
   },
   {
     "item_number": "STN51-GC",
@@ -20718,22 +20686,6 @@
     "subcategory": "Eye Glasses Cases",
     "city": "National",
     "local_image": "images/STN48-GC.jpg"
-  },
-  {
-    "item_number": "STN48-KA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN48-KA.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Eye Glasses Cases",
-    "city": "National",
-    "local_image": "images/STN48-KA.jpg"
-  },
-  {
-    "item_number": "STN48-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN48-KO.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Eye Glasses Cases",
-    "city": "National",
-    "local_image": "images/STN48-KO.jpg"
   },
   {
     "item_number": "STN48-RS",
@@ -21080,14 +21032,6 @@
     "local_image": "images/90407NP.jpg"
   },
   {
-    "item_number": "BK-FL016-IA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-FL016-IA.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/BK-FL016-IA.jpg"
-  },
-  {
     "item_number": "BK-MS021",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-MS021.jpg",
     "category": "Sports and Accessories",
@@ -21142,14 +21086,6 @@
     "subcategory": "Others",
     "city": "National",
     "local_image": "images/FL017-KO.jpg"
-  },
-  {
-    "item_number": "FL017-KO2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/FL017-KO2.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/FL017-KO2.jpg"
   },
   {
     "item_number": "FL018-AU",
