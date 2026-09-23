@@ -1824,14 +1824,6 @@
     "local_image": "images/HN-GW050-SY.jpg"
   },
   {
-    "item_number": "HN-GW30-FL",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW30-FL.jpg",
-    "category": "Bags",
-    "subcategory": "Other bags",
-    "city": "National",
-    "local_image": "images/HN-GW30-FL.jpg"
-  },
-  {
     "item_number": "HN-GW35-FL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW35-FL.jpg",
     "category": "Bags",
@@ -1846,14 +1838,6 @@
     "subcategory": "Other bags",
     "city": "National",
     "local_image": "images/HN-GW35BL-AUS.jpg"
-  },
-  {
-    "item_number": "HN-GW39-FL",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW39-FL.jpg",
-    "category": "Bags",
-    "subcategory": "Other bags",
-    "city": "National",
-    "local_image": "images/HN-GW39-FL.jpg"
   },
   {
     "item_number": "HN-GW61-BLU",
@@ -2376,14 +2360,6 @@
     "local_image": "images/GW89-SY1.jpg"
   },
   {
-    "item_number": "GW91-AU",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW91-AU.jpg",
-    "category": "Bags",
-    "subcategory": "Premium canvas cotton Bags",
-    "city": "National",
-    "local_image": "images/GW91-AU.jpg"
-  },
-  {
     "item_number": "GW91-SY",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW91-SY.jpg",
     "category": "Bags",
@@ -2670,14 +2646,6 @@
     "subcategory": "Premium canvas cotton Bags",
     "city": "Sydney",
     "local_image": "images/HN-GW58-SY_WH_.jpg"
-  },
-  {
-    "item_number": "HN-GW4-BR",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW4-BR.jpg",
-    "category": "Bags",
-    "subcategory": "Shopping Bags",
-    "city": "Brisbane",
-    "local_image": "images/HN-GW4-BR.jpg"
   },
   {
     "item_number": "HN-GW4-GC",
@@ -3088,14 +3056,6 @@
     "local_image": "images/HN-GW2-53.jpg"
   },
   {
-    "item_number": "HN-GW3-1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW3-1.jpg",
-    "category": "Bags",
-    "subcategory": "Shopping Bags",
-    "city": "National",
-    "local_image": "images/HN-GW3-1.jpg"
-  },
-  {
     "item_number": "HN-GW3-32BL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW3-32BL.jpg",
     "category": "Bags",
@@ -3302,14 +3262,6 @@
     "subcategory": "Shopping Bags",
     "city": "Sydney",
     "local_image": "images/HN-GW3-55_SY_.jpg"
-  },
-  {
-    "item_number": "HN-GW4-SY4",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW4-SY4.jpg",
-    "category": "Bags",
-    "subcategory": "Shopping Bags",
-    "city": "Sydney",
-    "local_image": "images/HN-GW4-SY4.jpg"
   },
   {
     "item_number": "HN-GW5-SY2",
@@ -13448,14 +13400,6 @@
     "local_image": "images/BG1114_SY_.jpg"
   },
   {
-    "item_number": "BG1514(SY)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1514(SY).jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Polyresin Magnets",
-    "city": "Sydney",
-    "local_image": "images/BG1514_SY_.jpg"
-  },
-  {
     "item_number": "BG1515(SY)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1515(SY).jpg",
     "category": "Fridge Magnets",
@@ -23056,6 +23000,14 @@
     "local_image": "images/NP6-RS.jpg"
   },
   {
+    "item_number": "NP7-AU",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/NP7-AU.jpg",
+    "category": "Stationery",
+    "subcategory": "Stationery Sets",
+    "city": "National",
+    "local_image": "images/NP7-AU.jpg"
+  },
+  {
     "item_number": "NP7-AU2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/NP7-AU2.jpg",
     "category": "Stationery",
@@ -25182,14 +25134,6 @@
     "subcategory": "Other Leather Bags",
     "city": "National",
     "local_image": "images/HN-GW47-WH.jpg"
-  },
-  {
-    "item_number": "HN-GW50-PK",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW50-PK.jpg",
-    "category": "Wallets and Leather Products",
-    "subcategory": "Other Leather Bags",
-    "city": "National",
-    "local_image": "images/HN-GW50-PK.jpg"
   },
   {
     "item_number": "HN-GW54-RED",
