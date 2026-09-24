@@ -4688,22 +4688,6 @@
     "local_image": "images/MI064-AN.jpg"
   },
   {
-    "item_number": "MI064-KA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-KA.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI064-KA.jpg"
-  },
-  {
-    "item_number": "MI064-KK1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-KK1.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI064-KK1.jpg"
-  },
-  {
     "item_number": "MI064-KK2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-KK2.jpg",
     "category": "Display Plates, Frames and Premium Gifts",
@@ -4718,30 +4702,6 @@
     "subcategory": "Mirrors",
     "city": "National",
     "local_image": "images/MI064-KK3.jpg"
-  },
-  {
-    "item_number": "MI064-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-KO.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI064-KO.jpg"
-  },
-  {
-    "item_number": "MI064-OMP",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-OMP.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI064-OMP.jpg"
-  },
-  {
-    "item_number": "MI064-OMP2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-OMP2.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI064-OMP2.jpg"
   },
   {
     "item_number": "MI10-AN",
@@ -5112,28 +5072,12 @@
     "local_image": "images/MI13-AU.jpg"
   },
   {
-    "item_number": "MI064-PH",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-PH.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "Perth",
-    "local_image": "images/MI064-PH.jpg"
-  },
-  {
     "item_number": "MI11-PH",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI11-PH.jpg",
     "category": "Display Plates, Frames and Premium Gifts",
     "subcategory": "Mirrors",
     "city": "Perth",
     "local_image": "images/MI11-PH.jpg"
-  },
-  {
-    "item_number": "MI064-SY4",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI064-SY4.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "Sydney",
-    "local_image": "images/MI064-SY4.jpg"
   },
   {
     "item_number": "MI064-SY5",
@@ -8654,14 +8598,6 @@
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
     "local_image": "images/MGT63-GC16.jpg"
-  },
-  {
-    "item_number": "MGT63-GC17",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC17.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "Gold Coast",
-    "local_image": "images/MGT63-GC17.jpg"
   },
   {
     "item_number": "MGT63-GC18",
@@ -13510,6 +13446,14 @@
     "subcategory": "Polyresin Magnets",
     "city": "Sydney",
     "local_image": "images/BG1835_SY_.jpg"
+  },
+  {
+    "item_number": "BG1904-SY1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-SY1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Polyresin Magnets",
+    "city": "Sydney",
+    "local_image": "images/BG1904-SY1.jpg"
   },
   {
     "item_number": "BG1913-SY",
