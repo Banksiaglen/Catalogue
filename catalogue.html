@@ -1953,29 +1953,29 @@
     const PAGE_H = TRIM_H + OFFSET * 2;
     const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
 
-    // scale 3 captures at roughly 300dpi for this trim size — the standard
-    // minimum for commercial print. This is the single biggest factor in
-    // how long the export takes (capture/encode time scales with the
-    // square of this number), so it's the main lever for export speed —
-    // dropped from 4 to noticeably cut export time given reports it was
-    // taking too long, while staying at a resolution that still holds up
-    // in print. The quality settings below (JPEG compression) are what
-    // still make pages look clearer than before, independent of this.
-    const CAPTURE_SCALE = 3;
+    // Dropped again (was 4, then 3) since export was still reported too
+    // slow. scale 2.5 captures at roughly 250dpi for this trim size — a
+    // step below the 300dpi "safe" print standard, but still generally
+    // usable for catalogue photos (as opposed to fine-line text/art). This
+    // is the dominant cost in the whole export: capture and encode time
+    // both scale with the SQUARE of this number, so going from 4 to 2.5
+    // cuts that part of the work to roughly 39% of where it started two
+    // rounds ago. If print output still looks acceptable at this setting,
+    // great; if it looks visibly soft, this is the first thing to raise
+    // back up — just know that reverses most of today's speed gain.
+    const CAPTURE_SCALE = 2.5;
     // Raised well above the old 100MB cap — quality is no longer squeezed
     // down just to fit a byte budget. Still present as a sane upper bound
     // so a huge catalogue doesn't produce something unusable.
     const MAX_FILE_BYTES = 350 * 1024 * 1024;
     const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
-    // Quality floor/start both raised significantly — clearer images are
-    // the priority now, and file size is allowed to grow to accommodate
-    // that. The calibration step will still trim quality if a catalogue
-    // is large enough to risk exceeding MAX_FILE_BYTES, but only as a
-    // last resort, and never below 0.85 (still visually very close to
-    // maximum quality — no visible compression blockiness).
-    const QUALITY_START = 0.97;
-    const QUALITY_FLOOR = 0.85;
-    const QUALITY_STEP = 0.03; // finer steps since the usable range is narrower now
+    // Pulled back slightly from last round (0.97/0.85) — JPEG encoding
+    // time grows a bit with quality too, so this trims a little more time
+    // off every page. 0.90 still looks clean; it's well above the range
+    // where compression blockiness becomes visible.
+    const QUALITY_START = 0.90;
+    const QUALITY_FLOOR = 0.75;
+    const QUALITY_STEP = 0.03;
 
     const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
 
@@ -1993,13 +1993,14 @@
       currentPageIdx = sampleIdx;
       renderCurrentPage(null);
       await waitForImages(document.getElementById('sheet-grid'));
-      await new Promise(r => setTimeout(r, 10));
+      await new Promise(r => setTimeout(r, 5));
 
       const sampleCanvas = await html2canvas(sheet, {
         scale: CAPTURE_SCALE,
         backgroundColor: '#ffffff',
         useCORS: true,
-        logging: false
+        logging: false,
+        imageTimeout: 0 // don't make html2canvas re-wait on images — waitForImages() above already confirmed they're loaded
       });
 
       let quality = QUALITY_START;
@@ -2026,13 +2027,14 @@
           currentPageIdx = i;
           renderCurrentPage(null);
           await waitForImages(document.getElementById('sheet-grid'));
-          await new Promise(r => setTimeout(r, 10)); // let layout settle before capture
+          await new Promise(r => setTimeout(r, 5)); // let layout settle before capture
 
           canvas = await html2canvas(sheet, {
             scale: CAPTURE_SCALE,
             backgroundColor: '#ffffff',
             useCORS: true,
-            logging: false
+            logging: false,
+            imageTimeout: 0
           });
         }
         const imgData = canvas.toDataURL('image/jpeg', quality);
