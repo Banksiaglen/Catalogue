@@ -507,7 +507,7 @@
        This is only a fallback: getImageZoomScale()/needsPortraitRotation()
        in the script set the actual per-item transform inline (stronger
        zoom for Soft Toys, 90° rotation for Beach/Tea Towels). */
-    transform: scale(1.06);
+    transform: scale(1.16);
   }
   #sheet-grid .sheet-code {
     text-align: center;
@@ -952,177 +952,38 @@
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   }
 
-  // Products that share a code apart from one size token (e.g.
-  // "ABC123-S-RED", "ABC-M-001", "TOWEL-L", "BK-TS10-L(BLK)", or with no
-  // separator at all — "GW111" vs "GW111S") are the same item photographed
-  // at different physical sizes. This applies across all categories, not
-  // just clothing.
-  //
-  // Two detection passes:
-  //  1. Split the code on common separators (space/hyphen/underscore/
-  //     slash) and check each *whole* segment against known size words —
-  //     an exact match after splitting, not a substring match, so a
-  //     segment that merely contains an "L" or "S" (e.g. "SM01", "BLUE")
-  //     isn't mistaken for a size. A trailing parenthetical annotation on
-  //     the same segment (e.g. the "(BLK)"/"(WHT)" colourway note in
-  //     "BK-TS10-L(BLK)") is stripped before matching, since it's not part
-  //     of the size token itself.
-  //  2. If that finds nothing (no separator present, e.g. "BK-TH01L"), try
-  //     stripping a size-shaped tail directly off the end of the code and
-  //     confirm it's really a size — rather than a code that just happens
-  //     to end in a letter like "S" or "M" — one of two ways:
-  //       a) the stripped base matches another real (unsized) item number
-  //          in the catalogue, e.g. "GW111S" minus "S" is "GW111", and
-  //          "GW111" exists as its own item; or
-  //       b) the stripped base matches at least one OTHER item's stripped
-  //          base within the same category — e.g. "BK-TH01L", "BK-TH01M"
-  //          and "BK-TH01S" all reduce to "BK-TH01" once their own size
-  //          letter is removed, which is confirmation enough even though
-  //          a bare "BK-TH01" (no size) never exists on its own. This is
-  //          the common case for footwear/shoe-style codes where every
-  //          listed variant already has a size letter and there's no
-  //          "sizeless" version to check against.
-  const SIZE_WORDS = new Set(['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']);
-  const NUMERIC_XL_RE = /^[2-9]XL$/; // 2XL, 3XL, 4XL, ... treated as synonyms of XXL, XXXL, ...
-  const TRAILING_ANNOTATION_RE = /\([^()]*\)\s*$/; // a trailing "(...)" note, e.g. "(BLK)"
-
-  function stripTrailingAnnotation(segment) {
-    return segment.replace(TRAILING_ANNOTATION_RE, '');
-  }
-
-  // Longest-first so "XXL" is tried before "XL" before "L" when stripping a
-  // tail off a code with no separator, avoiding e.g. reading "XXL" as an
-  // "L" size with a leftover "XX" stuck to the base code.
-  const NO_SEP_SIZE_TOKENS = (() => {
-    const words = Array.from(SIZE_WORDS);
-    const numeric = [];
-    for (let n = 2; n <= 9; n++) numeric.push(n + 'XL');
-    return [...words, ...numeric].sort((a, b) => b.length - a.length);
-  })();
-
-  function isSizeToken(segment) {
-    const upper = stripTrailingAnnotation(segment).toUpperCase();
-    return SIZE_WORDS.has(upper) || NUMERIC_XL_RE.test(upper);
-  }
-
-  // Rank used to scale the zoom adjustment below — larger sizes get a
-  // higher rank. Numeric XL forms (2XL, 3XL, ...) line up with XXL/XXXL/...
-  function sizeRank(token) {
-    const upper = token.toUpperCase();
-    if (SIZE_WORDS.has(upper)) {
-      return ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].indexOf(upper);
-    }
-    const match = upper.match(NUMERIC_XL_RE);
-    if (match) return 4 + Number(upper[0]); // 2XL -> 6 (= XXL), 3XL -> 7 (= XXXL), 4XL -> 8, ...
-    return undefined;
-  }
-
-  // Lazily-built lookups over the whole catalogue, used only to support
-  // pass 2 above. Both are rebuilt whenever allItems is (re)loaded — see
-  // loadCatalogue().
-  let itemNumberIndex = null;   // Set of every item number, uppercased — for check (a)
-  let sizeSiblingCounts = null; // Map "CATEGORY\u0001BASE" -> how many items reduce to that base — for check (b)
-
-  function getItemNumberIndex() {
-    if (!itemNumberIndex) {
-      itemNumberIndex = new Set();
-      for (const it of allItems) {
-        const key = (it.item_number || '').trim().toUpperCase();
-        if (key) itemNumberIndex.add(key);
-      }
-    }
-    return itemNumberIndex;
-  }
-
-  function getSizeSiblingCounts() {
-    if (!sizeSiblingCounts) {
-      sizeSiblingCounts = new Map();
-      for (const it of allItems) {
-        const itemNumber = stripTrailingAnnotation((it.item_number || '').trim()).toUpperCase();
-        if (!itemNumber) continue;
-        const category = (it.category || '').trim().toUpperCase();
-        for (const token of NO_SEP_SIZE_TOKENS) {
-          if (itemNumber.length <= token.length) continue;
-          if (!itemNumber.endsWith(token)) continue;
-          const base = itemNumber.slice(0, itemNumber.length - token.length);
-          const key = category + '\u0001' + base;
-          sizeSiblingCounts.set(key, (sizeSiblingCounts.get(key) || 0) + 1);
-          break; // only count each item once, against its own longest-matching token
-        }
-      }
-    }
-    return sizeSiblingCounts;
-  }
-
-  function findNoSeparatorSize(itemNumberUpper, category) {
-    const exactIndex = getItemNumberIndex();
-    const siblingCounts = getSizeSiblingCounts();
-    const categoryKey = (category || '').trim().toUpperCase();
-    for (const token of NO_SEP_SIZE_TOKENS) {
-      if (itemNumberUpper.length <= token.length) continue;
-      if (!itemNumberUpper.endsWith(token)) continue;
-      const baseUpper = itemNumberUpper.slice(0, itemNumberUpper.length - token.length);
-      if (exactIndex.has(baseUpper)) return token; // (a) an unsized sibling exists
-      const key = categoryKey + '\u0001' + baseUpper;
-      if ((siblingCounts.get(key) || 0) >= 2) return token; // (b) at least one other sized sibling shares this base
-    }
-    return null;
-  }
-
-  function parseSizeSuffix(itemNumber, category) {
-    if (!itemNumber) return null;
-    const trimmed = itemNumber.trim();
-
-    const segments = trimmed.split(/[\s\-_/]+/).filter(Boolean);
-    for (const segment of segments) {
-      if (isSizeToken(segment)) {
-        return { size: stripTrailingAnnotation(segment).toUpperCase() };
-      }
-    }
-
-    // Also strip a trailing "(...)" annotation before the no-separator
-    // fallback, so e.g. "GW111S(RED)" still matches "GW111" + "S".
-    const noSepSize = findNoSeparatorSize(stripTrailingAnnotation(trimmed).toUpperCase(), category);
-    if (noSepSize) return { size: noSepSize };
-
-    return null;
-  }
-
   // How much to zoom into a product photo to crop out excess white padding
-  // (see the .sheet-img-wrap img CSS for the default). Some categories —
-  // Soft Toys in particular — tend to have much more white space around a
-  // smaller subject than average, so they get a stronger crop here to keep
-  // apparent product size consistent across the page.
-  //
-  // On top of that category baseline, items that are a size variant of the
-  // same code get an additional adjustment scaled around M: larger sizes
-  // (L, XL, ...) zoom in noticeably more, smaller sizes (S, XS, ...) zoom
-  // in noticeably less, so the size difference is actually visible at a
-  // glance rather than a few-percent difference nobody would spot.
-  // (SIZE_ZOOM_STEP has already been raised once, from 0.02 to 0.08, and
-  // was STILL not obvious enough side-by-side in a real product grid —
-  // e.g. S vs XL vs XXL of the same tee looked basically identical. Raised
-  // again to 0.15 per size step, which puts roughly a 60%+ zoom spread
-  // between S and XXL — genuinely "the L one looks bigger" at a glance,
-  // not just measurably different on paper. Clamp range widened to match.)
-  const SIZE_ZOOM_STEP = 0.15;
-  const SIZE_ZOOM_MIN = 0.8;
-  const SIZE_ZOOM_MAX = 1.7;
-
+  // (see the .sheet-img-wrap img CSS for the default). This is the generic
+  // fallback used when per-image detection (below) isn't available.
   function getImageZoomScale(item) {
     const category = (item.category || '').toLowerCase();
-    let scale = category.includes('soft toy') ? 1.2 : 1.06;
+    const subcategory = (item.subcategory || '').toLowerCase();
+    const itemNumber = (item.item_number || '').toUpperCase();
 
-    const sizeInfo = parseSizeSuffix(item.item_number, item.category);
-    if (sizeInfo) {
-      const rank = sizeRank(sizeInfo.size);
-      const M_RANK = sizeRank('M');
-      if (rank !== undefined) {
-        scale += (rank - M_RANK) * SIZE_ZOOM_STEP;
-        scale = Math.max(SIZE_ZOOM_MIN, Math.min(scale, SIZE_ZOOM_MAX));
-      }
-    }
-    return scale;
+    // MGT63-series magnet/rectangle products: these photos carry a
+    // consistent grey border frame around a smaller rectangle graphic,
+    // which made them look noticeably smaller/inconsistent next to other
+    // magnets. A stronger, fixed zoom crops that frame out so every item
+    // in this series fills its cell the same amount.
+    if (itemNumber.startsWith('MGT63')) return 1.55;
+
+    // MGT142-series wooden magnets: same issue — small subject with a lot
+    // of surrounding padding — so they get the same treatment.
+    if (itemNumber.startsWith('MGT142')) return 1.55;
+
+    // STN20-series neoprene coin bags and NP6-series stationery sets: same
+    // small-subject-with-lots-of-padding issue, so every item in each
+    // series gets a matching fixed zoom to render at a consistent size.
+    if (itemNumber.startsWith('STN20')) return 1.55;
+    if (itemNumber.startsWith('NP6')) return 1.55;
+
+    // Water Globes and Others: photos here also carry a lot of surrounding
+    // white space relative to the product, making them look small next to
+    // other categories on the same page.
+    if (subcategory.includes('water globes and others')) return 1.4;
+
+    if (category.includes('soft toy')) return 1.4;
+    return 1.16;
   }
 
   // Beach Towels and Tea Towels are meant to display upright (portrait).
@@ -1135,18 +996,121 @@
     return sub.includes('beach towel') || sub.includes('tea towel');
   }
 
-  function applyImageOrientation(imgEl, item) {
-    const zoomScale = getImageZoomScale(item);
-    const checkAndApply = () => {
-      const isLandscape = imgEl.naturalWidth > imgEl.naturalHeight;
-      imgEl.style.transform = (needsPortraitRotation(item) && isLandscape)
-        ? `rotate(90deg) scale(${zoomScale})`
-        : `scale(${zoomScale})`;
+  // Finds the bounding box of a loaded image's actual (non-white) content,
+  // as fractions of its own width/height. Used to crop out exactly the
+  // white padding each individual photo has — which varies photo to photo
+  // — rather than applying one guessed percentage to an entire category.
+  // Returns null if this can't be determined (a blank/all-white image, or
+  // an image loaded cross-origin without CORS headers, which the browser
+  // won't allow reading pixel data back from) — callers must fall back to
+  // a fixed zoom in that case.
+  function detectContentBounds(imgEl) {
+    try {
+      const w = imgEl.naturalWidth, h = imgEl.naturalHeight;
+      if (!w || !h) return null;
+      const MAX_DIM = 200; // downscaled analysis canvas — exact pixels aren't needed to find edges
+      const scale = Math.min(1, MAX_DIM / Math.max(w, h));
+      const cw = Math.max(1, Math.round(w * scale));
+      const ch = Math.max(1, Math.round(h * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = cw;
+      canvas.height = ch;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(imgEl, 0, 0, cw, ch);
+      const data = ctx.getImageData(0, 0, cw, ch).data; // throws for a tainted (cross-origin, no CORS) canvas
+
+      let minX = cw, maxX = -1, minY = ch, maxY = -1;
+      for (let y = 0; y < ch; y++) {
+        for (let x = 0; x < cw; x++) {
+          const idx = (y * cw + x) * 4;
+          const r = data[idx], g = data[idx + 1], b = data[idx + 2], a = data[idx + 3];
+          if (a > 10 && !(r > 245 && g > 245 && b > 245)) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (maxX < 0) return null; // nothing but background found
+
+      return {
+        left: minX / cw,
+        right: 1 - (maxX + 1) / cw,
+        top: minY / ch,
+        bottom: 1 - (maxY + 1) / ch,
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Turns detected content bounds into a CSS transform that zooms in on
+  // just that content — using a single uniform scale (never two different
+  // X/Y factors) so the photo is never stretched or skewed. Only 80% of
+  // each detected margin is actually removed, leaving a deliberate safety
+  // buffer so a slightly imprecise detection still can't cut into the
+  // product itself.
+  function buildContentCropTransform(bounds) {
+    const TRIM_FRACTION = 0.8;
+    const left = bounds.left * TRIM_FRACTION;
+    const right = bounds.right * TRIM_FRACTION;
+    const top = bounds.top * TRIM_FRACTION;
+    const bottom = bounds.bottom * TRIM_FRACTION;
+
+    const contentW = 1 - left - right;
+    const contentH = 1 - top - bottom;
+    if (contentW <= 0.05 || contentH <= 0.05) return null; // implausible — bail out safely
+
+    // The smaller-margin axis sets the scale, so the larger-margin axis
+    // may keep a sliver of white rather than ever cropping the product.
+    // Using the SMALLER of the two required scales is what guarantees
+    // neither axis's content ever exceeds the frame: whichever axis needs
+    // less zoom to fill dictates the scale, so the other axis (which would
+    // need more) simply keeps a bit of extra margin instead of overflowing.
+    // Using the larger value here would over-zoom that axis and push part
+    // of the product outside the visible frame — which is exactly what
+    // must never happen.
+    const scale = Math.min(1 / contentW, 1 / contentH, 3);
+    const cx = left + contentW / 2;
+    const cy = top + contentH / 2;
+    const txPct = 100 * (0.5 - cx * scale);
+    const tyPct = 100 * (0.5 - cy * scale);
+
+    return {
+      transform: `translate(${txPct}%, ${tyPct}%) scale(${scale})`,
+      transformOrigin: '0 0',
     };
+  }
+
+  function applyImageOrientation(imgEl, item) {
+    const isSoftToy = (item.category || '').toLowerCase().includes('soft toy');
+    const fallbackScale = getImageZoomScale(item);
+
+    const checkAndApply = () => {
+      if (isSoftToy) {
+        const bounds = detectContentBounds(imgEl);
+        const cropTransform = bounds ? buildContentCropTransform(bounds) : null;
+        if (cropTransform) {
+          imgEl.style.transformOrigin = cropTransform.transformOrigin;
+          imgEl.style.transform = cropTransform.transform;
+          return;
+        }
+        // Detection unavailable (e.g. cross-origin without CORS) — fall
+        // through to the flat fallback zoom below.
+      }
+
+      const isLandscape = imgEl.naturalWidth > imgEl.naturalHeight;
+      imgEl.style.transformOrigin = ''; // back to the CSS default (center) for the fallback path
+      imgEl.style.transform = (needsPortraitRotation(item) && isLandscape)
+        ? `rotate(90deg) scale(${fallbackScale})`
+        : `scale(${fallbackScale})`;
+    };
+
     if (imgEl.complete && imgEl.naturalWidth) {
       checkAndApply();
     } else {
-      imgEl.style.transform = `scale(${zoomScale})`; // sensible default until we know the real dimensions
+      imgEl.style.transform = `scale(${fallbackScale})`; // sensible default until we know the real dimensions
       imgEl.addEventListener('load', checkAndApply, { once: true });
     }
   }
@@ -1155,8 +1119,6 @@
     try {
       const res = await fetch('catalogue.json');
       allItems = await res.json();
-      itemNumberIndex = null; // invalidate the size-suffix lookup caches built from the old data
-      sizeSiblingCounts = null;
 
       buildCityFilter();
       buildSidebar();
@@ -1451,17 +1413,7 @@
     }
   }
 
-  // Set true for the duration of a PDF export (see generatePrintPdf) so
-  // fitPageSheet() can't reapply the on-screen shrink-to-fit transform
-  // mid-export. Without this, a window resize event that fires (or was
-  // already pending from a debounce timer) during the export loop could
-  // land right before any given page's capture and silently re-shrink just
-  // that page — which is exactly why this bug showed up on a couple of
-  // essentially random pages rather than every page or a fixed one.
-  let isExportingPdf = false;
-
   function fitPageSheet() {
-    if (isExportingPdf) return;
     const wrapper = document.getElementById('page-scale-wrapper');
     const sheet = document.getElementById('page-sheet');
     const availW = wrapper.clientWidth;
@@ -1860,8 +1812,8 @@
   // ---------------------------------------------------------------------
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
-  const PDF_DOWNLOAD_PASSWORD = "2170";           // 285 x 210mm, portrait (21cm wide x 28.5cm tall), no bleed, no crop marks, includes "Downloaded" stamp
-  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 21 x 28.5cm portrait + 3mm bleed on all sides + crop marks, no "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm, no bleed, no crop marks, includes "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 28.5 x 21cm + 3mm bleed on all sides, no "Downloaded" stamp
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1876,10 +1828,10 @@
     const val = document.getElementById('pdf-password-input').value;
     if (val === PDF_DOWNLOAD_PASSWORD) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 210, trimHMm: 285, includeCropMarks: false });
+      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 285, trimHMm: 210, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true, vectorText: true });
+      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
     } else {
       document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
     }
@@ -1949,7 +1901,7 @@
   }
 
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false, vectorText = false } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210 } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1966,30 +1918,15 @@
     const savedPageIdx = currentPageIdx;
     const sheet = document.getElementById('page-sheet');
     const savedTransform = sheet.style.transform;
-    isExportingPdf = true;      // stop fitPageSheet() from firing mid-export (see its definition)
-    clearTimeout(resizeTimer);  // and cancel any resize-debounce already in flight
     sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
 
     const { jsPDF } = window.jspdf;
 
     // Trim size and bleed are password-specific:
-    //  - password 2170: 285 x 210mm, portrait (210mm wide x 285mm tall),
-    //    no bleed, no crop marks — the PDF page is exactly that finished
-    //    size. Every page (text and photos) is exported as one flattened
-    //    screenshot — fine for a quick-share copy, not for commercial print.
+    //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
+    //    the PDF page is exactly that finished size.
     //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
     //    on all sides plus corner crop marks just outside the bleed edge.
-    //    This is the actual print-ready file: vectorText mode (below) is
-    //    used so all body text (item codes, category headings, page
-    //    numbers) is real vector PDF text — sharp at any zoom, selectable,
-    //    and near-zero bytes — while only the product photos themselves
-    //    are embedded as JPEGs. The three non-grid pages (About Us, TOC,
-    //    Blank) are few enough in number that they're still exported as a
-    //    single flattened screenshot each; fully vectorising those too
-    //    (icon-font glyphs, wrapped paragraphs, the trademark logo image)
-    //    would be a lot of extra surface area for a couple of pages that
-    //    aren't dense with repeated small text the way the product grid
-    //    is. Flag this if it matters for your print job.
     const PT_PER_MM = 72 / 25.4;
     const TRIM_W = trimWMm * PT_PER_MM;
     const TRIM_H = trimHMm * PT_PER_MM;
@@ -2003,275 +1940,87 @@
     const PAGE_H = TRIM_H + OFFSET * 2;
     const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
 
-    // scale 3 captures at roughly 300dpi for this trim size — the standard
-    // minimum for commercial print — while keeping export time reasonable.
-    // (This was previously 4/~400dpi: html2canvas render + encode cost
-    // scales with the *square* of this number, so that extra headroom over
-    // the print minimum was making every export ~1.8x slower than it
-    // needed to be for a resolution bump most printers won't use anyway.)
-    // File size is controlled separately below (via JPEG quality), so
-    // resolution here doesn't fight the size cap.
-    const CAPTURE_SCALE = 3;
-    // In vectorText mode, individual product images are captured on their
-    // own (see captureElement below) instead of as part of one big page
-    // screenshot. Because that screenshot's white background/text pixels
-    // are gone, file size is far cheaper per page, so images can afford a
-    // sharper capture than CAPTURE_SCALE above — still ~300dpi-equivalent
-    // for that small element's physical print size (an image cell and the
-    // full page scale to the same real-world mm per CSS px, so the same
-    // dpi math applies), just with more headroom to raise it further
-    // before the size cap becomes a concern.
-    const IMAGE_CAPTURE_SCALE = 4;
-    const MAX_FILE_BYTES = 250 * 1024 * 1024; // hard cap requested
+    // scale 4 captures at roughly 400dpi for this trim size. This is the
+    // main driver of both sharpness AND how long each page takes to
+    // capture/encode, so it's left unchanged here to keep export speed the
+    // same — the quality settings below are what changed to make pages
+    // clearer, at the cost of a larger file (explicitly OK per request).
+    const CAPTURE_SCALE = 4;
+    // Raised well above the old 100MB cap — quality is no longer squeezed
+    // down just to fit a byte budget. Still present as a sane upper bound
+    // so a huge catalogue doesn't produce something unusable.
+    const MAX_FILE_BYTES = 350 * 1024 * 1024;
     const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
-    const QUALITY_START = 0.92;
-    const QUALITY_FLOOR = 0.45;
-    const QUALITY_STEP = 0.07;
+    // Quality floor/start both raised significantly — clearer images are
+    // the priority now, and file size is allowed to grow to accommodate
+    // that. The calibration step will still trim quality if a catalogue
+    // is large enough to risk exceeding MAX_FILE_BYTES, but only as a
+    // last resort, and never below 0.85 (still visually very close to
+    // maximum quality — no visible compression blockiness).
+    const QUALITY_START = 0.97;
+    const QUALITY_FLOOR = 0.85;
+    const QUALITY_STEP = 0.03; // finer steps since the usable range is narrower now
 
     const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
 
-    // Captures #page-sheet at its real, current content size — including
-    // any overflow beyond its nominal 936x1236 box. html2canvas only
-    // captures the target element's own box by default, so a page whose
-    // content runs even slightly past that box (e.g. a full 5-row grid
-    // plus a category heading) would otherwise have its bottom silently
-    // cut off in the exported PDF, even though it renders fine on screen.
-    // Passing the element's live scrollWidth/scrollHeight as both the
-    // capture size and the layout window size makes sure the whole page is
-    // always captured, whether or not it happens to overflow.
-    function captureSheet() {
-      return html2canvas(sheet, {
-        scale: CAPTURE_SCALE,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false,
-        width: sheet.scrollWidth,
-        height: sheet.scrollHeight,
-        windowWidth: sheet.scrollWidth,
-        windowHeight: sheet.scrollHeight
-      });
-    }
-
-    // Captures one small element (an individual product photo's wrapper,
-    // in vectorText mode) rather than the whole page.
-    function captureElement(el, scale) {
-      return html2canvas(el, {
-        scale,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-      });
-    }
-
-    // How many product images the whole export will embed — used to scale
-    // up a single sample image's byte size into a whole-file estimate for
-    // the vectorText quality calibration below.
-    function countTotalGridImages() {
-      let count = 0;
-      for (const page of globalPages) {
-        if (page.isAbout || page.isBlank || page.isToc) continue;
-        for (const row of page.rows) {
-          if (row.type === 'items') count += row.cells.length;
-        }
-      }
-      return count;
-    }
-
-    // Maps CSS pixel positions/sizes measured on the live #page-sheet (via
-    // getBoundingClientRect(), while it's rendered at native/untransformed
-    // size — see 'sheet.style.transform = none' above) into PDF points
-    // within the trim box, for placing vector text and cropped product
-    // images at exactly the same layout the on-screen grid produced.
-    function makeMapper() {
-      const rect = sheet.getBoundingClientRect();
-      const ptPerPxX = TRIM_W / rect.width;
-      const ptPerPxY = TRIM_H / rect.height;
-      return {
-        x: (px) => OFFSET + (px - rect.left) * ptPerPxX,
-        y: (px) => OFFSET + (px - rect.top) * ptPerPxY,
-        w: (px) => px * ptPerPxX,
-        h: (px) => px * ptPerPxY,
-        font: (pxSize) => pxSize * (ptPerPxY) // CSS px font-size -> pt, using the same px:pt ratio as the vertical axis (fonts scale with line height, not width)
-      };
-    }
-
-    // Sets the given text at (x, y) sized to fit within maxWidthPt,
-    // shrinking the font (down to a floor) rather than truncating — every
-    // item code stays fully readable in print, just smaller if it would
-    // otherwise have run into the next cell.
-    function drawFittedText(pdf, text, x, y, maxWidthPt, fontSizePt, opts) {
-      const MIN_FONT_PT = fontSizePt * 0.6;
-      let size = fontSizePt;
-      pdf.setFontSize(size);
-      let width = pdf.getTextWidth(text);
-      if (width > maxWidthPt && maxWidthPt > 0) {
-        size = Math.max(MIN_FONT_PT, size * (maxWidthPt / width) * 0.98);
-        pdf.setFontSize(size);
-      }
-      pdf.text(text, x, y, opts);
-    }
-
     try {
       // --- Calibration pass -------------------------------------------------
-      // Capture one representative sample and use its JPEG size at various
-      // qualities to extrapolate the full export's size, so we can pick the
-      // highest quality that should still land under the cap. In vectorText
-      // mode the sample is a single product image (file size there is
-      // driven by per-image bytes summed across every photo in the
-      // catalogue, since pages themselves are no longer big screenshots);
-      // otherwise it's one whole representative page, as before.
+      // Capture one representative product-grid page and use its JPEG size
+      // at various qualities to extrapolate the full export's size, so we
+      // can pick the highest quality that should still land under the cap.
+      // This avoids holding every page's canvas in memory at once (which
+      // would be enormous at this resolution across 100+ pages) while still
+      // being size-aware.
       progressText.textContent = 'Calibrating quality for file size…';
       const sampleIdx = findSampleGridPageIndex();
       currentPageIdx = sampleIdx;
       renderCurrentPage(null);
-      sheet.style.transform = 'none'; // renderCurrentPage() calls fitPageSheet() internally, which
-                                       // re-applies the on-screen shrink-to-fit transform — undoing
-                                       // the 'none' override above on every single render. Without
-                                       // reasserting it here after each render, html2canvas ends up
-                                       // capturing the shrunk on-screen size (small content, big
-                                       // white margins) instead of the page at its true full size.
       await waitForImages(document.getElementById('sheet-grid'));
       await new Promise(r => setTimeout(r, 25));
 
-      let quality = QUALITY_START;
-      let sampleImgData = null; // only used in non-vector mode (whole-page reuse)
+      const sampleCanvas = await html2canvas(sheet, {
+        scale: CAPTURE_SCALE,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+      });
 
-      if (vectorText) {
-        const sampleWrap = document.querySelector('#sheet-grid .sheet-img-wrap');
-        const totalImages = Math.max(1, countTotalGridImages());
-        if (sampleWrap) {
-          const sampleCanvas = await captureElement(sampleWrap, IMAGE_CAPTURE_SCALE);
-          while (quality > QUALITY_FLOOR) {
-            const testData = sampleCanvas.toDataURL('image/jpeg', quality);
-            const estimatedTotal = estimateBase64Bytes(testData) * totalImages;
-            if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
-            quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
-          }
-          quality = Math.max(quality, QUALITY_FLOOR);
-        }
-      } else {
-        const sampleCanvas = await captureSheet();
-        // Keep the winning quality's encoded JPEG from the calibration pass
-        // instead of throwing it away — the loop below used to discard this
-        // and then re-render + re-capture + re-encode that exact same page
-        // from scratch in the main pass, which was pure wasted work (a full
-        // html2canvas capture at print resolution is the single most
-        // expensive step in this whole function). Reusing it here means the
-        // sample page is only ever captured once.
-        while (quality > QUALITY_FLOOR) {
-          sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
-          const estimatedTotal = estimateBase64Bytes(sampleImgData) * globalPages.length;
-          if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
-          quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
-        }
-        quality = Math.max(quality, QUALITY_FLOOR);
-        if (quality === QUALITY_FLOOR) sampleImgData = sampleCanvas.toDataURL('image/jpeg', quality);
+      let quality = QUALITY_START;
+      while (quality > QUALITY_FLOOR) {
+        const sampleBytes = estimateBase64Bytes(sampleCanvas.toDataURL('image/jpeg', quality));
+        const estimatedTotal = sampleBytes * globalPages.length;
+        if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
+        quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
       }
+      quality = Math.max(quality, QUALITY_FLOOR);
 
       // --- Main pass ----------------------------------------------------
       const downloadedStamp = `Downloaded ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
-      // CSS colours used by vector text below, matching the on-screen
-      // catalogue's --text / --muted / --accent custom properties exactly.
-      const COLOR_TEXT = [26, 26, 26];
-      const COLOR_MUTED = [153, 153, 153];
-      const COLOR_ACCENT = [216, 52, 43];
 
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
-        const page = globalPages[i];
         currentPageIdx = i;
+        renderCurrentPage(null);
+        await waitForImages(document.getElementById('sheet-grid'));
+        await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
+
+        const canvas = await html2canvas(sheet, {
+          scale: CAPTURE_SCALE,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          logging: false
+        });
+        const imgData = canvas.toDataURL('image/jpeg', quality);
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
-        const isVectorGridPage = vectorText && !page.isAbout && !page.isBlank && !page.isToc;
-
-        if (isVectorGridPage) {
-          // ---- Vector page: real PDF text for every label, JPEGs only for
-          // ---- each individual product photo. ----
-          renderCurrentPage(null);
-          sheet.style.transform = 'none';
-          await waitForImages(document.getElementById('sheet-grid'));
-          await new Promise(r => setTimeout(r, 25));
-
-          const map = makeMapper();
-          const gridEl = document.getElementById('sheet-grid');
-
-          for (const child of Array.from(gridEl.children)) {
-            if (child.classList.contains('sheet-heading-row')) {
-              const catEl = child.querySelector('.h-cat-inline');
-              const subEl = child.querySelector('.h-sub-inline');
-              if (catEl && catEl.textContent.trim()) {
-                const r = catEl.getBoundingClientRect();
-                pdf.setFont('helvetica', 'bold');
-                pdf.setFontSize(map.font(28));
-                pdf.setTextColor(...COLOR_ACCENT);
-                pdf.text(catEl.textContent, map.x(r.left), map.y(r.top), { baseline: 'top' });
-              }
-              if (subEl && subEl.textContent.trim()) {
-                const r = subEl.getBoundingClientRect();
-                pdf.setFont('helvetica', 'bold');
-                pdf.setFontSize(map.font(20));
-                pdf.setTextColor(...COLOR_MUTED);
-                pdf.text(subEl.textContent, map.x(r.left), map.y(r.top), { baseline: 'top' });
-              }
-              continue;
-            }
-
-            if (!child.classList.contains('sheet-card')) continue; // skip blank trailing filler cells
-
-            const wrap = child.querySelector('.sheet-img-wrap');
-            if (wrap) {
-              const r = wrap.getBoundingClientRect();
-              const canvas = await captureElement(wrap, IMAGE_CAPTURE_SCALE);
-              const imgData = canvas.toDataURL('image/jpeg', quality);
-              pdf.addImage(imgData, 'JPEG', map.x(r.left), map.y(r.top), map.w(r.width), map.h(r.height));
-            }
-
-            const codeEl = child.querySelector('.sheet-code');
-            if (codeEl && codeEl.textContent.trim()) {
-              const r = codeEl.getBoundingClientRect();
-              pdf.setFont('helvetica', 'bold');
-              pdf.setTextColor(...COLOR_TEXT);
-              const centerX = map.x(r.left) + map.w(r.width) / 2;
-              drawFittedText(pdf, codeEl.textContent, centerX, map.y(r.top), map.w(r.width), map.font(12), { baseline: 'top', align: 'center' });
-            }
-          }
-
-          const pagenumEl = document.getElementById('sheet-pagenum');
-          if (pagenumEl && pagenumEl.textContent.trim()) {
-            const r = pagenumEl.getBoundingClientRect();
-            pdf.setFont('helvetica', 'bold');
-            pdf.setFontSize(map.font(13));
-            pdf.setTextColor(...COLOR_MUTED);
-            const centerX = map.x(r.left) + map.w(r.width) / 2;
-            pdf.text(pagenumEl.textContent, centerX, map.y(r.top), { baseline: 'top', align: 'center' });
-          }
-        } else {
-          // ---- Raster page: one flattened screenshot — used for
-          // ---- About/TOC/Blank always, and for every page when not in
-          // ---- vectorText mode. ----
-          let imgData;
-          if (!vectorText && i === sampleIdx) {
-            // Already captured and encoded during calibration — skip re-rendering it.
-            imgData = sampleImgData;
-          } else {
-            renderCurrentPage(null);
-            sheet.style.transform = 'none'; // see the matching note in the calibration pass above
-            await waitForImages(document.getElementById('sheet-grid'));
-            await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
-
-            const canvas = await captureSheet();
-            imgData = canvas.toDataURL('image/jpeg', vectorText ? QUALITY_START : quality);
-          }
-
-          // With no bleed and no marks (password 2170) the page IS the trim
-          // size, so the image fills it exactly. With bleed (password 9033)
-          // the captured page is stretched slightly to run to the bleed
-          // edge, which is how bleed artwork is meant to work — there's a
-          // 3mm safety margin for the trim cut on every side, plus room
-          // further out for the crop marks themselves.
-          pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
-        }
+        // With no bleed and no marks (password 2170) the page IS the trim
+        // size, so the image fills it exactly. With bleed (password 9033)
+        // the captured page is stretched slightly to run to the bleed
+        // edge, which is how bleed artwork is meant to work — there's a
+        // 3mm safety margin for the trim cut on every side, plus room
+        // further out for the crop marks themselves.
+        pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
 
         if (includeCropMarks) {
           drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
@@ -2292,7 +2041,6 @@
       console.error(err);
       alert('Something went wrong generating the PDF: ' + err.message);
     } finally {
-      isExportingPdf = false; // safe to let fitPageSheet() run again from here on
       sheet.style.transform = savedTransform;
       currentPageIdx = savedPageIdx;
       renderCurrentPage(null);
