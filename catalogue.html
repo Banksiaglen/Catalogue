@@ -960,11 +960,11 @@
     const subcategory = (item.subcategory || '').toLowerCase();
     const itemNumber = (item.item_number || '').toUpperCase();
 
-    // MGT63-series magnet/rectangle products: these photos carry a
-    // consistent grey border frame around a smaller rectangle graphic,
-    // which made them look noticeably smaller/inconsistent next to other
-    // magnets. A stronger, fixed zoom crops that frame out so every item
-    // in this series fills its cell the same amount.
+    // MGT63-series magnet/rectangle products: primarily use per-photo
+    // content-aware cropping now (see usesContentAwareCrop), which avoids
+    // cutting into any product while still cropping each one to its own
+    // real content. This fixed value is only the fallback for the rare
+    // case detection can't run (e.g. a cross-origin image without CORS).
     if (itemNumber.startsWith('MGT63')) return 1.55;
 
     // MGT142-series wooden magnets: same issue — small subject with a lot
@@ -1083,12 +1083,25 @@
     };
   }
 
+  // Items that should be cropped based on each photo's own detected
+  // content bounds (see detectContentBounds/buildContentCropTransform)
+  // rather than a single fixed zoom percentage applied to the whole group.
+  // A flat percentage risks either cutting into products with less
+  // padding than average, or under-cropping ones with more — this instead
+  // measures each photo individually and only trims real white margin,
+  // with a safety buffer, so nothing is ever cut off.
+  function usesContentAwareCrop(item) {
+    const category = (item.category || '').toLowerCase();
+    const itemNumber = (item.item_number || '').toUpperCase();
+    return category.includes('soft toy') || itemNumber.startsWith('MGT63');
+  }
+
   function applyImageOrientation(imgEl, item) {
-    const isSoftToy = (item.category || '').toLowerCase().includes('soft toy');
+    const useContentCrop = usesContentAwareCrop(item);
     const fallbackScale = getImageZoomScale(item);
 
     const checkAndApply = () => {
-      if (isSoftToy) {
+      if (useContentCrop) {
         const bounds = detectContentBounds(imgEl);
         const cropTransform = bounds ? buildContentCropTransform(bounds) : null;
         if (cropTransform) {
@@ -1940,12 +1953,15 @@
     const PAGE_H = TRIM_H + OFFSET * 2;
     const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
 
-    // scale 4 captures at roughly 400dpi for this trim size. This is the
-    // main driver of both sharpness AND how long each page takes to
-    // capture/encode, so it's left unchanged here to keep export speed the
-    // same — the quality settings below are what changed to make pages
-    // clearer, at the cost of a larger file (explicitly OK per request).
-    const CAPTURE_SCALE = 4;
+    // scale 3 captures at roughly 300dpi for this trim size — the standard
+    // minimum for commercial print. This is the single biggest factor in
+    // how long the export takes (capture/encode time scales with the
+    // square of this number), so it's the main lever for export speed —
+    // dropped from 4 to noticeably cut export time given reports it was
+    // taking too long, while staying at a resolution that still holds up
+    // in print. The quality settings below (JPEG compression) are what
+    // still make pages look clearer than before, independent of this.
+    const CAPTURE_SCALE = 3;
     // Raised well above the old 100MB cap — quality is no longer squeezed
     // down just to fit a byte budget. Still present as a sane upper bound
     // so a huge catalogue doesn't produce something unusable.
@@ -1970,13 +1986,14 @@
       // can pick the highest quality that should still land under the cap.
       // This avoids holding every page's canvas in memory at once (which
       // would be enormous at this resolution across 100+ pages) while still
-      // being size-aware.
+      // being size-aware. The captured canvas is kept and reused for that
+      // same page in the main pass below, instead of being captured twice.
       progressText.textContent = 'Calibrating quality for file size…';
       const sampleIdx = findSampleGridPageIndex();
       currentPageIdx = sampleIdx;
       renderCurrentPage(null);
       await waitForImages(document.getElementById('sheet-grid'));
-      await new Promise(r => setTimeout(r, 25));
+      await new Promise(r => setTimeout(r, 10));
 
       const sampleCanvas = await html2canvas(sheet, {
         scale: CAPTURE_SCALE,
@@ -1999,17 +2016,25 @@
 
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
-        currentPageIdx = i;
-        renderCurrentPage(null);
-        await waitForImages(document.getElementById('sheet-grid'));
-        await new Promise(r => setTimeout(r, 25)); // let layout settle before capture
 
-        const canvas = await html2canvas(sheet, {
-          scale: CAPTURE_SCALE,
-          backgroundColor: '#ffffff',
-          useCORS: true,
-          logging: false
-        });
+        let canvas;
+        if (i === sampleIdx) {
+          // Already captured above during calibration — reuse it instead
+          // of rendering and capturing this exact page a second time.
+          canvas = sampleCanvas;
+        } else {
+          currentPageIdx = i;
+          renderCurrentPage(null);
+          await waitForImages(document.getElementById('sheet-grid'));
+          await new Promise(r => setTimeout(r, 10)); // let layout settle before capture
+
+          canvas = await html2canvas(sheet, {
+            scale: CAPTURE_SCALE,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false
+          });
+        }
         const imgData = canvas.toDataURL('image/jpeg', quality);
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
