@@ -1864,11 +1864,20 @@
     }));
   }
 
-  // Rough encoded byte size of a base64 data URI (base64 is ~4/3 the size
-  // of the raw bytes it encodes).
-  function estimateBase64Bytes(dataUri) {
-    const base64 = dataUri.slice(dataUri.indexOf(',') + 1);
-    return Math.floor(base64.length * 0.75);
+  // Encodes a canvas straight to raw JPEG bytes (a Uint8Array), skipping
+  // the base64 text step entirely. toDataURL() has to encode to JPEG AND
+  // then re-encode that binary data as a base64 string (~33% larger, plus
+  // the string-building overhead) — toBlob() skips the second step, which
+  // both speeds up every single page and gives an exact byte size for free
+  // (no more estimating from a base64 string's length).
+  function canvasToJpegBytes(canvas, quality) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(async (blob) => {
+        if (!blob) { reject(new Error('canvas.toBlob returned null')); return; }
+        const buffer = await blob.arrayBuffer();
+        resolve(new Uint8Array(buffer));
+      }, 'image/jpeg', quality);
+    });
   }
 
   // Picks a page to use for calibrating JPEG quality against the file-size
@@ -2005,7 +2014,7 @@
 
       let quality = QUALITY_START;
       while (quality > QUALITY_FLOOR) {
-        const sampleBytes = estimateBase64Bytes(sampleCanvas.toDataURL('image/jpeg', quality));
+        const sampleBytes = (await canvasToJpegBytes(sampleCanvas, quality)).length;
         const estimatedTotal = sampleBytes * globalPages.length;
         if (estimatedTotal <= MAX_FILE_BYTES * SIZE_HEADROOM) break;
         quality = Math.round((quality - QUALITY_STEP) * 100) / 100;
@@ -2037,7 +2046,7 @@
             imageTimeout: 0
           });
         }
-        const imgData = canvas.toDataURL('image/jpeg', quality);
+        const imgBytes = await canvasToJpegBytes(canvas, quality);
 
         if (i > 0) pdf.addPage([PAGE_W, PAGE_H], ORIENTATION);
 
@@ -2047,7 +2056,7 @@
         // edge, which is how bleed artwork is meant to work — there's a
         // 3mm safety margin for the trim cut on every side, plus room
         // further out for the crop marks themselves.
-        pdf.addImage(imgData, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
+        pdf.addImage(imgBytes, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
 
         if (includeCropMarks) {
           drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
