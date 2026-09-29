@@ -560,6 +560,22 @@
     "local_image": "images/D-BT-SY4.jpg"
   },
   {
+    "item_number": "50423SC",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/50423SC.jpg",
+    "category": "Apparel, Footwear and Beach Towels",
+    "subcategory": "Clothing",
+    "city": "National",
+    "local_image": "images/50423SC.jpg"
+  },
+  {
+    "item_number": "51373SC",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51373SC.jpg",
+    "category": "Apparel, Footwear and Beach Towels",
+    "subcategory": "Clothing",
+    "city": "National",
+    "local_image": "images/51373SC.jpg"
+  },
+  {
     "item_number": "BK-TS05-L",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-TS05-L.jpg",
     "category": "Apparel, Footwear and Beach Towels",
@@ -5632,6 +5648,14 @@
     "local_image": "images/YL-PLT08-CN.jpg"
   },
   {
+    "item_number": "51626GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51626GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "Gold Coast",
+    "local_image": "images/51626GPL.jpg"
+  },
+  {
     "item_number": "OP6W-GC2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-GC2.jpg",
     "category": "Display Plates, Frames and Premium Gifts",
@@ -5648,6 +5672,14 @@
     "local_image": "images/YL-PLT08-GC.jpg"
   },
   {
+    "item_number": "51625GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51625GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "Melbourne",
+    "local_image": "images/51625GPL.jpg"
+  },
+  {
     "item_number": "OP6W-ME2(B)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/OP6W-ME2(B).jpg",
     "category": "Display Plates, Frames and Premium Gifts",
@@ -5662,6 +5694,30 @@
     "subcategory": "Plates",
     "city": "Melbourne",
     "local_image": "images/YL-PLT08-ME.jpg"
+  },
+  {
+    "item_number": "51427GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51427GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "National",
+    "local_image": "images/51427GPL.jpg"
+  },
+  {
+    "item_number": "51428GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51428GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "National",
+    "local_image": "images/51428GPL.jpg"
+  },
+  {
+    "item_number": "51429GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51429GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "National",
+    "local_image": "images/51429GPL.jpg"
   },
   {
     "item_number": "OP6W-OMP",
@@ -5726,6 +5782,14 @@
     "subcategory": "Plates",
     "city": "Perth",
     "local_image": "images/YL-PLT08-PH.jpg"
+  },
+  {
+    "item_number": "51624GPL",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51624GPL.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Plates",
+    "city": "Sydney",
+    "local_image": "images/51624GPL.jpg"
   },
   {
     "item_number": "L-OP4-SY",
@@ -13744,6 +13808,30 @@
     "local_image": "images/HN-MP-95.jpg"
   },
   {
+    "item_number": "50975OM",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/50975OM.jpg",
+    "category": "Kitchen Accessories and Tea Towels",
+    "subcategory": "Aprons, Mittens, Pot holders and Kitchen Accessories",
+    "city": "National",
+    "local_image": "images/50975OM.jpg"
+  },
+  {
+    "item_number": "51069OM",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51069OM.jpg",
+    "category": "Kitchen Accessories and Tea Towels",
+    "subcategory": "Aprons, Mittens, Pot holders and Kitchen Accessories",
+    "city": "National",
+    "local_image": "images/51069OM.jpg"
+  },
+  {
+    "item_number": "51373OM",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51373OM.jpg",
+    "category": "Kitchen Accessories and Tea Towels",
+    "subcategory": "Aprons, Mittens, Pot holders and Kitchen Accessories",
+    "city": "National",
+    "local_image": "images/51373OM.jpg"
+  },
+  {
     "item_number": "HN-AM-71",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-AM-71.jpg",
     "category": "Kitchen Accessories and Tea Towels",
@@ -20024,14 +20112,6 @@
     "local_image": "images/YL-KC55-SY4.jpg"
   },
   {
-    "item_number": "RB02-AU",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/RB02-AU.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/RB02-AU.jpg"
-  },
-  {
     "item_number": "RB02-KK",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/RB02-KK.jpg",
     "category": "Souvenir Keyrings and Keyring Sets",
@@ -20336,6 +20416,14 @@
     "local_image": "images/STN51-GC.jpg"
   },
   {
+    "item_number": "51556XD",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51556XD.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Christmas Ornaments",
+    "city": "National",
+    "local_image": "images/51556XD.jpg"
+  },
+  {
     "item_number": "51564CXD",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51564CXD.jpg",
     "category": "Sports and Accessories",
@@ -20350,6 +20438,14 @@
     "subcategory": "Christmas Ornaments",
     "city": "National",
     "local_image": "images/51568CXD.jpg"
+  },
+  {
+    "item_number": "51838XD",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51838XD.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Christmas Ornaments",
+    "city": "National",
+    "local_image": "images/51838XD.jpg"
   },
   {
     "item_number": "STN51-AU",
@@ -20832,12 +20928,60 @@
     "local_image": "images/581327PH.jpg"
   },
   {
+    "item_number": "70503BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/70503BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/70503BT.jpg"
+  },
+  {
+    "item_number": "711349BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/711349BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/711349BT.jpg"
+  },
+  {
+    "item_number": "72252BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/72252BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/72252BT.jpg"
+  },
+  {
+    "item_number": "90406BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/90406BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/90406BT.jpg"
+  },
+  {
+    "item_number": "90407BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/90407BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/90407BT.jpg"
+  },
+  {
     "item_number": "90407NP",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/90407NP.jpg",
     "category": "Sports and Accessories",
     "subcategory": "Others",
     "city": "National",
     "local_image": "images/90407NP.jpg"
+  },
+  {
+    "item_number": "90408BT",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/90408BT.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/90408BT.jpg"
   },
   {
     "item_number": "BK-MS021",
