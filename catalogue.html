@@ -935,6 +935,15 @@
   let selectedCity = '';
   let globalPages = [];      // built by buildGlobalPages() — continuous flow across all sections
   let currentPageIdx = 0;
+  // True only while generatePrintPdf() is running. Product images normally
+  // load lazily (loading="lazy") while browsing, which is good for the
+  // live page but actively works against the PDF export — it tells the
+  // browser to delay starting each image's download until it decides the
+  // image is "near" the viewport, which can add a real, hard-to-see delay
+  // before every single photo even starts fetching. During export every
+  // image needs to start loading immediately, so this flag switches them
+  // to eager for the duration of the export only.
+  let isExportingPdf = false;
   const ROWS = 5;
   const COLS = 4;
 
@@ -1582,7 +1591,7 @@
             cell.dataset.itemNumber = item.item_number;
             cell.innerHTML = `
               <div class="sheet-img-wrap" role="button" tabindex="0" aria-label="Zoom image for ${item.item_number}">
-                <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="lazy">
+                <img src="${item.local_image || item.image_url}" alt="${item.item_number}" loading="${isExportingPdf ? 'eager' : 'lazy'}">
               </div>
               <div class="sheet-code">${item.item_number}</div>
             `;
@@ -1937,6 +1946,7 @@
     const progressText = progressOverlay.querySelector('.pdf-progress-text');
     progressOverlay.classList.add('open');
 
+    isExportingPdf = true; // switch image loading to eager for the duration of the export
     const savedPageIdx = currentPageIdx;
     const sheet = document.getElementById('page-sheet');
     const savedTransform = sheet.style.transform;
@@ -2077,6 +2087,7 @@
       console.error(err);
       alert('Something went wrong generating the PDF: ' + err.message);
     } finally {
+      isExportingPdf = false;
       sheet.style.transform = savedTransform;
       currentPageIdx = savedPageIdx;
       renderCurrentPage(null);
