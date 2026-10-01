@@ -1907,7 +1907,7 @@
 
     return html2canvas(sheet, html2canvasOptions).finally(() => {
       textEls.forEach((el, i) => { el.style.visibility = prevVisibility[i]; });
-    }).then((canvas) => ({ canvas, textEls }));
+    });
   }
 
   // Draws one element's text as vector text, using the browser's own
@@ -1923,6 +1923,14 @@
     const fontSizePt = parseFloat(cs.fontSize) * geometry.scaleY;
     const isCode = el.classList.contains('sheet-code');
     const isCategory = el.classList.contains('h-cat-inline');
+
+    // Safety net: if the element turned out to be disconnected or otherwise
+    // unmeasurable (zero/NaN size), skip it rather than passing NaN
+    // coordinates into jsPDF, which throws and would abort the whole export.
+    if (!Number.isFinite(fontSizePt) || fontSizePt <= 0 || !Number.isFinite(rect.left) || !Number.isFinite(rect.top)) {
+      console.warn('Skipping unmeasurable text element during PDF export:', text);
+      return;
+    }
 
     pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(fontSizePt);
@@ -2089,10 +2097,9 @@
         imageTimeout: 0 // don't make html2canvas re-wait on images — waitForImages() above already confirmed they're loaded
       };
 
-      const sampleResult = (vectorText && sampleIsGridPage)
+      const sampleCanvas = (vectorText && sampleIsGridPage)
         ? await captureCanvasWithTextHidden(sheet, document.getElementById('sheet-grid'), html2canvasOpts)
-        : { canvas: await html2canvas(sheet, html2canvasOpts), textEls: [] };
-      const sampleCanvas = sampleResult.canvas;
+        : await html2canvas(sheet, html2canvasOpts);
 
       let quality = QUALITY_START;
       while (quality > QUALITY_FLOOR) {
@@ -2115,26 +2122,27 @@
         const isGridPage = !page.isAbout && !page.isBlank && !page.isToc;
         const useVectorForThisPage = vectorText && isGridPage;
 
-        let canvas, textEls;
+        let canvas;
         if (i === sampleIdx) {
-          // Already captured above during calibration — reuse it instead
-          // of rendering and capturing this exact page a second time.
+          // Reuse the already-captured image from calibration (avoids a
+          // second expensive capture of the same page), but still render
+          // the page fresh here — pages rendered afterward during
+          // calibration/earlier loop iterations have since replaced this
+          // page's DOM content, so the elements from that original render
+          // are no longer connected to the document. A fresh (cheap) render
+          // gives live elements to read text positions from below.
           canvas = sampleCanvas;
-          textEls = sampleResult.textEls;
+          currentPageIdx = i;
+          renderCurrentPage(null);
         } else {
           currentPageIdx = i;
           renderCurrentPage(null);
           await waitForImages(document.getElementById('sheet-grid'));
           await new Promise(r => setTimeout(r, 5)); // let layout settle before capture
 
-          if (useVectorForThisPage) {
-            const result = await captureCanvasWithTextHidden(sheet, document.getElementById('sheet-grid'), html2canvasOpts);
-            canvas = result.canvas;
-            textEls = result.textEls;
-          } else {
-            canvas = await html2canvas(sheet, html2canvasOpts);
-            textEls = [];
-          }
+          canvas = useVectorForThisPage
+            ? await captureCanvasWithTextHidden(sheet, document.getElementById('sheet-grid'), html2canvasOpts)
+            : await html2canvas(sheet, html2canvasOpts);
         }
         const imgBytes = await canvasToJpegBytes(canvas, quality);
 
@@ -2152,7 +2160,10 @@
         // (leaving blank gaps) — draw it back in now as real vector text,
         // using the browser's own already-computed position for each
         // element so it lines up exactly where it appeared on screen.
-        if (textEls.length) {
+        // Queried fresh here (not reused from any earlier capture) since
+        // this page's DOM was just (re-)rendered above.
+        if (useVectorForThisPage) {
+          const textEls = Array.from(document.getElementById('sheet-grid').querySelectorAll(VECTOR_TEXT_SELECTOR));
           const sheetRect = sheet.getBoundingClientRect();
           const geometry = {
             scaleX, scaleY,
