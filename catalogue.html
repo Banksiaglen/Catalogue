@@ -1854,7 +1854,7 @@
       generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 210, trimHMm: 285, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
+      generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true, vectorText: true });
     } else {
       document.getElementById('pdf-password-error').textContent = 'Incorrect password.';
     }
@@ -1888,6 +1888,69 @@
         resolve(new Uint8Array(buffer));
       }, 'image/jpeg', quality);
     });
+  }
+
+  // --- Vector-text page capture (used only for the 9033 export) ----------
+  // Rather than screenshotting the whole page as one flat raster image
+  // (which makes headings and item codes slightly soft at high zoom), this
+  // temporarily hides each text element before the screenshot, captures
+  // the page (now showing only product photos, with blank gaps where the
+  // text was), then draws that same text back in as real vector text at
+  // the exact position the browser had already laid it out at. Product
+  // photos stay rasterised, as intended — only the text becomes vector.
+  const VECTOR_TEXT_SELECTOR = '.h-cat-inline, .h-sub-inline, .sheet-code';
+
+  function captureCanvasWithTextHidden(sheet, gridEl, html2canvasOptions) {
+    const textEls = Array.from(gridEl.querySelectorAll(VECTOR_TEXT_SELECTOR));
+    const prevVisibility = textEls.map((el) => el.style.visibility);
+    textEls.forEach((el) => { el.style.visibility = 'hidden'; });
+
+    return html2canvas(sheet, html2canvasOptions).finally(() => {
+      textEls.forEach((el, i) => { el.style.visibility = prevVisibility[i]; });
+    }).then((canvas) => ({ canvas, textEls }));
+  }
+
+  // Draws one element's text as vector text, using the browser's own
+  // already-computed position, font size and wrapping (via a width-aware
+  // split rather than assuming single-line) so it lines up with where the
+  // text appeared on screen before it was hidden for the raster capture.
+  function drawVectorTextForElement(pdf, el, geometry) {
+    const text = (el.textContent || '').trim();
+    if (!text) return;
+
+    const rect = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    const fontSizePt = parseFloat(cs.fontSize) * geometry.scaleY;
+    const isCode = el.classList.contains('sheet-code');
+    const isCategory = el.classList.contains('h-cat-inline');
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(fontSizePt);
+    if (isCategory) {
+      pdf.setTextColor(216, 52, 43); // var(--accent) #D8342B
+    } else if (isCode) {
+      pdf.setTextColor(26, 26, 26); // var(--text) #1a1a1a
+    } else {
+      pdf.setTextColor(153, 153, 153); // var(--muted) #999999
+    }
+
+    const maxWidthPt = rect.width * geometry.scaleX;
+    const lines = pdf.splitTextToSize(text, maxWidthPt || 1000);
+    const lineHeightPt = fontSizePt * 1.2;
+    let y = geometry.toPdfY(rect.top) + fontSizePt * 0.85; // approximate baseline of the first line
+
+    for (const line of lines) {
+      if (isCode) {
+        // Item codes are centered under their image on screen — keep them
+        // centered here too, rather than left-aligned.
+        const lineWidthPt = pdf.getTextWidth(line);
+        const centerX = geometry.toPdfX(rect.left + rect.width / 2);
+        pdf.text(line, centerX - lineWidthPt / 2, y);
+      } else {
+        pdf.text(line, geometry.toPdfX(rect.left), y);
+      }
+      y += lineHeightPt;
+    }
   }
 
   // Picks a page to use for calibrating JPEG quality against the file-size
@@ -1933,7 +1996,7 @@
   }
 
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false, vectorText = false } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -2017,13 +2080,19 @@
       await waitForImages(document.getElementById('sheet-grid'));
       await new Promise(r => setTimeout(r, 5));
 
-      const sampleCanvas = await html2canvas(sheet, {
+      const sampleIsGridPage = !globalPages[sampleIdx].isAbout && !globalPages[sampleIdx].isBlank && !globalPages[sampleIdx].isToc;
+      const html2canvasOpts = {
         scale: CAPTURE_SCALE,
         backgroundColor: '#ffffff',
         useCORS: true,
         logging: false,
         imageTimeout: 0 // don't make html2canvas re-wait on images — waitForImages() above already confirmed they're loaded
-      });
+      };
+
+      const sampleResult = (vectorText && sampleIsGridPage)
+        ? await captureCanvasWithTextHidden(sheet, document.getElementById('sheet-grid'), html2canvasOpts)
+        : { canvas: await html2canvas(sheet, html2canvasOpts), textEls: [] };
+      const sampleCanvas = sampleResult.canvas;
 
       let quality = QUALITY_START;
       while (quality > QUALITY_FLOOR) {
@@ -2036,28 +2105,36 @@
 
       // --- Main pass ----------------------------------------------------
       const downloadedStamp = `Downloaded ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+      const scaleX = TRIM_W / SHEET_W;
+      const scaleY = TRIM_H / SHEET_H;
 
       for (let i = 0; i < globalPages.length; i++) {
         progressText.textContent = `Rendering page ${i + 1} of ${globalPages.length}…`;
 
-        let canvas;
+        const page = globalPages[i];
+        const isGridPage = !page.isAbout && !page.isBlank && !page.isToc;
+        const useVectorForThisPage = vectorText && isGridPage;
+
+        let canvas, textEls;
         if (i === sampleIdx) {
           // Already captured above during calibration — reuse it instead
           // of rendering and capturing this exact page a second time.
           canvas = sampleCanvas;
+          textEls = sampleResult.textEls;
         } else {
           currentPageIdx = i;
           renderCurrentPage(null);
           await waitForImages(document.getElementById('sheet-grid'));
           await new Promise(r => setTimeout(r, 5)); // let layout settle before capture
 
-          canvas = await html2canvas(sheet, {
-            scale: CAPTURE_SCALE,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            logging: false,
-            imageTimeout: 0
-          });
+          if (useVectorForThisPage) {
+            const result = await captureCanvasWithTextHidden(sheet, document.getElementById('sheet-grid'), html2canvasOpts);
+            canvas = result.canvas;
+            textEls = result.textEls;
+          } else {
+            canvas = await html2canvas(sheet, html2canvasOpts);
+            textEls = [];
+          }
         }
         const imgBytes = await canvasToJpegBytes(canvas, quality);
 
@@ -2070,6 +2147,22 @@
         // 3mm safety margin for the trim cut on every side, plus room
         // further out for the crop marks themselves.
         pdf.addImage(imgBytes, 'JPEG', OFFSET - BLEED, OFFSET - BLEED, TRIM_W + BLEED * 2, TRIM_H + BLEED * 2);
+
+        // For vector-text pages, the text was hidden from the raster above
+        // (leaving blank gaps) — draw it back in now as real vector text,
+        // using the browser's own already-computed position for each
+        // element so it lines up exactly where it appeared on screen.
+        if (textEls.length) {
+          const sheetRect = sheet.getBoundingClientRect();
+          const geometry = {
+            scaleX, scaleY,
+            toPdfX: (clientX) => OFFSET + (clientX - sheetRect.left) * scaleX,
+            toPdfY: (clientY) => OFFSET + (clientY - sheetRect.top) * scaleY,
+          };
+          for (const el of textEls) {
+            drawVectorTextForElement(pdf, el, geometry);
+          }
+        }
 
         if (includeCropMarks) {
           drawPrintMarks(pdf, OFFSET, BLEED, MARK_GAP, MARK_LEN, TRIM_W, TRIM_H);
