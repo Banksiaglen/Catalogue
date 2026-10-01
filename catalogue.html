@@ -1436,6 +1436,7 @@
   }
 
   function fitPageSheet() {
+    if (isExportingPdf) return; // don't shrink the sheet back to on-screen size mid-export
     const wrapper = document.getElementById('page-scale-wrapper');
     const sheet = document.getElementById('page-sheet');
     const availW = wrapper.clientWidth;
@@ -1932,7 +1933,7 @@
   }
 
   async function generatePrintPdf(options) {
-    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210 } = options || {};
+    const { includeDownloadStamp = true, bleedMm = 0, trimWMm = 285, trimHMm = 210, includeCropMarks = false } = options || {};
     if (typeof window.jspdf === 'undefined' || typeof html2canvas === 'undefined') {
       alert('PDF export libraries failed to load — check your internet connection and try again.');
       return;
@@ -1946,59 +1947,60 @@
     const progressText = progressOverlay.querySelector('.pdf-progress-text');
     progressOverlay.classList.add('open');
 
-    isExportingPdf = true; // switch image loading to eager for the duration of the export
     const savedPageIdx = currentPageIdx;
     const sheet = document.getElementById('page-sheet');
     const savedTransform = sheet.style.transform;
-    sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
 
     const { jsPDF } = window.jspdf;
 
-    // Trim size and bleed are password-specific:
-    //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
-    //    the PDF page is exactly that finished size.
-    //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
-    //    on all sides plus corner crop marks just outside the bleed edge.
-    const PT_PER_MM = 72 / 25.4;
-    const TRIM_W = trimWMm * PT_PER_MM;
-    const TRIM_H = trimHMm * PT_PER_MM;
-    const BLEED = bleedMm * PT_PER_MM;
-    const MARK_GAP = 2 * PT_PER_MM;  // gap between bleed edge and crop mark
-    const MARK_LEN = 6 * PT_PER_MM;  // crop mark length
-    // Extra room beyond the bleed edge to fit crop marks, only when requested.
-    const MARK_MARGIN = includeCropMarks ? (MARK_GAP + MARK_LEN) : 0;
-    const OFFSET = BLEED + MARK_MARGIN; // trim edge inset from the PDF page edge
-    const PAGE_W = TRIM_W + OFFSET * 2;
-    const PAGE_H = TRIM_H + OFFSET * 2;
-    const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
-
-    // Dropped again (was 4, then 3) since export was still reported too
-    // slow. scale 2.5 captures at roughly 250dpi for this trim size — a
-    // step below the 300dpi "safe" print standard, but still generally
-    // usable for catalogue photos (as opposed to fine-line text/art). This
-    // is the dominant cost in the whole export: capture and encode time
-    // both scale with the SQUARE of this number, so going from 4 to 2.5
-    // cuts that part of the work to roughly 39% of where it started two
-    // rounds ago. If print output still looks acceptable at this setting,
-    // great; if it looks visibly soft, this is the first thing to raise
-    // back up — just know that reverses most of today's speed gain.
-    const CAPTURE_SCALE = 2.5;
-    // Raised well above the old 100MB cap — quality is no longer squeezed
-    // down just to fit a byte budget. Still present as a sane upper bound
-    // so a huge catalogue doesn't produce something unusable.
-    const MAX_FILE_BYTES = 350 * 1024 * 1024;
-    const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
-    // Pulled back slightly from last round (0.97/0.85) — JPEG encoding
-    // time grows a bit with quality too, so this trims a little more time
-    // off every page. 0.90 still looks clean; it's well above the range
-    // where compression blockiness becomes visible.
-    const QUALITY_START = 0.90;
-    const QUALITY_FLOOR = 0.75;
-    const QUALITY_STEP = 0.03;
-
-    const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
-
     try {
+      isExportingPdf = true; // switch image loading to eager for the duration of the export
+      sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
+
+      // Trim size and bleed are password-specific:
+      //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
+      //    the PDF page is exactly that finished size.
+      //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
+      //    on all sides plus corner crop marks just outside the bleed edge.
+      const PT_PER_MM = 72 / 25.4;
+      const TRIM_W = trimWMm * PT_PER_MM;
+      const TRIM_H = trimHMm * PT_PER_MM;
+      const BLEED = bleedMm * PT_PER_MM;
+      const MARK_GAP = 2 * PT_PER_MM;  // gap between bleed edge and crop mark
+      const MARK_LEN = 6 * PT_PER_MM;  // crop mark length
+      // Extra room beyond the bleed edge to fit crop marks, only when requested.
+      const MARK_MARGIN = includeCropMarks ? (MARK_GAP + MARK_LEN) : 0;
+      const OFFSET = BLEED + MARK_MARGIN; // trim edge inset from the PDF page edge
+      const PAGE_W = TRIM_W + OFFSET * 2;
+      const PAGE_H = TRIM_H + OFFSET * 2;
+      const ORIENTATION = PAGE_W >= PAGE_H ? 'landscape' : 'portrait';
+
+      // Dropped again (was 4, then 3) since export was still reported too
+      // slow. scale 2.5 captures at roughly 250dpi for this trim size — a
+      // step below the 300dpi "safe" print standard, but still generally
+      // usable for catalogue photos (as opposed to fine-line text/art). This
+      // is the dominant cost in the whole export: capture and encode time
+      // both scale with the SQUARE of this number, so going from 4 to 2.5
+      // cuts that part of the work to roughly 39% of where it started two
+      // rounds ago. If print output still looks acceptable at this setting,
+      // great; if it looks visibly soft, this is the first thing to raise
+      // back up — just know that reverses most of today's speed gain.
+      const CAPTURE_SCALE = 2.5;
+      // Raised well above the old 100MB cap — quality is no longer squeezed
+      // down just to fit a byte budget. Still present as a sane upper bound
+      // so a huge catalogue doesn't produce something unusable.
+      const MAX_FILE_BYTES = 350 * 1024 * 1024;
+      const SIZE_HEADROOM = 0.90; // target 90% of the cap so PDF structure overhead doesn't push it over
+      // Pulled back slightly from last round (0.97/0.85) — JPEG encoding
+      // time grows a bit with quality too, so this trims a little more time
+      // off every page. 0.90 still looks clean; it's well above the range
+      // where compression blockiness becomes visible.
+      const QUALITY_START = 0.90;
+      const QUALITY_FLOOR = 0.75;
+      const QUALITY_STEP = 0.03;
+
+      const pdf = new jsPDF({ unit: 'pt', format: [PAGE_W, PAGE_H], orientation: ORIENTATION });
+
       // --- Calibration pass -------------------------------------------------
       // Capture one representative product-grid page and use its JPEG size
       // at various qualities to extrapolate the full export's size, so we
