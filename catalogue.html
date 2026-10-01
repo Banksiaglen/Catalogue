@@ -1835,8 +1835,8 @@
   // ---------------------------------------------------------------------
   // Print-ready PDF export (password protected)
   // ---------------------------------------------------------------------
-  const PDF_DOWNLOAD_PASSWORD = "2170";           // 28.5 x 21cm, no bleed, no crop marks, includes "Downloaded" stamp
-  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 28.5 x 21cm + 3mm bleed on all sides, no "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD = "2170";           // 21 x 28.5cm (same trim as 9033), no bleed, no crop marks, includes "Downloaded" stamp
+  const PDF_DOWNLOAD_PASSWORD_NO_STAMP = "9033";  // 21 x 28.5cm + 3mm bleed on all sides, no "Downloaded" stamp
 
   function openPdfPasswordModal() {
     document.getElementById('pdf-password-input').value = '';
@@ -1851,7 +1851,7 @@
     const val = document.getElementById('pdf-password-input').value;
     if (val === PDF_DOWNLOAD_PASSWORD) {
       closePdfPasswordModal();
-      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 285, trimHMm: 210, includeCropMarks: false });
+      generatePrintPdf({ includeDownloadStamp: true, bleedMm: 0, trimWMm: 210, trimHMm: 285, includeCropMarks: false });
     } else if (val === PDF_DOWNLOAD_PASSWORD_NO_STAMP) {
       closePdfPasswordModal();
       generatePrintPdf({ includeDownloadStamp: false, bleedMm: 3, trimWMm: 210, trimHMm: 285, includeCropMarks: true });
@@ -1958,8 +1958,9 @@
       sheet.style.transform = 'none'; // capture at native resolution, not the on-screen fit-scale
 
       // Trim size and bleed are password-specific:
-      //  - password 2170: 285 x 210mm (landscape), no bleed, no crop marks —
-      //    the PDF page is exactly that finished size.
+      //  - password 2170: 210 x 285mm (portrait) — same trim as 9033 — with
+      //    no bleed and no crop marks, so the PDF page is exactly that
+      //    finished size.
       //  - password 9033: 210 x 285mm (portrait) trim, with 3mm bleed added
       //    on all sides plus corner crop marks just outside the bleed edge.
       const PT_PER_MM = 72 / 25.4;
