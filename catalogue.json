@@ -56,6 +56,22 @@
     "local_image": "images/BM-L08.jpg"
   },
   {
+    "item_number": "BM-L09",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-L09.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-L09.jpg"
+  },
+  {
+    "item_number": "BM-L10",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-L10.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-L10.jpg"
+  },
+  {
     "item_number": "BM-S01",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-S01.jpg",
     "category": "Aboriginal Art",
@@ -110,6 +126,38 @@
     "subcategory": "Boomerangs",
     "city": "National",
     "local_image": "images/BM-S08.jpg"
+  },
+  {
+    "item_number": "BM-S09",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-S09.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-S09.jpg"
+  },
+  {
+    "item_number": "BM-S10",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-S10.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-S10.jpg"
+  },
+  {
+    "item_number": "BM-XL09",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-XL09.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-XL09.jpg"
+  },
+  {
+    "item_number": "BM-XL10",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-XL10.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-XL10.jpg"
   },
   {
     "item_number": "LBB01-20",
@@ -6448,6 +6496,14 @@
     "local_image": "images/ZH-BD-AN.jpg"
   },
   {
+    "item_number": "ZH-BD-AN2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-BD-AN2.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Coasters and Placements",
+    "city": "National",
+    "local_image": "images/ZH-BD-AN2.jpg"
+  },
+  {
     "item_number": "ZH-BD-AU",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-BD-AU.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -10808,6 +10864,14 @@
     "local_image": "images/MGT143-ME.jpg"
   },
   {
+    "item_number": "MGT263-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT263-ME.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Magnets",
+    "city": "Melbourne",
+    "local_image": "images/MGT263-ME.jpg"
+  },
+  {
     "item_number": "MGT143-FL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT143-FL.jpg",
     "category": "Fridge Magnets",
@@ -10824,12 +10888,28 @@
     "local_image": "images/MGT143-KA.jpg"
   },
   {
+    "item_number": "MGT263-AU",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT263-AU.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Magnets",
+    "city": "National",
+    "local_image": "images/MGT263-AU.jpg"
+  },
+  {
     "item_number": "MGT143-SY",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT143-SY.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Magnets",
     "city": "Sydney",
     "local_image": "images/MGT143-SY.jpg"
+  },
+  {
+    "item_number": "MGT263-SY",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT263-SY.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Magnets",
+    "city": "Sydney",
+    "local_image": "images/MGT263-SY.jpg"
   },
   {
     "item_number": "MGT112-BR",
@@ -13238,6 +13318,14 @@
     "subcategory": "Polyresin Magnets",
     "city": "National",
     "local_image": "images/BG2503-KO2.jpg"
+  },
+  {
+    "item_number": "BG2503-KO3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BG2503-KO3.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Polyresin Magnets",
+    "city": "National",
+    "local_image": "images/BG2503-KO3.jpg"
   },
   {
     "item_number": "XL-MGT01-05",
@@ -21094,14 +21182,6 @@
     "subcategory": "Others",
     "city": "National",
     "local_image": "images/FL018-AU.jpg"
-  },
-  {
-    "item_number": "FL018-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/FL018-KO.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/FL018-KO.jpg"
   },
   {
     "item_number": "GB07-IA",
