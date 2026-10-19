@@ -4832,14 +4832,6 @@
     "local_image": "images/MI10-KA.jpg"
   },
   {
-    "item_number": "MI10-KA2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI10-KA2.jpg",
-    "category": "Display Plates, Frames and Premium Gifts",
-    "subcategory": "Mirrors",
-    "city": "National",
-    "local_image": "images/MI10-KA2.jpg"
-  },
-  {
     "item_number": "MI10-KK",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI10-KK.jpg",
     "category": "Display Plates, Frames and Premium Gifts",
@@ -15744,6 +15736,14 @@
     "local_image": "images/HS8813A-8.jpg"
   },
   {
+    "item_number": "ROLY01-KO",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ROLY01-KO.jpg",
+    "category": "Soft Toys",
+    "subcategory": "Plush Toy Animals",
+    "city": "National",
+    "local_image": "images/ROLY01-KO.jpg"
+  },
+  {
     "item_number": "YC-0101-17",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/YC-0101-17.jpg",
     "category": "Soft Toys",
@@ -18104,6 +18104,14 @@
     "local_image": "images/NC02-CN2.jpg"
   },
   {
+    "item_number": "SF-K624-P(CN)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SF-K624-P(CN).jpg",
+    "category": "Souvenir Keyrings and Keyring Sets",
+    "subcategory": "Keyrings",
+    "city": "Cairns",
+    "local_image": "images/SF-K624-P_CN_.jpg"
+  },
+  {
     "item_number": "SF-K627-B(CN)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SF-K627-B(CN).jpg",
     "category": "Souvenir Keyrings and Keyring Sets",
@@ -18382,14 +18390,6 @@
     "subcategory": "Keyrings",
     "city": "National",
     "local_image": "images/BK-KC41-OH.jpg"
-  },
-  {
-    "item_number": "BK-KCB41-KA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-KCB41-KA.jpg",
-    "category": "Souvenir Keyrings and Keyring Sets",
-    "subcategory": "Keyrings",
-    "city": "National",
-    "local_image": "images/BK-KCB41-KA.jpg"
   },
   {
     "item_number": "BK-KCB41-KA2",
