@@ -936,6 +936,14 @@
     "local_image": "images/BK-TS12-XXL.jpg"
   },
   {
+    "item_number": "SCARF01",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/SCARF01.jpg",
+    "category": "Apparel, Footwear and Beach Towels",
+    "subcategory": "Clothing",
+    "city": "National",
+    "local_image": "images/SCARF01.jpg"
+  },
+  {
     "item_number": "BK-TS11-L(BLK)",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-TS11-L(BLK).jpg",
     "category": "Apparel, Footwear and Beach Towels",
@@ -11856,6 +11864,38 @@
     "local_image": "images/MGT262-AN2.jpg"
   },
   {
+    "item_number": "MGT262-AN3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-AN3.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Metal Magnets",
+    "city": "National",
+    "local_image": "images/MGT262-AN3.jpg"
+  },
+  {
+    "item_number": "MGT262-AU1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-AU1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Metal Magnets",
+    "city": "National",
+    "local_image": "images/MGT262-AU1.jpg"
+  },
+  {
+    "item_number": "MGT262-AU2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-AU2.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Metal Magnets",
+    "city": "National",
+    "local_image": "images/MGT262-AU2.jpg"
+  },
+  {
+    "item_number": "MGT262-AU3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-AU3.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Metal Magnets",
+    "city": "National",
+    "local_image": "images/MGT262-AU3.jpg"
+  },
+  {
     "item_number": "MGT262-KK",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-KK.jpg",
     "category": "Fridge Magnets",
@@ -14670,6 +14710,14 @@
     "subcategory": "Tea Towels",
     "city": "Sydney",
     "local_image": "images/D-T01-SY5.jpg"
+  },
+  {
+    "item_number": "HN-T105(SY)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-T105(SY).jpg",
+    "category": "Kitchen Accessories and Tea Towels",
+    "subcategory": "Tea Towels",
+    "city": "Sydney",
+    "local_image": "images/HN-T105_SY_.jpg"
   },
   {
     "item_number": "HN-T55",
@@ -20400,14 +20448,6 @@
     "local_image": "images/51564CXD.jpg"
   },
   {
-    "item_number": "51568CXD",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51568CXD.jpg",
-    "category": "Sports and Accessories",
-    "subcategory": "Christmas Ornaments",
-    "city": "National",
-    "local_image": "images/51568CXD.jpg"
-  },
-  {
     "item_number": "51838XD",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/51838XD.jpg",
     "category": "Sports and Accessories",
@@ -22654,6 +22694,14 @@
     "subcategory": "Ruler Sets",
     "city": "Sydney",
     "local_image": "images/LY-ST-23.jpg"
+  },
+  {
+    "item_number": "NP6-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/NP6-ME.jpg",
+    "category": "Stationery",
+    "subcategory": "Stationery Sets",
+    "city": "Melbourne",
+    "local_image": "images/NP6-ME.jpg"
   },
   {
     "item_number": "NP7-ME",
@@ -24949,7 +24997,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-29BLK.jpg"
+    "local_image": "images/AC-MW49-29BLK.jpg"
   },
   {
     "item_number": "AC-MW49-29GREY",
@@ -24957,7 +25005,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-29GREY.jpg"
+    "local_image": "images/AC-MW49-29GREY.jpg"
   },
   {
     "item_number": "AC-MW49-37C",
@@ -24965,7 +25013,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-37C.jpg"
+    "local_image": "images/AC-MW49-37C.jpg"
   },
   {
     "item_number": "AC-MW49-41BRN",
@@ -24973,7 +25021,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-41BRN.jpg"
+    "local_image": "images/AC-MW49-41BRN.jpg"
   },
   {
     "item_number": "AC-MW49-41DBLU",
@@ -24981,7 +25029,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-41DBLU.jpg"
+    "local_image": "images/AC-MW49-41DBLU.jpg"
   },
   {
     "item_number": "AC-MW49-41GRN",
@@ -24989,7 +25037,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-41GRN.jpg"
+    "local_image": "images/AC-MW49-41GRN.jpg"
   },
   {
     "item_number": "AC-MW49-41RED",
@@ -24997,7 +25045,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-41RED.jpg"
+    "local_image": "images/AC-MW49-41RED.jpg"
   },
   {
     "item_number": "GW107-BLK",
@@ -25005,7 +25053,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/GW107-BLK.jpg"
+    "local_image": "images/GW107-BLK.jpg"
   },
   {
     "item_number": "GW107-BRN",
@@ -25013,7 +25061,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/GW107-BRN.jpg"
+    "local_image": "images/GW107-BRN.jpg"
   },
   {
     "item_number": "GW70-BRNL",
@@ -25021,7 +25069,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Other Leather Bags",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/GW70-BRNL.jpg"
+    "local_image": "images/GW70-BRNL.jpg"
   },
   {
     "item_number": "GW70-BRNM",
