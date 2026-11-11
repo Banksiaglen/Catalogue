@@ -2552,14 +2552,6 @@
     "local_image": "images/HN-GW57-AU_WH_.jpg"
   },
   {
-    "item_number": "HN-GW30-PH",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW30-PH.jpg",
-    "category": "Bags",
-    "subcategory": "Premium canvas cotton Bags",
-    "city": "Perth",
-    "local_image": "images/HN-GW30-PH.jpg"
-  },
-  {
     "item_number": "GW120L-SY1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW120L-SY1.jpg",
     "category": "Bags",
@@ -4710,6 +4702,38 @@
     "subcategory": "Mirrors",
     "city": "Cairns",
     "local_image": "images/MI11B-CN.jpg"
+  },
+  {
+    "item_number": "MI10-ME3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI10-ME3.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Mirrors",
+    "city": "Melbourne",
+    "local_image": "images/MI10-ME3.jpg"
+  },
+  {
+    "item_number": "MI10-ME4",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI10-ME4.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Mirrors",
+    "city": "Melbourne",
+    "local_image": "images/MI10-ME4.jpg"
+  },
+  {
+    "item_number": "MI10B-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI10B-ME.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Mirrors",
+    "city": "Melbourne",
+    "local_image": "images/MI10B-ME.jpg"
+  },
+  {
+    "item_number": "MI11B-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MI11B-ME.jpg",
+    "category": "Display Plates, Frames and Premium Gifts",
+    "subcategory": "Mirrors",
+    "city": "Melbourne",
+    "local_image": "images/MI11B-ME.jpg"
   },
   {
     "item_number": "MI064-AN",
@@ -16941,7 +16965,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PS07-AD.jpg"
+    "local_image": "images/PS07-AD.jpg"
   },
   {
     "item_number": "YL-4KC1-AD",
@@ -16949,7 +16973,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC1-AD.jpg"
+    "local_image": "images/YL-4KC1-AD.jpg"
   },
   {
     "item_number": "3KC65-BR",
@@ -16957,7 +16981,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/3KC65-BR.jpg"
+    "local_image": "images/3KC65-BR.jpg"
   },
   {
     "item_number": "PS07-BR",
@@ -16965,7 +16989,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PS07-BR.jpg"
+    "local_image": "images/PS07-BR.jpg"
   },
   {
     "item_number": "YL-PS05-BR",
@@ -16973,7 +16997,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PS05-BR.jpg"
+    "local_image": "images/YL-PS05-BR.jpg"
   },
   {
     "item_number": "PS07-CN",
@@ -16981,7 +17005,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/PS07-CN.jpg"
+    "local_image": "images/PS07-CN.jpg"
   },
   {
     "item_number": "YL-4KC6-CN",
@@ -16989,7 +17013,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC6-CN.jpg"
+    "local_image": "images/YL-4KC6-CN.jpg"
   },
   {
     "item_number": "YL-PS05-CN2",
@@ -16997,7 +17021,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-PS05-CN2.jpg"
+    "local_image": "images/YL-PS05-CN2.jpg"
   },
   {
     "item_number": "YL-4KC1-GC",
@@ -17005,7 +17029,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC1-GC.jpg"
+    "local_image": "images/YL-4KC1-GC.jpg"
   },
   {
     "item_number": "YL-4KC3-GC",
@@ -17013,7 +17037,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC3-GC.jpg"
+    "local_image": "images/YL-4KC3-GC.jpg"
   },
   {
     "item_number": "YL-4KC6-GC2",
@@ -17021,7 +17045,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC6-GC2.jpg"
+    "local_image": "images/YL-4KC6-GC2.jpg"
   },
   {
     "item_number": "3KC65-ME",
@@ -17029,7 +17053,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/3KC65-ME.jpg"
+    "local_image": "images/3KC65-ME.jpg"
   },
   {
     "item_number": "4KC4-ME",
@@ -17037,7 +17061,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC4-ME.jpg"
+    "local_image": "images/4KC4-ME.jpg"
   },
   {
     "item_number": "L-PS09-ME",
@@ -17045,7 +17069,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-PS09-ME.jpg"
+    "local_image": "images/L-PS09-ME.jpg"
   },
   {
     "item_number": "YL-4KC1-ME",
@@ -17053,7 +17077,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-4KC1-ME.jpg"
+    "local_image": "images/YL-4KC1-ME.jpg"
   },
   {
     "item_number": "3KC64-KA",
@@ -17061,7 +17085,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/3KC64-KA.jpg"
+    "local_image": "images/3KC64-KA.jpg"
   },
   {
     "item_number": "3KC64-KK",
@@ -17069,7 +17093,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/3KC64-KK.jpg"
+    "local_image": "images/3KC64-KK.jpg"
   },
   {
     "item_number": "4KC4-SY3(C)",
@@ -17077,7 +17101,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC4-SY3(C).jpg"
+    "local_image": "images/4KC4-SY3_C_.jpg"
   },
   {
     "item_number": "4KC4-SY3(P)",
@@ -17085,7 +17109,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC4-SY3(P).jpg"
+    "local_image": "images/4KC4-SY3_P_.jpg"
   },
   {
     "item_number": "4KC4-SY3(S)",
@@ -17093,7 +17117,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC4-SY3(S).jpg"
+    "local_image": "images/4KC4-SY3_S_.jpg"
   },
   {
     "item_number": "4KC7-AB",
@@ -17101,7 +17125,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC7-AB.jpg"
+    "local_image": "images/4KC7-AB.jpg"
   },
   {
     "item_number": "4KC7-FL",
@@ -17109,7 +17133,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC7-FL.jpg"
+    "local_image": "images/4KC7-FL.jpg"
   },
   {
     "item_number": "4KC7-KA",
@@ -17117,7 +17141,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC7-KA.jpg"
+    "local_image": "images/4KC7-KA.jpg"
   },
   {
     "item_number": "4KC7-OMP",
@@ -17125,7 +17149,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC7-OMP.jpg"
+    "local_image": "images/4KC7-OMP.jpg"
   },
   {
     "item_number": "4KC8-AB",
@@ -17133,7 +17157,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC8-AB.jpg"
+    "local_image": "images/4KC8-AB.jpg"
   },
   {
     "item_number": "4KC8-FL",
@@ -17141,7 +17165,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC8-FL.jpg"
+    "local_image": "images/4KC8-FL.jpg"
   },
   {
     "item_number": "4KC8-KO",
@@ -17149,7 +17173,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC8-KO.jpg"
+    "local_image": "images/4KC8-KO.jpg"
   },
   {
     "item_number": "4KC8-OMP",
@@ -17157,7 +17181,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC8-OMP.jpg"
+    "local_image": "images/4KC8-OMP.jpg"
   },
   {
     "item_number": "4KC9-OMP",
@@ -17165,7 +17189,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC9-OMP.jpg"
+    "local_image": "images/4KC9-OMP.jpg"
   },
   {
     "item_number": "4KC9-SY1",
@@ -17173,7 +17197,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC9-SY1.jpg"
+    "local_image": "images/4KC9-SY1.jpg"
   },
   {
     "item_number": "4KC9-SY2",
@@ -17181,7 +17205,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC9-SY2.jpg"
+    "local_image": "images/4KC9-SY2.jpg"
   },
   {
     "item_number": "4KC9-SY3",
@@ -17189,7 +17213,7 @@
     "category": "Souvenir Keyrings and Keyring Sets",
     "subcategory": "Keyring Sets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/4KC9-SY3.jpg"
+    "local_image": "images/4KC9-SY3.jpg"
   },
   {
     "item_number": "BA-KC034(3PCS)",
@@ -21792,6 +21816,22 @@
     "local_image": "images/STN17-GC.jpg"
   },
   {
+    "item_number": "STN17-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN17-ME.jpg",
+    "category": "Stationery",
+    "subcategory": "Pencil Cases",
+    "city": "Melbourne",
+    "local_image": "images/STN17-ME.jpg"
+  },
+  {
+    "item_number": "STN17-ME2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN17-ME2.jpg",
+    "category": "Stationery",
+    "subcategory": "Pencil Cases",
+    "city": "Melbourne",
+    "local_image": "images/STN17-ME2.jpg"
+  },
+  {
     "item_number": "BK-WJ2-AB3",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-WJ2-AB3.jpg",
     "category": "Stationery",
@@ -23501,7 +23541,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30BLK.jpg"
+    "local_image": "images/AC-MW49-30BLK.jpg"
   },
   {
     "item_number": "AC-MW49-30BLU",
@@ -23509,7 +23549,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30BLU.jpg"
+    "local_image": "images/AC-MW49-30BLU.jpg"
   },
   {
     "item_number": "AC-MW49-30GREY",
@@ -23517,7 +23557,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30GREY.jpg"
+    "local_image": "images/AC-MW49-30GREY.jpg"
   },
   {
     "item_number": "AC-MW49-30LBLU",
@@ -23525,7 +23565,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30LBLU.jpg"
+    "local_image": "images/AC-MW49-30LBLU.jpg"
   },
   {
     "item_number": "AC-MW49-30LP",
@@ -23533,7 +23573,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30LP.jpg"
+    "local_image": "images/AC-MW49-30LP.jpg"
   },
   {
     "item_number": "AC-MW49-30PK",
@@ -23541,7 +23581,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-30PK.jpg"
+    "local_image": "images/AC-MW49-30PK.jpg"
   },
   {
     "item_number": "AC-MW49-38C",
@@ -23549,7 +23589,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-38C.jpg"
+    "local_image": "images/AC-MW49-38C.jpg"
   },
   {
     "item_number": "AC-MW49-39",
@@ -23557,7 +23597,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-39.jpg"
+    "local_image": "images/AC-MW49-39.jpg"
   },
   {
     "item_number": "AC-MW49-39C",
@@ -23565,7 +23605,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-39C.jpg"
+    "local_image": "images/AC-MW49-39C.jpg"
   },
   {
     "item_number": "AC-MW49-43",
@@ -23573,7 +23613,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-43.jpg"
+    "local_image": "images/AC-MW49-43.jpg"
   },
   {
     "item_number": "AC-MW49-44",
@@ -23581,7 +23621,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-44.jpg"
+    "local_image": "images/AC-MW49-44.jpg"
   },
   {
     "item_number": "AC-MW49-45",
@@ -23589,7 +23629,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-45.jpg"
+    "local_image": "images/AC-MW49-45.jpg"
   },
   {
     "item_number": "AC-MW71-KA",
@@ -23597,7 +23637,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW71-KA.jpg"
+    "local_image": "images/AC-MW71-KA.jpg"
   },
   {
     "item_number": "AC-MW93-01BGE",
@@ -23605,7 +23645,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW93-01BGE.jpg"
+    "local_image": "images/AC-MW93-01BGE.jpg"
   },
   {
     "item_number": "AC-MW93-01DBLU",
@@ -23613,7 +23653,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW93-01DBLU.jpg"
+    "local_image": "images/AC-MW93-01DBLU.jpg"
   },
   {
     "item_number": "AC-MW93-01LBLU",
@@ -23621,7 +23661,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW93-01LBLU.jpg"
+    "local_image": "images/AC-MW93-01LBLU.jpg"
   },
   {
     "item_number": "AC-MW93-01PK",
@@ -23629,7 +23669,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW93-01PK.jpg"
+    "local_image": "images/AC-MW93-01PK.jpg"
   },
   {
     "item_number": "AC-MW93-01RED",
@@ -23637,7 +23677,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW93-01RED.jpg"
+    "local_image": "images/AC-MW93-01RED.jpg"
   },
   {
     "item_number": "AC-MW94-BLK",
@@ -23645,7 +23685,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW94-BLK.jpg"
+    "local_image": "images/AC-MW94-BLK.jpg"
   },
   {
     "item_number": "AC-MW94-BRN",
@@ -23653,7 +23693,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW94-BRN.jpg"
+    "local_image": "images/AC-MW94-BRN.jpg"
   },
   {
     "item_number": "AC-MW95-BLK",
@@ -23661,7 +23701,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW95-BLK.jpg"
+    "local_image": "images/AC-MW95-BLK.jpg"
   },
   {
     "item_number": "AC-MW95-BRN",
@@ -23669,7 +23709,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW95-BRN.jpg"
+    "local_image": "images/AC-MW95-BRN.jpg"
   },
   {
     "item_number": "LW115-BRN",
@@ -23677,7 +23717,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/LW115-BRN.jpg"
+    "local_image": "images/LW115-BRN.jpg"
   },
   {
     "item_number": "MW103-02BLK",
@@ -23685,7 +23725,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW103-02BLK.jpg"
+    "local_image": "images/MW103-02BLK.jpg"
   },
   {
     "item_number": "MW103-02BRN",
@@ -23693,7 +23733,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW103-02BRN.jpg"
+    "local_image": "images/MW103-02BRN.jpg"
   },
   {
     "item_number": "MW103-02GREY",
@@ -23701,7 +23741,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW103-02GREY.jpg"
+    "local_image": "images/MW103-02GREY.jpg"
   },
   {
     "item_number": "MW107-BLK",
@@ -23709,7 +23749,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW107-BLK.jpg"
+    "local_image": "images/MW107-BLK.jpg"
   },
   {
     "item_number": "MW107-BRN",
@@ -23717,7 +23757,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW107-BRN.jpg"
+    "local_image": "images/MW107-BRN.jpg"
   },
   {
     "item_number": "MW108-BLK",
@@ -23725,7 +23765,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW108-BLK.jpg"
+    "local_image": "images/MW108-BLK.jpg"
   },
   {
     "item_number": "MW108-BRN",
@@ -23733,7 +23773,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW108-BRN.jpg"
+    "local_image": "images/MW108-BRN.jpg"
   },
   {
     "item_number": "MW117-PK",
@@ -23741,7 +23781,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW117-PK.jpg"
+    "local_image": "images/MW117-PK.jpg"
   },
   {
     "item_number": "MW118-BG",
@@ -23749,7 +23789,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW118-BG.jpg"
+    "local_image": "images/MW118-BG.jpg"
   },
   {
     "item_number": "MW118-BLU",
@@ -23757,7 +23797,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW118-BLU.jpg"
+    "local_image": "images/MW118-BLU.jpg"
   },
   {
     "item_number": "MW118-BRN",
@@ -23765,7 +23805,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW118-BRN.jpg"
+    "local_image": "images/MW118-BRN.jpg"
   },
   {
     "item_number": "MW93-PK",
@@ -23773,7 +23813,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW93-PK.jpg"
+    "local_image": "images/MW93-PK.jpg"
   },
   {
     "item_number": "MW93-PU",
@@ -23781,7 +23821,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW93-PU.jpg"
+    "local_image": "images/MW93-PU.jpg"
   },
   {
     "item_number": "MW94-BLK",
@@ -23789,7 +23829,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW94-BLK.jpg"
+    "local_image": "images/MW94-BLK.jpg"
   },
   {
     "item_number": "MW96-KA",
@@ -23797,7 +23837,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW96-KA.jpg"
+    "local_image": "images/MW96-KA.jpg"
   },
   {
     "item_number": "MW96-KO",
@@ -23805,7 +23845,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW96-KO.jpg"
+    "local_image": "images/MW96-KO.jpg"
   },
   {
     "item_number": "MW96-KO2",
@@ -23813,7 +23853,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW96-KO2.jpg"
+    "local_image": "images/MW96-KO2.jpg"
   },
   {
     "item_number": "MW96-WB",
@@ -23821,7 +23861,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW96-WB.jpg"
+    "local_image": "images/MW96-WB.jpg"
   },
   {
     "item_number": "MW97-BLK",
@@ -23829,7 +23869,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW97-BLK.jpg"
+    "local_image": "images/MW97-BLK.jpg"
   },
   {
     "item_number": "AC-MW72-PH",
@@ -23837,7 +23877,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Perth",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW72-PH.jpg"
+    "local_image": "images/AC-MW72-PH.jpg"
   },
   {
     "item_number": "AC-MW49-02SY",
@@ -23845,7 +23885,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-02SY.jpg"
+    "local_image": "images/AC-MW49-02SY.jpg"
   },
   {
     "item_number": "AC-MW49-03SY",
@@ -23853,7 +23893,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-03SY.jpg"
+    "local_image": "images/AC-MW49-03SY.jpg"
   },
   {
     "item_number": "AC-MW49-05SY",
@@ -23861,7 +23901,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49-05SY.jpg"
+    "local_image": "images/AC-MW49-05SY.jpg"
   },
   {
     "item_number": "AC-MW49D-01SY",
@@ -23869,7 +23909,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-MW49D-01SY.jpg"
+    "local_image": "images/AC-MW49D-01SY.jpg"
   },
   {
     "item_number": "MW96-Oh",
@@ -23877,7 +23917,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Coin Purses, Passport Holder and Key Wallets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MW96-Oh.jpg"
+    "local_image": "images/MW96-Oh.jpg"
   },
   {
     "item_number": "AC-LW09-BLK",
@@ -23885,7 +23925,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW09-BLK.jpg"
+    "local_image": "images/AC-LW09-BLK.jpg"
   },
   {
     "item_number": "AC-LW09-RED",
@@ -23893,7 +23933,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW09-RED.jpg"
+    "local_image": "images/AC-LW09-RED.jpg"
   },
   {
     "item_number": "AC-LW27-GREY",
@@ -23901,7 +23941,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW27-GREY.jpg"
+    "local_image": "images/AC-LW27-GREY.jpg"
   },
   {
     "item_number": "AC-LW27-LBR",
@@ -23909,7 +23949,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW27-LBR.jpg"
+    "local_image": "images/AC-LW27-LBR.jpg"
   },
   {
     "item_number": "AC-LW34-DBR",
@@ -23917,7 +23957,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW34-DBR.jpg"
+    "local_image": "images/AC-LW34-DBR.jpg"
   },
   {
     "item_number": "AC-LW35-LBR",
@@ -23925,7 +23965,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW35-LBR.jpg"
+    "local_image": "images/AC-LW35-LBR.jpg"
   },
   {
     "item_number": "AC-LW42-KA",
@@ -23933,7 +23973,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW42-KA.jpg"
+    "local_image": "images/AC-LW42-KA.jpg"
   },
   {
     "item_number": "AC-LW43-WH",
@@ -23941,7 +23981,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW43-WH.jpg"
+    "local_image": "images/AC-LW43-WH.jpg"
   },
   {
     "item_number": "AC-LW47-BRN",
@@ -23949,7 +23989,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-BRN.jpg"
+    "local_image": "images/AC-LW47-BRN.jpg"
   },
   {
     "item_number": "AC-LW47-LBR",
@@ -23957,7 +23997,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-LBR.jpg"
+    "local_image": "images/AC-LW47-LBR.jpg"
   },
   {
     "item_number": "AC-LW47-PK",
@@ -23965,7 +24005,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PK.jpg"
+    "local_image": "images/AC-LW47-PK.jpg"
   },
   {
     "item_number": "AC-LW47-PUR",
@@ -23973,7 +24013,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PUR.jpg"
+    "local_image": "images/AC-LW47-PUR.jpg"
   },
   {
     "item_number": "AC-LW47-RED",
@@ -23981,7 +24021,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-RED.jpg"
+    "local_image": "images/AC-LW47-RED.jpg"
   },
   {
     "item_number": "AC-LW48-BL",
@@ -23989,7 +24029,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW48-BL.jpg"
+    "local_image": "images/AC-LW48-BL.jpg"
   },
   {
     "item_number": "AC-LW48-BR",
