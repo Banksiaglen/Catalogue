@@ -144,12 +144,28 @@
     "local_image": "images/BM-S10.jpg"
   },
   {
+    "item_number": "BM-XL05",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-XL05.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-XL05.jpg"
+  },
+  {
     "item_number": "BM-XL07",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-XL07.jpg",
     "category": "Aboriginal Art",
     "subcategory": "Boomerangs",
     "city": "National",
     "local_image": "images/BM-XL07.jpg"
+  },
+  {
+    "item_number": "BM-XL08",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BM-XL08.jpg",
+    "category": "Aboriginal Art",
+    "subcategory": "Boomerangs",
+    "city": "National",
+    "local_image": "images/BM-XL08.jpg"
   },
   {
     "item_number": "BM-XL09",
@@ -8288,6 +8304,14 @@
     "local_image": "images/MGT63-BR13.jpg"
   },
   {
+    "item_number": "MGT63-BR14",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-BR14.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "Brisbane",
+    "local_image": "images/MGT63-BR14.jpg"
+  },
+  {
     "item_number": "MGT63-BR2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-BR2.jpg",
     "category": "Fridge Magnets",
@@ -8688,16 +8712,16 @@
     "local_image": "images/MGT63-GC2.jpg"
   },
   {
-    "item_number": "MGT63-GC20(OLD)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC3.jpg",
+    "item_number": "MGT63-GC20",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC20.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
-    "local_image": "images/MGT63-GC20_OLD_.jpg"
+    "local_image": "images/MGT63-GC20.jpg"
   },
   {
     "item_number": "MGT63-GC3",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC5.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC3.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
@@ -8705,7 +8729,7 @@
   },
   {
     "item_number": "MGT63-GC5",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC6.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC5.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
@@ -8713,7 +8737,7 @@
   },
   {
     "item_number": "MGT63-GC6",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC7.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC6.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
@@ -8721,7 +8745,7 @@
   },
   {
     "item_number": "MGT63-GC7",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC9.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC7.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
@@ -8729,7 +8753,7 @@
   },
   {
     "item_number": "MGT63-GC9",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT65-GC20.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-GC9.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
@@ -8737,11 +8761,19 @@
   },
   {
     "item_number": "MGT65-GC20",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT73-GC.jpg",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT65-GC20.jpg",
     "category": "Fridge Magnets",
     "subcategory": "Foil Magnets",
     "city": "Gold Coast",
     "local_image": "images/MGT65-GC20.jpg"
+  },
+  {
+    "item_number": "MGT73-GC",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT73-GC.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "Gold Coast",
+    "local_image": "images/MGT73-GC.jpg"
   },
   {
     "item_number": "MGT77-GC",
@@ -9022,6 +9054,14 @@
     "subcategory": "Foil Magnets",
     "city": "Melbourne",
     "local_image": "images/MGT63-ME17.jpg"
+  },
+  {
+    "item_number": "MGT63-ME18",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-ME18.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "Melbourne",
+    "local_image": "images/MGT63-ME18.jpg"
   },
   {
     "item_number": "MGT63-ME2",
@@ -9704,6 +9744,46 @@
     "local_image": "images/MGT44-MP.jpg"
   },
   {
+    "item_number": "MGT63-AN1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AN1.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AN1.jpg"
+  },
+  {
+    "item_number": "MGT63-AN2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AN2.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AN2.jpg"
+  },
+  {
+    "item_number": "MGT63-AN3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AN3.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AN3.jpg"
+  },
+  {
+    "item_number": "MGT63-AN4",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AN4.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AN4.jpg"
+  },
+  {
+    "item_number": "MGT63-AN5",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AN5.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AN5.jpg"
+  },
+  {
     "item_number": "MGT63-AU1",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AU1.jpg",
     "category": "Fridge Magnets",
@@ -9840,6 +9920,22 @@
     "local_image": "images/MGT63-AU26.jpg"
   },
   {
+    "item_number": "MGT63-AU27",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AU27.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AU27.jpg"
+  },
+  {
+    "item_number": "MGT63-AU28",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AU28.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AU28.jpg"
+  },
+  {
     "item_number": "MGT63-AU4",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AU4.jpg",
     "category": "Fridge Magnets",
@@ -9902,38 +9998,6 @@
     "subcategory": "Foil Magnets",
     "city": "National",
     "local_image": "images/MGT63-SY31.jpg"
-  },
-  {
-    "item_number": "MGT63-SY33",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-SY33.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "National",
-    "local_image": "images/MGT63-SY33.jpg"
-  },
-  {
-    "item_number": "MGT63-SY34",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-SY34.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "National",
-    "local_image": "images/MGT63-SY34.jpg"
-  },
-  {
-    "item_number": "MGT63-SY35",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-SY35.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "National",
-    "local_image": "images/MGT63-SY35.jpg"
-  },
-  {
-    "item_number": "MGT63-SY36",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-SY36.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "National",
-    "local_image": "images/MGT63-SY36.jpg"
   },
   {
     "item_number": "MGT65-AB21",
@@ -10638,6 +10702,14 @@
     "subcategory": "Foil Magnets",
     "city": "Sydney",
     "local_image": "images/MGT63-SY3.jpg"
+  },
+  {
+    "item_number": "MGT63-SY37",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-SY37.jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "Sydney",
+    "local_image": "images/MGT63-SY37.jpg"
   },
   {
     "item_number": "MGT63-SY4",
@@ -22982,6 +23054,14 @@
     "subcategory": "Stationery Sets",
     "city": "National",
     "local_image": "images/NP4-AN.jpg"
+  },
+  {
+    "item_number": "NP4-KO5",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/NP4-KO5.jpg",
+    "category": "Stationery",
+    "subcategory": "Stationery Sets",
+    "city": "National",
+    "local_image": "images/NP4-KO5.jpg"
   },
   {
     "item_number": "NP4-MP",
