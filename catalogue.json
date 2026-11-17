@@ -8048,14 +8048,6 @@
     "local_image": "images/ZH109-SY6.jpg"
   },
   {
-    "item_number": "ZH109-SY8",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH109-SY8.jpg",
-    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
-    "subcategory": "Stubby Holders",
-    "city": "Sydney",
-    "local_image": "images/ZH109-SY8.jpg"
-  },
-  {
     "item_number": "STN44-AB2",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN44-AB2.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -11640,14 +11632,6 @@
     "local_image": "images/MGT124-KA2.jpg"
   },
   {
-    "item_number": "MGT124-SY(BG2)",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT124-SY(BG2).jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Metal Magnets",
-    "city": "National",
-    "local_image": "images/MGT124-SY_BG2_.jpg"
-  },
-  {
     "item_number": "MGT125-KO",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT125-KO.jpg",
     "category": "Fridge Magnets",
@@ -12045,7 +12029,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT99-KK.jpg"
+    "local_image": "images/MGT99-KK.jpg"
   },
   {
     "item_number": "YL-BT6-RS",
@@ -12053,7 +12037,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-BT6-RS.jpg"
+    "local_image": "images/YL-BT6-RS.jpg"
   },
   {
     "item_number": "YL-BT7-KO",
@@ -12061,7 +12045,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-BT7-KO.jpg"
+    "local_image": "images/YL-BT7-KO.jpg"
   },
   {
     "item_number": "YL-BT7-Q",
@@ -12069,7 +12053,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-BT7-Q.jpg"
+    "local_image": "images/YL-BT7-Q.jpg"
   },
   {
     "item_number": "YL-MGT50-KO4",
@@ -12077,7 +12061,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-MGT50-KO4.jpg"
+    "local_image": "images/YL-MGT50-KO4.jpg"
   },
   {
     "item_number": "MGT132-PH1",
@@ -12085,7 +12069,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Perth",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-PH1.jpg"
+    "local_image": "images/MGT132-PH1.jpg"
   },
   {
     "item_number": "MGT132-PH2",
@@ -12093,7 +12077,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Perth",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-PH2.jpg"
+    "local_image": "images/MGT132-PH2.jpg"
   },
   {
     "item_number": "BT9-SY2",
@@ -12101,7 +12085,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BT9-SY2.jpg"
+    "local_image": "images/BT9-SY2.jpg"
   },
   {
     "item_number": "L-BT016",
@@ -12109,7 +12093,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/L-BT016.jpg"
+    "local_image": "images/L-BT016.jpg"
   },
   {
     "item_number": "MGT113-SY3",
@@ -12117,23 +12101,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT113-SY3.jpg"
-  },
-  {
-    "item_number": "MGT124-SY",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT124-SY.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Metal Magnets",
-    "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT124-SY.jpg"
-  },
-  {
-    "item_number": "MGT129-SY1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT129-SY1.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Metal Magnets",
-    "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT129-SY1.jpg"
+    "local_image": "images/MGT113-SY3.jpg"
   },
   {
     "item_number": "MGT132-SY2",
@@ -12141,7 +12109,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY2.jpg"
+    "local_image": "images/MGT132-SY2.jpg"
   },
   {
     "item_number": "MGT132-SY3",
@@ -12149,7 +12117,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY3.jpg"
+    "local_image": "images/MGT132-SY3.jpg"
   },
   {
     "item_number": "MGT132-SY4",
@@ -12157,7 +12125,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY4.jpg"
+    "local_image": "images/MGT132-SY4.jpg"
   },
   {
     "item_number": "MGT132-SY5",
@@ -12165,7 +12133,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY5.jpg"
+    "local_image": "images/MGT132-SY5.jpg"
   },
   {
     "item_number": "MGT132-SY6",
@@ -12173,7 +12141,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY6.jpg"
+    "local_image": "images/MGT132-SY6.jpg"
   },
   {
     "item_number": "MGT132-SY7",
@@ -12181,7 +12149,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY7.jpg"
+    "local_image": "images/MGT132-SY7.jpg"
   },
   {
     "item_number": "MGT132-SY8",
@@ -12189,7 +12157,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT132-SY8.jpg"
+    "local_image": "images/MGT132-SY8.jpg"
   },
   {
     "item_number": "MGT140-SY",
@@ -12197,7 +12165,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT140-SY.jpg"
+    "local_image": "images/MGT140-SY.jpg"
   },
   {
     "item_number": "MGT144-SY",
@@ -12205,7 +12173,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT144-SY.jpg"
+    "local_image": "images/MGT144-SY.jpg"
   },
   {
     "item_number": "MGT262-SY",
@@ -12213,7 +12181,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT262-SY.jpg"
+    "local_image": "images/MGT262-SY.jpg"
   },
   {
     "item_number": "MGT86-SY1",
@@ -12221,7 +12189,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT86-SY1.jpg"
+    "local_image": "images/MGT86-SY1.jpg"
   },
   {
     "item_number": "MGT86-SY2",
@@ -12229,7 +12197,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT86-SY2.jpg"
+    "local_image": "images/MGT86-SY2.jpg"
   },
   {
     "item_number": "MGT90-SY",
@@ -12237,7 +12205,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT90-SY.jpg"
+    "local_image": "images/MGT90-SY.jpg"
   },
   {
     "item_number": "MGT99-SY",
@@ -12245,7 +12213,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/MGT99-SY.jpg"
+    "local_image": "images/MGT99-SY.jpg"
   },
   {
     "item_number": "YL-BT8-C",
@@ -12253,7 +12221,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-BT8-C.jpg"
+    "local_image": "images/YL-BT8-C.jpg"
   },
   {
     "item_number": "YL-BT8-P",
@@ -12261,7 +12229,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-BT8-P.jpg"
+    "local_image": "images/YL-BT8-P.jpg"
   },
   {
     "item_number": "YL-MGT46-C",
@@ -12269,7 +12237,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-MGT46-C.jpg"
+    "local_image": "images/YL-MGT46-C.jpg"
   },
   {
     "item_number": "YL-MGT47-P",
@@ -12277,7 +12245,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Metal Magnets",
     "city": "Sydney",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/YL-MGT47-P.jpg"
+    "local_image": "images/YL-MGT47-P.jpg"
   },
   {
     "item_number": "BG1410(AD)",
@@ -12285,7 +12253,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1410(AD).jpg"
+    "local_image": "images/BG1410_AD_.jpg"
   },
   {
     "item_number": "BG1411(AD)",
@@ -12293,7 +12261,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1411(AD).jpg"
+    "local_image": "images/BG1411_AD_.jpg"
   },
   {
     "item_number": "BG1904-AD1",
@@ -12301,7 +12269,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-AD1.jpg"
+    "local_image": "images/BG1904-AD1.jpg"
   },
   {
     "item_number": "BG1913-AD",
@@ -12309,7 +12277,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Adelaide",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-AD.jpg"
+    "local_image": "images/BG1913-AD.jpg"
   },
   {
     "item_number": "BG1404(BR)",
@@ -12317,7 +12285,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1404(BR).jpg"
+    "local_image": "images/BG1404_BR_.jpg"
   },
   {
     "item_number": "BG1405(BR)",
@@ -12325,7 +12293,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1405(BR).jpg"
+    "local_image": "images/BG1405_BR_.jpg"
   },
   {
     "item_number": "BG1406(BR)",
@@ -12333,7 +12301,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1406(BR).jpg"
+    "local_image": "images/BG1406_BR_.jpg"
   },
   {
     "item_number": "BG1613(BR)",
@@ -12341,7 +12309,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1613(BR).jpg"
+    "local_image": "images/BG1613_BR_.jpg"
   },
   {
     "item_number": "BG1614(BR)",
@@ -12349,7 +12317,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1614(BR).jpg"
+    "local_image": "images/BG1614_BR_.jpg"
   },
   {
     "item_number": "BG1906(BR)",
@@ -12357,7 +12325,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1906(BR).jpg"
+    "local_image": "images/BG1906_BR_.jpg"
   },
   {
     "item_number": "BG1908(BR)",
@@ -12365,7 +12333,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1908(BR).jpg"
+    "local_image": "images/BG1908_BR_.jpg"
   },
   {
     "item_number": "BG1913-BR",
@@ -12373,7 +12341,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-BR.jpg"
+    "local_image": "images/BG1913-BR.jpg"
   },
   {
     "item_number": "BG2327-BR",
@@ -12381,7 +12349,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Brisbane",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG2327-BR.jpg"
+    "local_image": "images/BG2327-BR.jpg"
   },
   {
     "item_number": "BG1541(CN)",
@@ -12389,7 +12357,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1541(CN).jpg"
+    "local_image": "images/BG1541_CN_.jpg"
   },
   {
     "item_number": "BG1557(CN)",
@@ -12397,7 +12365,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1557(CN).jpg"
+    "local_image": "images/BG1557_CN_.jpg"
   },
   {
     "item_number": "BG1812-CN",
@@ -12405,7 +12373,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1812-CN.jpg"
+    "local_image": "images/BG1812-CN.jpg"
   },
   {
     "item_number": "BG1904-CN2",
@@ -12413,7 +12381,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-CN2.jpg"
+    "local_image": "images/BG1904-CN2.jpg"
   },
   {
     "item_number": "BG1904-CN3",
@@ -12421,7 +12389,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-CN3.jpg"
+    "local_image": "images/BG1904-CN3.jpg"
   },
   {
     "item_number": "BG1904-CN6",
@@ -12429,7 +12397,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-CN6.jpg"
+    "local_image": "images/BG1904-CN6.jpg"
   },
   {
     "item_number": "BG1913-CN",
@@ -12437,7 +12405,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Cairns",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-CN.jpg"
+    "local_image": "images/BG1913-CN.jpg"
   },
   {
     "item_number": "BG1401(GC)",
@@ -12445,7 +12413,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1401(GC).jpg"
+    "local_image": "images/BG1401_GC_.jpg"
   },
   {
     "item_number": "BG1402(GC)",
@@ -12453,7 +12421,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1402(GC).jpg"
+    "local_image": "images/BG1402_GC_.jpg"
   },
   {
     "item_number": "BG1403(GC)",
@@ -12461,7 +12429,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1403(GC).jpg"
+    "local_image": "images/BG1403_GC_.jpg"
   },
   {
     "item_number": "BG1629(GC)",
@@ -12469,7 +12437,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1629(GC).jpg"
+    "local_image": "images/BG1629_GC_.jpg"
   },
   {
     "item_number": "BG1630(GC)",
@@ -12477,7 +12445,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1630(GC).jpg"
+    "local_image": "images/BG1630_GC_.jpg"
   },
   {
     "item_number": "BG1702(GC)",
@@ -12485,7 +12453,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1702(GC).jpg"
+    "local_image": "images/BG1702_GC_.jpg"
   },
   {
     "item_number": "BG1703(GC)",
@@ -12493,7 +12461,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1703(GC).jpg"
+    "local_image": "images/BG1703_GC_.jpg"
   },
   {
     "item_number": "BG1704(GC)",
@@ -12501,7 +12469,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1704(GC).jpg"
+    "local_image": "images/BG1704_GC_.jpg"
   },
   {
     "item_number": "BG1705(GC)",
@@ -12509,7 +12477,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1705(GC).jpg"
+    "local_image": "images/BG1705_GC_.jpg"
   },
   {
     "item_number": "BG1904-GC",
@@ -12517,7 +12485,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC.jpg"
+    "local_image": "images/BG1904-GC.jpg"
   },
   {
     "item_number": "BG1904-GC2",
@@ -12525,7 +12493,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC2.jpg"
+    "local_image": "images/BG1904-GC2.jpg"
   },
   {
     "item_number": "BG1904-GC3",
@@ -12533,7 +12501,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC3.jpg"
+    "local_image": "images/BG1904-GC3.jpg"
   },
   {
     "item_number": "BG1904-GC4",
@@ -12541,7 +12509,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC4.jpg"
+    "local_image": "images/BG1904-GC4.jpg"
   },
   {
     "item_number": "BG1904-GC5",
@@ -12549,7 +12517,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC5.jpg"
+    "local_image": "images/BG1904-GC5.jpg"
   },
   {
     "item_number": "BG1904-GC6",
@@ -12557,7 +12525,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-GC6.jpg"
+    "local_image": "images/BG1904-GC6.jpg"
   },
   {
     "item_number": "BG1907(GC)",
@@ -12565,7 +12533,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1907(GC).jpg"
+    "local_image": "images/BG1907_GC_.jpg"
   },
   {
     "item_number": "BG1909(GC)",
@@ -12573,7 +12541,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1909(GC).jpg"
+    "local_image": "images/BG1909_GC_.jpg"
   },
   {
     "item_number": "BG1916-GC",
@@ -12581,7 +12549,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Gold Coast",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1916-GC.jpg"
+    "local_image": "images/BG1916-GC.jpg"
   },
   {
     "item_number": "BG1206(ME)",
@@ -12589,7 +12557,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1206(ME).jpg"
+    "local_image": "images/BG1206_ME_.jpg"
   },
   {
     "item_number": "BG1207(ME)",
@@ -12597,7 +12565,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1207(ME).jpg"
+    "local_image": "images/BG1207_ME_.jpg"
   },
   {
     "item_number": "BG1220(ME)",
@@ -12605,7 +12573,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1220(ME).jpg"
+    "local_image": "images/BG1220_ME_.jpg"
   },
   {
     "item_number": "BG1224(ME)",
@@ -12613,7 +12581,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1224(ME).jpg"
+    "local_image": "images/BG1224_ME_.jpg"
   },
   {
     "item_number": "BG1524(ME)",
@@ -12621,7 +12589,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1524(ME).jpg"
+    "local_image": "images/BG1524_ME_.jpg"
   },
   {
     "item_number": "BG1530(ME)",
@@ -12629,7 +12597,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1530(ME).jpg"
+    "local_image": "images/BG1530_ME_.jpg"
   },
   {
     "item_number": "BG1554(ME)",
@@ -12637,7 +12605,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1554(ME).jpg"
+    "local_image": "images/BG1554_ME_.jpg"
   },
   {
     "item_number": "BG1611(ME)",
@@ -12645,7 +12613,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1611(ME).jpg"
+    "local_image": "images/BG1611_ME_.jpg"
   },
   {
     "item_number": "BG1806-ME",
@@ -12653,7 +12621,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1806-ME.jpg"
+    "local_image": "images/BG1806-ME.jpg"
   },
   {
     "item_number": "BG1904-ME",
@@ -12661,7 +12629,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-ME.jpg"
+    "local_image": "images/BG1904-ME.jpg"
   },
   {
     "item_number": "BG1904-ME2",
@@ -12669,7 +12637,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1904-ME2.jpg"
+    "local_image": "images/BG1904-ME2.jpg"
   },
   {
     "item_number": "BG1913-ME",
@@ -12677,7 +12645,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-ME.jpg"
+    "local_image": "images/BG1913-ME.jpg"
   },
   {
     "item_number": "BG1913-ME2",
@@ -12685,7 +12653,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1913-ME2.jpg"
+    "local_image": "images/BG1913-ME2.jpg"
   },
   {
     "item_number": "BG2327-ME",
@@ -12693,7 +12661,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG2327-ME.jpg"
+    "local_image": "images/BG2327-ME.jpg"
   },
   {
     "item_number": "BG2502-ME1",
@@ -12701,7 +12669,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG2502-ME1.jpg"
+    "local_image": "images/BG2502-ME1.jpg"
   },
   {
     "item_number": "BG2502-ME2",
@@ -12709,7 +12677,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG2502-ME2.jpg"
+    "local_image": "images/BG2502-ME2.jpg"
   },
   {
     "item_number": "XL-MGT01-03(ME)",
@@ -12717,7 +12685,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/XL-MGT01-03(ME).jpg"
+    "local_image": "images/XL-MGT01-03_ME_.jpg"
   },
   {
     "item_number": "XL012(ME)",
@@ -12725,7 +12693,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "Melbourne",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/XL012(ME).jpg"
+    "local_image": "images/XL012_ME_.jpg"
   },
   {
     "item_number": "BG0523",
@@ -12733,7 +12701,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0523.jpg"
+    "local_image": "images/BG0523.jpg"
   },
   {
     "item_number": "BG0524",
@@ -12741,7 +12709,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0524.jpg"
+    "local_image": "images/BG0524.jpg"
   },
   {
     "item_number": "BG0713",
@@ -12749,7 +12717,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0713.jpg"
+    "local_image": "images/BG0713.jpg"
   },
   {
     "item_number": "BG0713(S)",
@@ -12757,7 +12725,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0713(S).jpg"
+    "local_image": "images/BG0713_S_.jpg"
   },
   {
     "item_number": "BG0719",
@@ -12765,7 +12733,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0719.jpg"
+    "local_image": "images/BG0719.jpg"
   },
   {
     "item_number": "BG0914",
@@ -12773,7 +12741,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0914.jpg"
+    "local_image": "images/BG0914.jpg"
   },
   {
     "item_number": "BG0915",
@@ -12781,7 +12749,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0915.jpg"
+    "local_image": "images/BG0915.jpg"
   },
   {
     "item_number": "BG0961",
@@ -12789,7 +12757,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG0961.jpg"
+    "local_image": "images/BG0961.jpg"
   },
   {
     "item_number": "BG1120",
@@ -12797,7 +12765,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1120.jpg"
+    "local_image": "images/BG1120.jpg"
   },
   {
     "item_number": "BG1121",
@@ -12805,7 +12773,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1121.jpg"
+    "local_image": "images/BG1121.jpg"
   },
   {
     "item_number": "BG1122",
@@ -12813,7 +12781,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1122.jpg"
+    "local_image": "images/BG1122.jpg"
   },
   {
     "item_number": "BG1228",
@@ -12821,7 +12789,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1228.jpg"
+    "local_image": "images/BG1228.jpg"
   },
   {
     "item_number": "BG1549",
@@ -12829,7 +12797,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1549.jpg"
+    "local_image": "images/BG1549.jpg"
   },
   {
     "item_number": "BG1615(AU)",
@@ -12837,7 +12805,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1615(AU).jpg"
+    "local_image": "images/BG1615_AU_.jpg"
   },
   {
     "item_number": "BG1636",
@@ -12845,7 +12813,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1636.jpg"
+    "local_image": "images/BG1636.jpg"
   },
   {
     "item_number": "BG1713",
@@ -12853,7 +12821,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1713.jpg"
+    "local_image": "images/BG1713.jpg"
   },
   {
     "item_number": "BG1716",
@@ -12861,7 +12829,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1716.jpg"
+    "local_image": "images/BG1716.jpg"
   },
   {
     "item_number": "BG1717",
@@ -12869,7 +12837,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1717.jpg"
+    "local_image": "images/BG1717.jpg"
   },
   {
     "item_number": "BG1718",
@@ -12877,7 +12845,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1718.jpg"
+    "local_image": "images/BG1718.jpg"
   },
   {
     "item_number": "BG1719",
@@ -12885,7 +12853,7 @@
     "category": "Fridge Magnets",
     "subcategory": "Polyresin Magnets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/BG1719.jpg"
+    "local_image": "images/BG1719.jpg"
   },
   {
     "item_number": "BG1723",
@@ -21832,22 +21800,6 @@
     "local_image": "images/L-SQ4-SY.jpg"
   },
   {
-    "item_number": "MQ01-KK1",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MQ01-KK1.jpg",
-    "category": "Stationery",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/MQ01-KK1.jpg"
-  },
-  {
-    "item_number": "MQ01-KK2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MQ01-KK2.jpg",
-    "category": "Stationery",
-    "subcategory": "Others",
-    "city": "National",
-    "local_image": "images/MQ01-KK2.jpg"
-  },
-  {
     "item_number": "RB01-AU",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/RB01-AU.jpg",
     "category": "Stationery",
@@ -25790,14 +25742,6 @@
     "subcategory": "Water Globes and Others",
     "city": "National",
     "local_image": "images/ZH-WB4-KK2.jpg"
-  },
-  {
-    "item_number": "ZH-WB4-KO",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-WB4-KO.jpg",
-    "category": "Water Globes and Polyresin Ornaments",
-    "subcategory": "Water Globes and Others",
-    "city": "National",
-    "local_image": "images/ZH-WB4-KO.jpg"
   },
   {
     "item_number": "ZH-WB4-KO2",
