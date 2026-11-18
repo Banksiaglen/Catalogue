@@ -584,14 +584,6 @@
     "local_image": "images/D-BT-SY5.jpg"
   },
   {
-    "item_number": "ZH-BT-OMP2",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/ZH-BT-OMP2.jpg",
-    "category": "Apparel, Footwear and Beach Towels",
-    "subcategory": "Beach Towels",
-    "city": "National",
-    "local_image": "images/ZH-BT-OMP2.jpg"
-  },
-  {
     "item_number": "D-BT-PH",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/D-BT-PH.jpg",
     "category": "Apparel, Footwear and Beach Towels",
@@ -2326,6 +2318,14 @@
     "subcategory": "Premium canvas cotton Bags",
     "city": "National",
     "local_image": "images/GW88-KO.jpg"
+  },
+  {
+    "item_number": "GW88-sY",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW88-sY.jpg",
+    "category": "Bags",
+    "subcategory": "Premium canvas cotton Bags",
+    "city": "National",
+    "local_image": "images/GW88-sY.jpg"
   },
   {
     "item_number": "GW89-AU",
@@ -7520,6 +7520,14 @@
     "local_image": "images/TG-SG14-GC.jpg"
   },
   {
+    "item_number": "HC-C12-ME",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HC-C12-ME.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Shot Glasses",
+    "city": "Melbourne",
+    "local_image": "images/HC-C12-ME.jpg"
+  },
+  {
     "item_number": "HC-C6-MEL",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HC-C6-MEL.jpg",
     "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
@@ -7574,6 +7582,22 @@
     "subcategory": "Shot Glasses",
     "city": "National",
     "local_image": "images/HC-C12-KA.jpg"
+  },
+  {
+    "item_number": "HC-C12-KA2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HC-C12-KA2.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Shot Glasses",
+    "city": "National",
+    "local_image": "images/HC-C12-KA2.jpg"
+  },
+  {
+    "item_number": "HC-C12-KO",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HC-C12-KO.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Shot Glasses",
+    "city": "National",
+    "local_image": "images/HC-C12-KO.jpg"
   },
   {
     "item_number": "HC-C12-SY2",
@@ -7758,6 +7782,14 @@
     "subcategory": "Shot Glasses",
     "city": "Sydney",
     "local_image": "images/HC-C12-SY.jpg"
+  },
+  {
+    "item_number": "HC-C12-SY3",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HC-C12-SY3.jpg",
+    "category": "Drink Accessories, Coffee Mugs and Shot Glasses",
+    "subcategory": "Shot Glasses",
+    "city": "Sydney",
+    "local_image": "images/HC-C12-SY3.jpg"
   },
   {
     "item_number": "HC-C13-SY2",
@@ -9918,6 +9950,14 @@
     "subcategory": "Foil Magnets",
     "city": "National",
     "local_image": "images/MGT63-AU27.jpg"
+  },
+  {
+    "item_number": "MGT63-AU27(BIR)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT63-AU27(BIR).jpg",
+    "category": "Fridge Magnets",
+    "subcategory": "Foil Magnets",
+    "city": "National",
+    "local_image": "images/MGT63-AU27_BIR_.jpg"
   },
   {
     "item_number": "MGT63-AU28",
