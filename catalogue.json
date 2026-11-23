@@ -1568,6 +1568,14 @@
     "local_image": "images/MM-STKO5.jpg"
   },
   {
+    "item_number": "MM-STKO8 (backpack)",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MM-STKO8 (backpack).jpg",
+    "category": "Australian Made",
+    "subcategory": "Plush Coin Purse, Handbags and Pencil Cases",
+    "city": null,
+    "local_image": "images/MM-STKO8__backpack_.jpg"
+  },
+  {
     "item_number": "GW070-AD",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW070-AD.jpg",
     "category": "Bags",
@@ -11510,14 +11518,6 @@
     "subcategory": "Metal Magnets",
     "city": "Melbourne",
     "local_image": "images/YL-BT7-ME2.jpg"
-  },
-  {
-    "item_number": "BK-BT4-IA",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BK-BT4-IA.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Metal Magnets",
-    "city": "National",
-    "local_image": "images/BK-BT4-IA.jpg"
   },
   {
     "item_number": "BK-MGT62-KA",
@@ -24101,7 +24101,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "images/AC-LW47-PK.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PK.jpg"
   },
   {
     "item_number": "AC-LW47-PUR",
@@ -24109,7 +24109,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "images/AC-LW47-PUR.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PUR.jpg"
   },
   {
     "item_number": "AC-LW47-RED",
@@ -24117,7 +24117,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "images/AC-LW47-RED.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-RED.jpg"
   },
   {
     "item_number": "AC-LW48-BL",
@@ -24125,7 +24125,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "images/AC-LW48-BL.jpg"
+    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW48-BL.jpg"
   },
   {
     "item_number": "AC-LW48-BR",
