@@ -240,14 +240,6 @@
     "local_image": "images/MBB01-20.jpg"
   },
   {
-    "item_number": "MBB02-30",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MBB02-30.jpg",
-    "category": "Aboriginal Art",
-    "subcategory": "Boomerangs",
-    "city": "National",
-    "local_image": "images/MBB02-30.jpg"
-  },
-  {
     "item_number": "CT05-AB3",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/CT05-AB3.jpg",
     "category": "Aboriginal Art",
@@ -1824,14 +1816,6 @@
     "local_image": "images/HN-GW050-AU.jpg"
   },
   {
-    "item_number": "HN-GW090-BL",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW090-BL.jpg",
-    "category": "Bags",
-    "subcategory": "Foldable Bags",
-    "city": "National",
-    "local_image": "images/HN-GW090-BL.jpg"
-  },
-  {
     "item_number": "HN-GW59-KA",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW59-KA.jpg",
     "category": "Bags",
@@ -1910,14 +1894,6 @@
     "subcategory": "Other bags",
     "city": "National",
     "local_image": "images/HN-GW35-FL.jpg"
-  },
-  {
-    "item_number": "HN-GW35BL-AUS",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/HN-GW35BL-AUS.jpg",
-    "category": "Bags",
-    "subcategory": "Other bags",
-    "city": "National",
-    "local_image": "images/HN-GW35BL-AUS.jpg"
   },
   {
     "item_number": "HN-GW61-BLU",
@@ -2454,14 +2430,6 @@
     "subcategory": "Premium canvas cotton Bags",
     "city": "National",
     "local_image": "images/GW91-SY.jpg"
-  },
-  {
-    "item_number": "GW91-SY3",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/GW91-SY3.jpg",
-    "category": "Bags",
-    "subcategory": "Premium canvas cotton Bags",
-    "city": "National",
-    "local_image": "images/GW91-SY3.jpg"
   },
   {
     "item_number": "HN-GW20-7",
@@ -10598,14 +10566,6 @@
     "subcategory": "Foil Magnets",
     "city": "Sydney",
     "local_image": "images/MGT118-SY.jpg"
-  },
-  {
-    "item_number": "MGT119-SY",
-    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/MGT119-SY.jpg",
-    "category": "Fridge Magnets",
-    "subcategory": "Foil Magnets",
-    "city": "Sydney",
-    "local_image": "images/MGT119-SY.jpg"
   },
   {
     "item_number": "MGT134-SY1",
@@ -21016,6 +20976,14 @@
     "local_image": "images/BK-PK33_ME_.jpg"
   },
   {
+    "item_number": "BTL26-ME1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BTL26-ME1.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "Melbourne",
+    "local_image": "images/BTL26-ME1.jpg"
+  },
+  {
     "item_number": "STN35-ME",
     "image_url": "https://www.banksiaglen.com/productimages/thumbnails/STN35-ME.jpg",
     "category": "Sports and Accessories",
@@ -21150,6 +21118,22 @@
     "subcategory": "Others",
     "city": "National",
     "local_image": "images/BK-PK32.jpg"
+  },
+  {
+    "item_number": "BTL26-AU",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BTL26-AU.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/BTL26-AU.jpg"
+  },
+  {
+    "item_number": "BTL26-AU2",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BTL26-AU2.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "National",
+    "local_image": "images/BTL26-AU2.jpg"
   },
   {
     "item_number": "FL017-IA",
@@ -21326,6 +21310,14 @@
     "subcategory": "Others",
     "city": "Sydney",
     "local_image": "images/BK-PK33_SY_.jpg"
+  },
+  {
+    "item_number": "BTL26-SY1",
+    "image_url": "https://www.banksiaglen.com/productimages/thumbnails/BTL26-SY1.jpg",
+    "category": "Sports and Accessories",
+    "subcategory": "Others",
+    "city": "Sydney",
+    "local_image": "images/BTL26-SY1.jpg"
   },
   {
     "item_number": "GB07-SY",
@@ -24101,7 +24093,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PK.jpg"
+    "local_image": "images/AC-LW47-PK.jpg"
   },
   {
     "item_number": "AC-LW47-PUR",
@@ -24109,7 +24101,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-PUR.jpg"
+    "local_image": "images/AC-LW47-PUR.jpg"
   },
   {
     "item_number": "AC-LW47-RED",
@@ -24117,7 +24109,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW47-RED.jpg"
+    "local_image": "images/AC-LW47-RED.jpg"
   },
   {
     "item_number": "AC-LW48-BL",
@@ -24125,7 +24117,7 @@
     "category": "Wallets and Leather Products",
     "subcategory": "Lady's Wallets",
     "city": "National",
-    "local_image": "https://www.banksiaglen.com/productimages/thumbnails/AC-LW48-BL.jpg"
+    "local_image": "images/AC-LW48-BL.jpg"
   },
   {
     "item_number": "AC-LW48-BR",
